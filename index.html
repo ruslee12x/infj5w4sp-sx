@@ -12,1066 +12,1258 @@
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 
-  <style>
-    /* --- 1. กำหนดโครงสีและตัวแปรหลัก (Theme Variables) --- */
-    :root {
-      --font-sans: 'Sarabun', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --border-radius-md: 8px;
-      --border-radius-lg: 16px;
-
-      /* Light Mode Colors */
-      --color-bg-base: #f8f9fa;
-      --color-background-primary: #ffffff;
-      --color-background-secondary: #f1f3f5;
-      --color-border-secondary: #ced4da;
-      --color-border-tertiary: #e9ecef;
-      --color-text-primary: #212529;
-      --color-text-secondary: #495057;
-      --color-text-tertiary: #868e96;
-      --color-text-danger: #fa5252;
-      --color-observe-bg: #fff9db;
-      --color-observe-border: #fab005;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        /* Dark Mode Colors (โทนสงบ ลึกซึ้ง เหมาะกับ INFJ 5w4) */
-        --color-bg-base: #12141c;
-        --color-background-primary: #1e2230;
-        --color-background-secondary: #171a25;
-        --color-border-secondary: #4a5068;
-        --color-border-tertiary: #2d3244;
-        --color-text-primary: #f8f9fa;
-        --color-text-secondary: #adb5bd;
-        --color-text-tertiary: #6c757d;
-        --color-text-danger: #ff8787;
-        --color-observe-bg: #2b2413;
-        --color-observe-border: #fcc419;
-      }
-    }
-
-    /* --- 2. โครงสร้าง CSS สำหรับจัดแต่งหน้าเว็บ --- */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0
     }
 
-    body {
-      font-family: var(--font-sans);
-      background-color: var(--color-bg-base);
-      color: var(--color-text-primary);
-      transition: background-color 0.3s, color 0.3s;
+    .wrap {
+      padding: 1rem 0;
+      font-family: var(--font-sans)
     }
 
-    .page {
-      padding: 2.5rem 1rem;
-      max-width: 680px;
-      /* จำกัดความกว้างให้อ่านง่าย สบายสายตา */
-      margin: 0 auto;
+    .tab-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 1.5rem
     }
 
-    .hero {
-      margin-bottom: 2rem
-    }
-
-    .hero h1 {
-      font-size: 24px;
-      font-weight: 600;
-      color: var(--color-text-primary);
-      margin-bottom: 6px
-    }
-
-    .hero p {
-      font-size: 14px;
+    .tb {
+      padding: 6px 18px;
+      border-radius: 20px;
+      border: 0.5px solid var(--color-border-secondary);
+      background: var(--color-background-primary);
       color: var(--color-text-secondary);
-      line-height: 1.6
+      font-size: 13px;
+      cursor: pointer;
+      transition: all .15s
     }
 
-    .phase-label {
+    .tb.active {
+      background: var(--color-background-secondary);
+      color: var(--color-text-primary);
+      border-color: var(--color-border-primary);
+      font-weight: 500
+    }
+
+    .sleep-banner {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin-bottom: 1.5rem
+    }
+
+    .sb {
+      background: var(--color-background-secondary);
+      border-radius: var(--border-radius-md);
+      padding: 12px 14px
+    }
+
+    .sb-label {
       font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .08em;
-      text-transform: uppercase;
       color: var(--color-text-tertiary);
-      margin: 2.5rem 0 .75rem
+      margin-bottom: 4px
+    }
+
+    .sb-val {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--color-text-primary)
+    }
+
+    .sb-sub {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      margin-top: 2px
+    }
+
+    .sb.good .sb-val {
+      color: #0F6E56
+    }
+
+    .sb.warn .sb-val {
+      color: #854F0B
     }
 
     .block {
-      background: var(--color-background-primary);
-      border: 0.5px solid var(--color-border-tertiary);
       border-radius: var(--border-radius-lg);
-      margin-bottom: .75rem;
-      overflow: hidden;
-      cursor: pointer;
-      transition: border-color .15s, box-shadow 0.15s
+      border: 0.5px solid var(--color-border-tertiary);
+      margin-bottom: 8px;
+      overflow: hidden
     }
 
-    .block:hover {
-      border-color: var(--color-border-secondary);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03)
+    .block.prayer {
+      border-color: #1D9E75
     }
 
-    .block-header {
+    .block.sleep-block {
+      border-color: #534AB7
+    }
+
+    .block-head {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 1rem 1.25rem
+      gap: 10px;
+      padding: 9px 14px;
+      cursor: pointer;
+      user-select: none
     }
 
-    .time-badge {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--color-text-secondary);
+    .time-pill {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 12px;
       white-space: nowrap;
-      min-width: 92px
+      min-width: 86px;
+      text-align: center
     }
 
-    .block-title {
-      font-size: 15px;
+    .tp-teal {
+      background: #E1F5EE;
+      color: #085041
+    }
+
+    .tp-purple {
+      background: #EEEDFE;
+      color: #3C3489
+    }
+
+    .tp-amber {
+      background: #FAEEDA;
+      color: #633806
+    }
+
+    .tp-coral {
+      background: #FAECE7;
+      color: #993C1D
+    }
+
+    .tp-blue {
+      background: #E6F1FB;
+      color: #0C447C
+    }
+
+    .tp-gray {
+      background: #F1EFE8;
+      color: #444441
+    }
+
+    @media(prefers-color-scheme:dark) {
+      .tp-teal {
+        background: #04342C;
+        color: #9FE1CB
+      }
+
+      .tp-purple {
+        background: #26215C;
+        color: #CECBF6
+      }
+
+      .tp-amber {
+        background: #412402;
+        color: #FAC775
+      }
+
+      .tp-coral {
+        background: #4A1B0C;
+        color: #F5C4B3
+      }
+
+      .tp-blue {
+        background: #042C53;
+        color: #B5D4F4
+      }
+
+      .tp-gray {
+        background: #2C2C2A;
+        color: #D3D1C7
+      }
+    }
+
+    .btitle {
+      font-size: 13px;
       font-weight: 500;
       color: var(--color-text-primary);
       flex: 1
     }
 
-    .block-tag {
+    .btag {
       font-size: 11px;
-      font-weight: 600;
-      padding: 3px 10px;
-      border-radius: 99px;
-      white-space: nowrap
+      padding: 2px 8px;
+      border-radius: 10px;
+      border: 0.5px solid var(--color-border-tertiary);
+      color: var(--color-text-secondary)
     }
 
-    .chevron {
-      font-size: 16px;
+    .chev {
+      font-size: 13px;
       color: var(--color-text-tertiary);
       transition: transform .2s
     }
 
-    .block.open .chevron {
+    .chev.open {
       transform: rotate(180deg)
     }
 
-    .block-body {
-      display: none;
-      padding: 0 1.25rem 1.25rem;
+    .bbody {
       border-top: 0.5px solid var(--color-border-tertiary);
-      background-color: rgba(0, 0, 0, 0.01)
+      padding: 10px 14px;
+      display: none
     }
 
-    .block.open .block-body {
+    .bbody.open {
       display: block
     }
 
-    .segment {
-      margin-top: 1rem
-    }
-
-    .seg-time {
-      font-size: 12px;
-      font-weight: 600;
+    .item {
+      font-size: 13px;
       color: var(--color-text-secondary);
-      margin-bottom: .5rem
-    }
-
-    .seg-items {
-      list-style: none
-    }
-
-    .seg-items li {
-      font-size: 14px;
-      color: var(--color-text-primary);
-      line-height: 1.7;
-      padding: .25rem 0 .25rem 1.5rem;
+      line-height: 1.75;
+      padding: 2px 0 2px 16px;
       position: relative
     }
 
-    /* ตั้งค่าสัญลักษณ์หน้าลิสต์รายการ */
-    .seg-items li::before {
-      content: "•";
+    .item::before {
+      content: "·";
       position: absolute;
       left: 4px;
-      color: var(--color-text-tertiary);
-      font-size: 14px;
-      line-height: 1.7
+      color: var(--color-text-tertiary)
     }
 
-    .seg-items li.warn {
-      color: var(--color-text-danger)
+    .item.prayer {
+      color: #0F6E56;
+      font-weight: 500
     }
 
-    .seg-items li.warn::before {
-      content: "✕";
-      left: 4px;
-      font-size: 11px;
-      line-height: 2.2;
-      color: var(--color-text-danger);
-      font-weight: bold
+    .item.warn {
+      color: #854F0B;
+      font-style: italic
     }
 
-    .seg-items li.tip {
-      color: var(--color-text-secondary)
+    .item.key {
+      color: var(--color-text-primary);
+      font-weight: 500
     }
 
-    .seg-items li.tip::before {
-      content: "→";
-      left: 2px;
+    .sleep-bar-wrap {
+      margin: 1.5rem 0 1rem
+    }
+
+    .sb-title {
       font-size: 12px;
-      line-height: 2;
-      color: var(--color-text-secondary)
+      color: var(--color-text-tertiary);
+      margin-bottom: 8px
     }
 
-    .note {
-      font-size: 13px;
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px
+    }
+
+    .bar-label {
+      font-size: 12px;
       color: var(--color-text-secondary);
-      line-height: 1.65;
-      margin-top: .875rem;
-      padding: .75rem 1rem;
+      width: 90px;
+      flex-shrink: 0
+    }
+
+    .bar-outer {
+      flex: 1;
+      background: var(--color-background-secondary);
+      border-radius: 6px;
+      height: 14px;
+      overflow: hidden
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      transition: width .3s
+    }
+
+    .bar-num {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      width: 36px;
+      text-align: right;
+      flex-shrink: 0
+    }
+
+    .note-box {
       background: var(--color-background-secondary);
       border-radius: var(--border-radius-md);
-      border-left: 3px solid var(--color-border-secondary)
-    }
-
-    .divider {
-      height: 0.5px;
-      background: var(--color-border-tertiary);
-      margin: 2.5rem 0
-    }
-
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 12px;
-      margin-top: 1.5rem
-    }
-
-    .sum-card {
-      background: var(--color-background-primary);
-      border: 0.5px solid var(--color-border-tertiary);
-      border-radius: var(--border-radius-md);
-      padding: .875rem 1rem;
-      text-align: center
-    }
-
-    .sum-label {
-      font-size: 12px;
-      color: var(--color-text-tertiary);
-      margin-bottom: 4px
-    }
-
-    .sum-val {
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--color-text-primary)
-    }
-
-    /* เพิ่มสไตล์สำหรับเซกชันข้อสังเกตเพิ่มเติม */
-    .observation-box {
-      background: var(--color-background-primary);
-      border: 0.5px solid var(--color-border-tertiary);
-      border-radius: var(--border-radius-lg);
-      padding: 1.25rem;
+      padding: 10px 14px;
       margin-top: 1rem;
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      line-height: 1.6
     }
 
-    .observation-item {
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+
+    :root {
+      --font-sans: 'Inter', 'IBM Plex Sans Thai', sans-serif;
+
+      /* Light Mode Palette (Zen Slate) */
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --color-border-primary: #cbd5e1;
+      --color-border-secondary: #e2e8f0;
+      --color-border-tertiary: #f1f5f9;
+      --color-text-primary: #0f172a;
+      --color-text-secondary: #475569;
+      --color-text-tertiary: #94a3b8;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+
+      --shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 16px -6px rgba(15, 23, 42, 0.05);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        /* Dark Mode Palette (Deep Cosmic Space) */
+        --bg-main: #0b0f19;
+        --bg-card: #151d30;
+        --color-border-primary: #334155;
+        --color-border-secondary: #22314d;
+        --color-border-tertiary: #1b263b;
+        --color-text-primary: #f8fafc;
+        --color-text-secondary: #94a3b8;
+        --color-text-tertiary: #64748b;
+
+        --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+        --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.35);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      transition: var(--transition);
+    }
+
+    .wrap {
+      max-width: 760px;
+      margin: 2rem auto;
+      padding: 2rem;
+      font-family: var(--font-sans);
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Tabs */
+    .tab-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 2rem;
+      background: var(--bg-main);
+      padding: 6px;
+      border-radius: var(--radius-md);
+    }
+
+    .tb {
+      flex: 1;
+      padding: 10px 20px;
+      border-radius: calc(var(--radius-md) - 4px);
+      border: none;
+      background: transparent;
+      color: var(--color-text-secondary);
       font-size: 14px;
-      line-height: 1.7;
-      color: var(--color-text-primary);
-      margin-bottom: 1rem;
-      padding-left: 1.5rem;
-      position: relative;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
     }
 
-    .observation-item:last-child {
+    .tb:hover {
+      color: var(--color-text-primary);
+    }
+
+    .tb.active {
+      background: var(--bg-card);
+      color: var(--color-text-primary);
+      box-shadow: var(--shadow-sm);
+      font-weight: 600;
+    }
+
+    /* Sleep Stats Banner */
+    .sleep-banner {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 2rem;
+    }
+
+    .sb {
+      background: var(--bg-main);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      border: 1px solid var(--color-border-tertiary);
+      transition: var(--transition);
+    }
+
+    .sb:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .sb-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-tertiary);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .sb-val {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      line-height: 1.2;
+    }
+
+    .sb-sub {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-top: 6px;
+      opacity: 0.85;
+    }
+
+    .sb.good .sb-val {
+      color: #10b981;
+    }
+
+    .sb.warn .sb-val {
+      color: #f59e0b;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .sb.good .sb-val {
+        color: #34d399;
+      }
+
+      .sb.warn .sb-val {
+        color: #fbbf24;
+      }
+    }
+
+    /* Comparison Bar Graph */
+    .sleep-bar-wrap {
+      background: var(--bg-main);
+      padding: 20px;
+      border-radius: var(--radius-md);
+      margin: 2rem 0;
+      border: 1px solid var(--color-border-tertiary);
+    }
+
+    .sb-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      margin-bottom: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .bar-row:last-child {
       margin-bottom: 0;
     }
 
-    .observation-item strong {
+    .bar-label {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      width: 110px;
+      flex-shrink: 0;
+      font-weight: 500;
+    }
+
+    .bar-outer {
+      flex: 1;
+      background: var(--color-border-tertiary);
+      border-radius: 20px;
+      height: 12px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 20px;
+      transition: width 0.5s ease-out;
+    }
+
+    .bar-num {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      width: 45px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* Routine Blocks (Accordion) */
+    .block {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border-secondary);
+      margin-bottom: 10px;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .block:hover {
+      border-color: var(--color-border-primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Accent Borders for Deep Focus/Prayer */
+    .block.prayer {
+      border-left: 4px solid #10b981;
+    }
+
+    .block.sleep-block {
+      border-left: 4px solid #6366f1;
+    }
+
+    .block-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      cursor: pointer;
+      user-select: none;
+      background: transparent;
+      transition: var(--transition);
+    }
+
+    .block-head:hover {
+      background: var(--bg-main);
+    }
+
+    /* Time Pills Styling */
+    .time-pill {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 30px;
+      white-space: nowrap;
+      min-width: 95px;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+
+    .tp-teal {
+      background: #e6f4ea;
+      color: #137333;
+    }
+
+    .tp-purple {
+      background: #f3e8ff;
+      color: #6b21a8;
+    }
+
+    .tp-amber {
+      background: #fffbeb;
+      color: #92400e;
+    }
+
+    .tp-coral {
+      background: #fff5f5;
+      color: #c53030;
+    }
+
+    .tp-blue {
+      background: #eff6ff;
+      color: #1e40af;
+    }
+
+    .tp-gray {
+      background: #f1f5f9;
+      color: #334155;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .tp-teal {
+        background: #064e3b;
+        color: #a7f3d0;
+      }
+
+      .tp-purple {
+        background: #581c87;
+        color: #f3e8ff;
+      }
+
+      .tp-amber {
+        background: #78350f;
+        color: #fde68a;
+      }
+
+      .tp-coral {
+        background: #7f1d1d;
+        color: #fca5a5;
+      }
+
+      .tp-blue {
+        background: #1e3a8a;
+        color: #bfdbfe;
+      }
+
+      .tp-gray {
+        background: #1e293b;
+        color: #cbd5e1;
+      }
+    }
+
+    .btitle {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      flex: 1;
+    }
+
+    .btag {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 10px;
+      border-radius: 20px;
+      background: var(--bg-main);
+      border: 1px solid var(--color-border-tertiary);
+      color: var(--color-text-secondary);
+    }
+
+    .chev {
+      font-size: 16px;
+      color: var(--color-text-tertiary);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .chev.open {
+      transform: rotate(180deg);
+      color: var(--color-text-primary);
+    }
+
+    /* Accordion Body */
+    .bbody {
+      border-top: 1px solid var(--color-border-tertiary);
+      padding: 16px 20px;
+      background: var(--bg-main);
+      display: none;
+    }
+
+    .bbody.open {
+      display: block;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Inner Items Styling */
+    .item {
+      font-size: 13.5px;
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+      padding: 6px 0 6px 22px;
+      position: relative;
+    }
+
+    .item::before {
+      content: "•";
+      position: absolute;
+      left: 6px;
+      color: var(--color-text-tertiary);
+      font-size: 16px;
+      line-height: 1.2;
+    }
+
+    /* Contextual Item Highlighting */
+    .item.prayer {
+      color: #059669;
+      font-weight: 600;
+      background: rgba(16, 185, 129, 0.04);
+      padding-left: 26px;
+      border-radius: 6px;
+    }
+
+    .item.prayer::before {
+      content: "✦";
+      color: #10b981;
+      left: 8px;
+    }
+
+    .item.warn {
+      color: #d97706;
+      font-style: italic;
+      background: rgba(217, 119, 6, 0.03);
+      padding-left: 26px;
+      border-radius: 6px;
+    }
+
+    .item.warn::before {
+      content: "⚠";
+      color: #f59e0b;
+      font-style: normal;
+      font-size: 12px;
+      left: 8px;
+    }
+
+    .item.key {
+      color: var(--color-text-primary);
+      font-weight: 600;
+      background: rgba(99, 102, 241, 0.04);
+      padding-left: 26px;
+      border-radius: 6px;
+    }
+
+    .item.key::before {
+      content: "⚡";
+      font-size: 12px;
+      left: 8px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .item.prayer {
+        color: #34d399;
+        background: rgba(52, 211, 153, 0.06);
+      }
+
+      .item.warn {
+        color: #fbbf24;
+        background: rgba(251, 191, 36, 0.05);
+      }
+
+      .item.key {
+        color: #e2e8f0;
+        background: rgba(129, 140, 248, 0.08);
+      }
+    }
+
+    /* Footer Note Box */
+    .note-box {
+      background: linear-gradient(135deg, var(--bg-main) 0%, var(--color-border-tertiary) 100%);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-top: 1.5rem;
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      border: 1px solid var(--color-border-tertiary);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+
+    .note-box strong {
       color: var(--color-text-primary);
       font-weight: 600;
     }
 
-    .observation-item::before {
-      content: "✨";
-      position: absolute;
-      left: 0;
-      top: 0;
-      font-size: 14px;
-    }
-
-    /* สีของป้าย Tag ประจำแต่ละประเภทกิจวัตร */
-    .tag-morning {
-      background: #E1F5EE;
-      color: #0F6E56
-    }
-
-    .tag-work {
-      background: #E6F1FB;
-      color: #185FA5
-    }
-
-    .tag-social {
-      background: #EEEDFE;
-      color: #534AB7
-    }
-
-    .tag-restore {
-      background: #FAEEDA;
-      color: #854F0B
-    }
-
-    .tag-night {
-      background: #F1EFE8;
-      color: #5F5E5A
-    }
-
-    @media (prefers-color-scheme:dark) {
-      .tag-morning {
-        background: #085041;
-        color: #9FE1CB
+    /* Responsive adjustments */
+    @media(max-width: 640px) {
+      .wrap {
+        margin: 0;
+        border-radius: 0;
+        padding: 1.25rem;
       }
 
-      .tag-work {
-        background: #0C447C;
-        color: #B5D4F4
+      .block-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
       }
 
-      .tag-social {
-        background: #3C3489;
-        color: #CECBF6
+      .btag {
+        align-self: flex-end;
+        margin-top: -24px;
       }
 
-      .tag-restore {
-        background: #633806;
-        color: #FAC775
+      .chev {
+        position: absolute;
+        right: 20px;
+        top: 24px;
       }
 
-      .tag-night {
-        background: #444441;
-        color: #D3D1C7
+      .block {
+        position: relative;
       }
-    }
-
-    /* ซ่อนคลาสสำหรับ Screen Reader */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      border: 0;
-    }
-
-    a {
-      color: var(--color-text-primary);
-      text-decoration: none;
-      border-bottom: 1px dashed var(--color-text-secondary);
-      transition: color 0.2s, border-color 0.2s
     }
   </style>
+ 
 </head>
 
 <body>
 
-  <div class="page">
-    <h2 class="sr-only">รูทีน 24 ชั่วโมงสำหรับ INFJ 5w4 sp/sx — ตื่น 05:00 นอน 20:30</h2>
+  <div class="wrap">
 
-    <div class="hero">
-      <h1>รูทีน 24 ชั่วโมง · INFJ 5w4 sp/sx</h1>
-      <p>ตื่น 05:00 · นอน 20:30 · นอนหลับ 8.5 ชั่วโมง · กดแต่ละช่วงเพื่อดูรายละเอียด</p>
+
+    <div class="tab-row">
+      <button class="tb active" onclick="switchTab('weekday')">วันธรรมดา</button>
+      <button class="tb" onclick="switchTab('weekend')">วันหยุด (เสาร์-อาทิตย์)</button>
     </div>
 
-    <div class="summary-grid">
-      <div class="sum-card">
-        <div class="sum-label">ตื่นนอน</div>
-        <div class="sum-val">05:00</div>
+    <div id="stats-weekday" class="sleep-banner">
+      <div class="sb warn">
+        <div class="sb-label">นอนหลัก</div>
+        <div class="sb-val">6.5 ชม.</div>
+        <div class="sb-sub">21:30 → 04:00</div>
       </div>
-      <div class="sum-card">
-        <div class="sum-label">เข้านอน</div>
-        <div class="sum-val">20:30</div>
+      <div class="sb good">
+        <div class="sb-label">Power Nap</div>
+        <div class="sb-val">20 นาที</div>
+        <div class="sb-sub">หลัง Dhuhr</div>
       </div>
-      <div class="sum-card">
-        <div class="sum-label">เวลาหลับ</div>
-        <div class="sum-val">8.5 ชม.</div>
+      <div class="sb good">
+        <div class="sb-label">รวมทั้งวัน</div>
+        <div class="sb-val">6 ชม. 50 นาที</div>
+        <div class="sb-sub">เพียงพอสำหรับ 5w4</div>
       </div>
-      <div class="sum-card">
-        <div class="sum-label">Deep Work</div>
-        <div class="sum-val">~4 ชม.</div>
-      </div>
-    </div>
-
-    <div class="phase-label">🌑 ช่วงเช้ามืด · ชาร์จพลังด้วยศรัทธาก่อนโลกตื่น</div>
-
-    <div class="block" onclick="toggle(this)">
-      <div class="block-header">
-        <span class="time-badge">05:00–06:00</span>
-        <span class="block-title">Golden Hour · โลกส่วนตัวที่เชื่อมต่อกับพระผู้สร้าง</span>
-        <span class="block-tag tag-morning">จิตใจ</span>
-        <i class="ti ti-chevron-down chevron" aria-hidden="true"></i>
-      </div>
-      <div class="block-body">
-        <div class="segment">
-          <div class="seg-time">05:00–05:10 · ตื่นแบบแผ่วเบา</div>
-          <ul class="seg-items">
-            <li>นอนหงายหายใจลึก 3 ครั้งก่อนลุก ไม่กระโดดลุกทันที</li>
-            <li>ดื่มน้ำอุ่น 1 แก้วทันที (วางไว้ข้างเตียงตั้งแต่คืนก่อน)</li>
-            <li>ยืดเหยียดเบาๆ 5 นาที คอ บ่า สะโพก แค่บอกร่างกายว่าตื่นแล้ว</li>
-            <li class="warn">ห้ามเปิดโทรศัพท์เด็ดขาดในช่วงนี้</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">05:10–05:45 · อาหารเช้าของสมอง</div>
-          <ul class="seg-items">
-            <li>เลือกทำ 1–2 อย่างตามอารมณ์วันนั้น ไม่บังคับ</li>
-            <li>อ่านหนังสือปรัชญา / จิตวิทยา / กวีนิพนธ์ (Head Type 5 + ปีก 4)</li>
-            <a href="Journal.html" target="_blank">
-              <li>เขียน Journal หรือบันทึกความฝัน (เคลียร์โลกภายใน INFJ)</li>
-            </a>
-            <li>นั่งสมาธิหรืออยู่กับความเงียบ ปล่อยให้ Ni ทำงานอิสระ</li>
-          </ul>
-          <div class="note">จิบชาหรือกาแฟอุ่นๆ ในความมืดที่มีแสงสลัวๆ ตอบสนอง Sp ได้ดีมาก — ความสบายและความปลอดภัย</div>
-        </div>
-        <div class="segment">
-          <div class="seg-time">05:45–06:00 · วางแผนเชิงกลยุทธ์</div>
-          <ul class="seg-items">
-            <li>เปิดแพลนเนอร์ ดูภาพรวมวัน จัดลำดับความสำคัญ 3 อย่างหลัก</li>
-            <li>รู้ล่วงหน้าว่าต้องเจออะไร → ลด Anxiety ของลักษณ์ 5</li>
-            <li>จดโน้ตสั้นๆ ว่าพลังงานช่วงไหนต้องใช้มาก ช่วงไหนปลีกตัวพักได้</li>
-            <li class="warn">อย่าเพิ่งเช็กโซเชียลหรืออีเมล แม้แต่ครั้งเดียว</li>
-          </ul>
-        </div>
+      <div class="sb good">
+        <div class="sb-label">Intellectual Flow</div>
+        <div class="sb-val">1 ชม. 15 นาที</div>
+        <div class="sb-sub">คุณภาพสูง ไม่ยาวเกิน</div>
       </div>
     </div>
 
-    <div class="block" onclick="toggle(this)">
-      <div class="block-header">
-        <span class="time-badge">06:00–07:00</span>
-        <span class="block-title">Transition Hour · เตรียมร่างกายออกโลก</span>
-        <span class="block-tag tag-morning">ร่างกาย</span>
-        <i class="ti ti-chevron-down chevron" aria-hidden="true"></i>
+    <div id="stats-weekend" class="sleep-banner" style="display:none">
+      <div class="sb good">
+        <div class="sb-label">นอนช่วงแรก</div>
+        <div class="sb-val">~3 ชม.</div>
+        <div class="sb-sub">01:00 → 04:44 Fajr</div>
       </div>
-      <div class="block-body">
-        <div class="segment">
-          <div class="seg-time">06:00–06:20 · ปลุกพลังงานกาย</div>
-          <ul class="seg-items">
-            <li>ออกกำลังกายเบาๆ ในพื้นที่ส่วนตัว โยคะ / บอดี้เวท / คาร์ดิโอเบา</li>
-            <li>ฟังพอดแคสต์หรือเพลงที่ชอบระหว่างทำ</li>
-            <li>เป้าหมายคือให้เหงื่อซึมเล็กน้อย สลัดความง่วง ลด "คิดวนในหัว"</li>
-            <li>รับแสงแดดอ่อนๆ ถ้าเป็นไปได้ 5–10 นาที ช่วยตั้งนาฬิกาชีวิต</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">06:20–06:40 · พิธีกรรมสวมเกราะ</div>
-          <ul class="seg-items">
-            <li>อาบน้ำ ใช้สบู่/แชมพูกลิ่นที่เป็นเอกลักษณ์ตัวเอง (แนวไม้ / สมุนไพร / ลึกๆ)</li>
-            <li>แต่งตัวด้วยชุดที่ทำให้รู้สึกมั่นใจ ไม่ใช่แค่ใส่ให้จบ</li>
-            <li>สำหรับปีก 4 และ Sx การแต่งตัวคือการสวม "เกราะกำบัง" ก่อนออกเจอโลก</li>
-            <li>ทำสกินแคร์เช้าสั้นๆ ล้างหน้า บำรุง ครีมกันแดด</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">06:40–07:00 · เติมพลังงานสูง</div>
-          <ul class="seg-items">
-            <li>อาหารเช้ามีโปรตีนและไขมันดี ไข่ / ถั่ว / โยเกิร์ต / อะโวคาโด</li>
-            <li>วิตามินถ้ามี กาแฟหรือชาแก้วแรก</li>
-            <li class="warn">ห้ามข้ามมื้อเพราะยุ่งหรือกำลังโฟกัส ลักษณ์ 5 ใช้พลังงานสมองสูงมาก</li>
-          </ul>
-        </div>
+      <div class="sb good">
+        <div class="sb-label">นอนต่อหลัง Fajr</div>
+        <div class="sb-val">~3 ชม.</div>
+        <div class="sb-sub">05:15 → 08:00</div>
+      </div>
+      <div class="sb good">
+        <div class="sb-label">รวมทั้งวัน</div>
+        <div class="sb-val">~9 ชม.</div>
+        <div class="sb-sub">ชดเชยสัปดาห์</div>
+      </div>
+      <div class="sb good">
+        <div class="sb-label">Fajr ยังอยู่</div>
+        <div class="sb-val">ครบ</div>
+        <div class="sb-sub">ไม่พลาดแม้แต่วัน</div>
       </div>
     </div>
 
-    <div class="phase-label">☀️ ช่วงเช้า · ออกสู่โลกและ Deep Work</div>
-
-    <div class="block" onclick="toggle(this)">
-      <div class="block-header">
-        <span class="time-badge">07:00–08:00</span>
-        <span class="block-title">The Launch · ก้าวข้ามจากโลกภายในสู่ภายนอก</span>
-        <span class="block-tag tag-work">โฟกัส</span>
-        <i class="ti ti-chevron-down chevron" aria-hidden="true"></i>
+    <div class="sleep-bar-wrap">
+      <div class="sb-title">เปรียบเทียบชั่วโมงนอนรวม</div>
+      <div class="bar-row"><span class="bar-label">เดิม (วันธรรมดา)</span>
+        <div class="bar-outer">
+          <div class="bar-fill" style="width:61%;background:#E24B4A"></div>
+        </div><span class="bar-num">5.5 ชม.</span>
       </div>
-      <div class="block-body">
-        <div class="segment">
-          <div class="seg-time">ถ้าต้องเดินทาง</div>
-          <ul class="seg-items">
-            <li>ใส่หูฟัง Noise-Canceling ทันที สร้าง "โดมส่วนตัว"</li>
-            <li>เปิดพอดแคสต์ความรู้ (ปรัชญา / จิตวิทยา / ประวัติศาสตร์) หรือเพลง Post-rock / Cinematic</li>
-            <li>ลักษณ์ 5w4 จะไม่รู้สึกว่าเดินทางเสียเวลาถ้า "สมองกำลังเรียนรู้"</li>
-            <li class="warn">อย่าดูดซับความเครียดของคนรอบตัว Fe ของ INFJ ไวมาก</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">ถ้าทำงานที่บ้าน</div>
-          <ul class="seg-items">
-            <li>อย่าเปิดคอมทันที จัดโต๊ะให้เรียบร้อยก่อน</li>
-            <li>วางสิ่งของที่มีความหมาย 1–2 ชิ้น (หิน / รูปภาพ / สมุดปกหนัง)</li>
-            <li>สร้าง Deep Focus Environment ก่อนเริ่มทำงาน</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">07:50–08:00 · เช็กอินกับความหมาย</div>
-          <ul class="seg-items">
-            <li>ถามตัวเอง 1 คำถาม: "วันนี้สิ่งที่จะขับเคลื่อนเป้าหมายระยะยาวคืออะไร?"</li>
-            <li>จดไว้ 1 บรรทัด ให้ Sx/Ni จุดไฟก่อนเริ่มทำงานจริง</li>
-          </ul>
-        </div>
+      <div class="bar-row"><span class="bar-label">ใหม่ (วันธรรมดา)</span>
+        <div class="bar-outer">
+          <div class="bar-fill" style="width:76%;background:#1D9E75"></div>
+        </div><span class="bar-num">6.8 ชม.</span>
+      </div>
+      <div class="bar-row"><span class="bar-label">วันหยุด (ใหม่)</span>
+        <div class="bar-outer">
+          <div class="bar-fill" style="width:100%;background:#534AB7"></div>
+        </div><span class="bar-num">~9 ชม.</span>
+      </div>
+      <div class="bar-row"><span class="bar-label">Ideal สำหรับ 5w4</span>
+        <div class="bar-outer">
+          <div class="bar-fill" style="width:83%;background:#B4B2A9"></div>
+        </div><span class="bar-num">7.5 ชม.</span>
       </div>
     </div>
 
-    <div class="block" onclick="toggle(this)">
-      <div class="block-header">
-        <span class="time-badge">08:00–09:00</span>
-        <span class="block-title">Deep Dive I · นาทีทองของสมอง</span>
-        <span class="block-tag tag-work">Deep Work</span>
-        <i class="ti ti-chevron-down chevron" aria-hidden="true"></i>
-      </div>
-      <div class="block-body">
-        <div class="segment">
-          <div class="seg-time">08:00–08:10 · คัดกรองสิ่งรบกวน</div>
-          <ul class="seg-items">
-            <li>เช็กอีเมล / แชตเฉพาะเรื่องด่วนจริงๆ ไม่เกิน 10 นาที</li>
-            <li>เปิด Do Not Disturb หรือ Focus Mode ทันทีหลังจากนั้น</li>
-          </ul>
+    <div id="blocks-weekday">
+
+      <div class="block prayer">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">04:00</span><span
+            class="btitle">ตื่น
+            + Golden Hour</span><span class="btag">จิตใจ</span><i class="ti ti-chevron-down chev"
+            aria-hidden="true"></i>
         </div>
-        <div class="segment">
-          <div class="seg-time">08:10–08:50 · งานยากที่สุดของวัน</div>
-          <ul class="seg-items">
-            <li>วิจัย / วิเคราะห์ข้อมูล / เขียนโค้ด / เขียนโครงร่างโครงการ</li>
-            <li>งานที่ต้องใช้จินตนาการและมองภาพรวม (Ni) เช่น วางคอนเซปต์ / เขียนบทความลึก</li>
-            <li>โฟกัสชิ้นเดียว ไม่สลับแท็บ จมดิ่งเหมือนนักดำน้ำ</li>
-            <li class="warn">กับดัก 5w4 คือ over-analyze จนไม่ลงมือทำ — "Done is better than perfect"</li>
-            <li class="warn">ห้ามนัดประชุมตอน 8 โมงเช้า เพราะ Fe จะสูบพลังหมดก่อนทำ Deep Work</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">08:50–09:00 · ตรวจสอบทิศทาง</div>
-          <ul class="seg-items">
-            <li>ถอนตัวจากงาน พักสายตา ดื่มน้ำ</li>
-            <li>รีวิวสั้นๆ ว่างานที่ทำตอบโจทย์เป้าหมายหลักของวันไหม</li>
-            <li>ขยับนิ้ว ขยับไหล่ อย่าให้ร่างกายนิ่งสนิทเกินไป</li>
-          </ul>
+        <div class="bbody">
+          <div class="item prayer">ดื่มน้ำอุ่น — วางไว้ข้างเตียงตั้งแต่คืนก่อน</div>
+          <div class="item">เขียนระบาย 1 หน้า แบบไหลอิสระ</div>
+          <div class="item">ทำวุฎูอ์ — น้ำเย็นดึงสติลงสู่ร่างกาย</div>
+          <div class="item warn">ห้ามเปิดโทรศัพท์เด็ดขาด</div>
         </div>
       </div>
+
+      <div class="block prayer">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">04:44</span><span
+            class="btitle">Fajr
+            + อัลกุรอาน + อัซการ</span><span class="btag">ศรัทธา</span><i class="ti ti-chevron-down chev"
+            aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item prayer">ละหมาดซุบฮิ — คุชัวะอ์ขั้นสูง ความเงียบแท้</div>
+          <div class="item">อ่านอัลกุรอาน 15–20 นาที พร้อมตาดับบุร</div>
+          <div class="item">อัซการยามเช้า — สร้างเกราะคุ้มครองจิตใจ</div>
+          <div class="item">นั่งสมาธิ ปล่อย Ni ทำงานอิสระ</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-blue">05:00–06:00</span><span
+            class="btitle">Transition Hour — ปลุกกาย</span><span class="btag">ร่างกาย</span><i
+            class="ti ti-chevron-down chev" aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item">ออกกำลังกายเบาๆ — โยคะ / บอดี้เวท / คาร์ดิโอ</div>
+          <div class="item">รับแสงแดดอ่อน 5–10 นาที ก่อน Sunrise 06:00</div>
+          <div class="item">เปิดแผนเนอร์ จัดลำดับ 3 อย่างหลักของวัน</div>
+          <div class="item">อาบน้ำ สกินแคร์ พรมน้ำหอมฮาลาล (Oud/Amber)</div>
+          <div class="item">อาหารเช้า: อินทผลัม 3–7 เม็ด + โปรตีน/ไขมันดี</div>
+          <div class="item warn">ห้ามข้ามมื้อเช้าแม้จะโฟกัส — 5w4 เผาพลังสมองสูงมาก</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-blue">06:00–09:00</span><span
+            class="btitle">Deep Dive I — นาทีทองของสมอง</span><span class="btag">Deep Work</span><i
+            class="ti ti-chevron-down chev" aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item key">งานยากที่สุดของวัน — สมองคมที่สุดในช่วงนี้</div>
+          <div class="item">วิจัย / วิเคราะห์ / เขียน / วางคอนเซปต์ (Ni)</div>
+          <div class="item">เช็กอีเมลแชตเฉพาะด่วน ไม่เกิน 10 นาที แล้วปิด</div>
+          <div class="item warn">ห้ามนัดประชุมช่วงนี้ — Fe สูบพลังก่อน Deep Work</div>
+          <div class="item warn">กับดัก 5w4: over-analyze — ทำให้เสร็จดีกว่ารอสมบูรณ์แบบ</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-blue">09:00–09:20</span><span
+            class="btitle">Social Hour — เปิด Fe</span><span class="btag">สังคม</span><i class="ti ti-chevron-down chev"
+            aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item">ตอบข้อความ ประสานงาน แจ้งความคืบหน้า</div>
+          <div class="item">ช่วงเหมาะที่สุดสำหรับประชุม ถ้าจำเป็นต้องมี</div>
+          <div class="item warn">Small Talk อย่าเกิน 15 นาที — Sp จะรู้สึกถูกคุกคาม</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-blue">09:20–11:30</span><span
+            class="btitle">Deep Dive II — มุดกลับเข้าถ้ำ</span><span class="btag">Deep Work</span><i
+            class="ti ti-chevron-down chev" aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item">หายใจลึก 1–2 นาที สลัด Fe กลับสู่ Ti</div>
+          <div class="item">งานสร้างสรรค์เชิงระบบ — ออกแบบ / รายงาน / Pattern</div>
+          <div class="item prayer">ดุฮา 2 ร็อกอัต ช่วง 10:00–11:00 (ถ้าสะดวก)</div>
+          <div class="item">ใส่หูฟังใหญ่ไว้ = สัญญาณ "อย่ากวน"</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-blue">11:30–12:00</span><span
+            class="btitle">Wrap-Up — สะสางก่อนเที่ยง</span><span class="btag">จัดการ</span><i
+            class="ti ti-chevron-down chev" aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item">ลดสปีดมาสู่งาน Administrative / ตอบข้อความ</div>
+          <div class="item">จด "หลังเที่ยงต้องทำอะไร" เพื่อให้สมองยอมวาง</div>
+          <div class="item">ตัดสินใจเรื่องมื้อเที่ยงล่วงหน้า อย่าปล่อยให้ตัดสินใจตอนหิว</div>
+        </div>
+      </div>
+
+      <div class="block prayer">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">12:16</span><span
+            class="btitle">Dhuhr
+            + มื้อเที่ยง + Power Nap</span><span class="btag">รีชาร์จ</span><i class="ti ti-chevron-down chev"
+            aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item prayer">ทำวุฎูอ์และละหมาดดุฮ์ริ</div>
+          <div class="item prayer">ดุอาอ์หลังละหมาด 5 นาที — Journaling รูปแบบสูงสุดของ INFJ</div>
+          <div class="item">ทานอาหารในมุมเงียบ ห่างจากหน้าจอ</div>
+          <div class="item warn">ห้ามคุยเรื่องงานตอนกิน — Sp ต้องการพื้นที่ปลอดภัย</div>
+          <div class="item key">Power Nap 20 นาที เต็มที่ — นี่คือ +20 นาทีที่ทำให้รวมได้ 6.8 ชม.</div>
+          <div class="item warn">ห้ามไถโซเชียล — ตื่นมาจะเพลียกว่าเดิม</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-amber">13:00–15:43</span><span
+            class="btitle">Focused Execution — ตั้งรับช่วงบ่าย</span><span class="btag">โฟกัส</span><i
+            class="ti ti-chevron-down chev" aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item">13:00: ล้างหน้า น้ำเย็น ดมเปปเปอร์มิ้นต์ กระตุ้น Se</div>
+          <div class="item">13:10–14:30: งานที่ต้องความถูกต้อง Single-tasking</div>
+          <div class="item">14:30–15:43: Pivot — คีย์ข้อมูล จัดโฟลเดอร์ เคลียร์อีเมล</div>
+          <div class="item warn">อย่าตัดสินใจเรื่องใหญ่ช่วงนี้ — ความล้าทำให้มองข้ามรายละเอียด</div>
+        </div>
+      </div>
+
+      <div class="block prayer">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">15:43</span><span class="btitle">Asr
+            +
+            Final Push</span><span class="btag">ศรัทธา</span><i class="ti ti-chevron-down chev" aria-hidden="true"></i>
+        </div>
+        <div class="bbody">
+          <div class="item prayer">ทำวุฎูอ์และละหมาดอัศริ</div>
+          <div class="item key">15:53–15:50: Mini Focus — เคลียร์ Deadline วันนี้ให้จบ</div>
+          <div class="item">15:50–16:00: ส่งงาน แจ้งสถานะ เคลียร์ความคาดหวังคนอื่นให้จบ</div>
+          <div class="item">จดในสมุด: วันนี้ทำอะไรเสร็จ / พรุ่งนี้ต้องทำอะไรก่อน</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-amber">16:00–18:00</span><span
+            class="btitle">Decompression — ลดแรงดัน</span><span class="btag">รีชาร์จ</span><i
+            class="ti ti-chevron-down chev" aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item warn">ห้ามเริ่มโปรเจกต์ใหม่เด็ดขาด</div>
+          <div class="item">ใส่หูฟัง เปิดเสียงธรรมชาติ / White Noise ระหว่างเดินทาง</div>
+          <div class="item">อัซการยามเย็น — นั่งในมุมโปรด ห้ามเปิดโทรศัพท์</div>
+          <div class="item">มองท้องฟ้า ปล่อย Ni ล่องลอย ไม่ต้องคิดอะไร</div>
+        </div>
+      </div>
+
+      <div class="block prayer">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">18:32</span><span
+            class="btitle">Maghrib + Sanctuary Hour</span><span class="btag">ศรัทธา</span><i
+            class="ti ti-chevron-down chev" aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item prayer">ทำวุฎูอ์และละหมาดมัฆริบ</div>
+          <div class="item">ถอดชุดทำงาน อาบน้ำ พรมน้ำหอมฮาลาล</div>
+          <div class="item">เปิดไฟโทนอุ่น อโรมา — อ่าน วาด เขียนบันทึก</div>
+          <div class="item warn">ข้อความงานเด้งเข้า — ไม่ต้องกดอ่านก็ได้</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-amber">18:32–19:44</span><span
+            class="btitle">Nourishment — มื้อค่ำ + ดูแลตัวเอง</span><span class="btag">อาหาร</span><i
+            class="ti ti-chevron-down chev" aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item">มื้อค่ำในบรรยากาศผ่อนคลาย เปิดไฟโทนส้ม</div>
+          <div class="item">ถ้าอยู่คนเดียว: สารคดีดาราศาสตร์ / ปรัชญา</div>
+          <div class="item">แปรงฟัน สกินแคร์ ทาครีมบำรุง — ห้ามข้ามขั้นตอนนี้</div>
+        </div>
+      </div>
+
+      <div class="block prayer">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">19:44</span><span
+            class="btitle">Isha
+            — ปิดท้ายพันธะฟัรดูประจำวัน</span><span class="btag">ศรัทธา</span><i class="ti ti-chevron-down chev"
+            aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item prayer">ทำวุฎูอ์และละหมาดอีชาอ์</div>
+          <div class="item prayer">ดุอาอ์ขอปล่อยวางจากโลกดุนยาในคืนนี้</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-purple">19:44–21:00</span><span
+            class="btitle">Intellectual Flow — นักวิจัยรัตติกาล</span><span class="btag">สร้างสรรค์</span><i
+            class="ti ti-chevron-down chev" aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item key">1 ชม. 15 นาที — คุณภาพสูง สมองหลัง Isha ยังคม</div>
+          <div class="item">ปรับห้องมืดสลัว เปิดโคมโต๊ะ — เปิด Ni + Ti เต็มประสิทธิภาพ</div>
+          <div class="item">ศึกษาหัวข้อ Obsess / เขียนงานสร้างสรรค์ / Personal Project</div>
+          <div class="item warn">ตั้งเป้าก่อนเริ่ม "คืนนี้ทำแค่เรื่องนี้" — ระวัง Rabbit Hole</div>
+          <div class="item warn">ห้ามไถ TikTok / คลิปสั้น — ทำลายสมาธิขั้นสูงของ 5w4</div>
+        </div>
+      </div>
+
+      <div class="block sleep-block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-purple">21:00–21:30</span><span
+            class="btitle">Gateway to Sleep — ประตูสู่ฝัน</span><span class="btag">นอน</span><i
+            class="ti ti-chevron-down chev" aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item">ปิดหนังสือ หรี่ไฟ ยืดเส้น Yin Yoga — คอ บ่า ไหล่ หลัง</div>
+          <div class="item">จิบชาคาโมมายล์ / น้ำอุ่นผสมน้ำผึ้ง</div>
+          <div class="item">Reflection Journal ลายมือ 4 หัวข้อ: เกิดอะไร / รู้สึกอย่างไร / เรียนรู้อะไร / ขอบคุณอะไร
+          </div>
+          <div class="item prayer">ทำวุฎูอ์ก่อนนอน อ่านอัล-มุลก์ อายะฮ์กุรซีย์ 3 กุล</div>
+          <div class="item warn">ห้ามอ่านข่าวดราม่า / อาชญากรรม — Ni จะจินตนาการต่อจนนอนไม่หลับ</div>
+        </div>
+      </div>
+
+      <div class="block sleep-block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-purple">21:30</span><span
+            class="btitle">นอน
+            — เป้าหมาย 6.5 ชม.</span><span class="btag">นอน</span><i class="ti ti-chevron-down chev"
+            aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item key">วางมือถือนอกระยะ เปิด Do Not Disturb เช็กนาฬิกาปลุก 04:00</div>
+          <div class="item">เปิดเสียงฝน / White Noise เบาๆ</div>
+          <div class="item">Body Scan Meditation นอนหงายสแกนร่างกายตั้งแต่หัวจรดเท้า</div>
+          <div class="item prayer">รำลึกถึงอัลลอฮ์จนกระทั่งหลับไปอย่างสงบ</div>
+          <div class="item warn">ถ้าคิดวน: ดึงสติมาที่หมอน ผ้าห่ม ลมหายใจ — ใช้ Se ดึงสติ</div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="block" onclick="toggle(this)">
-      <div class="block-header">
-        <span class="time-badge">09:00–10:00</span>
-        <span class="block-title">Social Hour · เปิดสวิตช์ Fe</span>
-        <span class="block-tag tag-social">สังคม</span>
-        <i class="ti ti-chevron-down chevron" aria-hidden="true"></i>
-      </div>
-      <div class="block-body">
-        <div class="segment">
-          <div class="seg-time">09:00–09:20 · เปิดโหมดสื่อสาร</div>
-          <ul class="seg-items">
-            <li>ตอบข้อความค้าง ประสานงานทีม แจ้งความคืบหน้า</li>
-            <li>เขียนให้กระชับ ชัดเจน ได้ใจความ ไม่ยืดเยื้อจนสูบพลัง</li>
-            <li>ใช้ความเฉียบของลักษณ์ 5 ตัดความฟุ่มเฟือยออก</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">09:20–09:50 · ประชุมหรือระดมสมอง (ถ้ามี)</div>
-          <ul class="seg-items">
-            <li>ช่วงนี้คือเวลาที่เหมาะที่สุดสำหรับการประชุมทั้งวัน</li>
-            <li>ไม่จำเป็นต้องพูดเยอะ — เป็นผู้ฟังและสังเกตที่ดีที่สุด</li>
-            <li>สรุปประเด็นเฉียบคมตอนท้ายการประชุม (ทำให้ดูฉลาดและมีเสน่ห์ลึกลับ)</li>
-            <li>มองหา "แก่นสำคัญ" ของโปรเจกต์ ไม่ใช่แค่รายละเอียดปลีกย่อย</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">09:50–10:00 · คายประจุ</div>
-          <ul class="seg-items">
-            <li>เดินปลีกตัว ไปเติมน้ำ หรือเดินดูวิวหน้าต่างเงียบๆ</li>
-            <li>เช็กร่างกาย — เหนื่อยเกินไปไหม อึดอัดตรงไหนไหม</li>
-            <li class="warn">ระวัง Over-absorption — อารมณ์ของเขาไม่ใช่ของเรา</li>
-            <li class="warn">อย่าปล่อยให้ Small Talk ยืดเกิน 15 นาที Sp จะรู้สึกถูกคุกคาม</li>
-          </ul>
+    <div id="blocks-weekend" style="display:none">
+
+      <div class="block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-gray">ทั้งวัน</span><span
+            class="btitle">โครงสร้างวันหยุด — ชดเชยการนอน</span><span class="btag">กลยุทธ์</span><i
+            class="ti ti-chevron-down chev" aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item key">หลัก: Fajr ยังครบ แต่กลับไปนอนต่อได้ทันทีหลังละหมาด</div>
+          <div class="item">วิธีนี้ได้ Second Sleep ที่มี REM สูง ชดเชยสัปดาห์ได้จริง</div>
+          <div class="item">ไม่ต้องตื่น 04:00 เพราะเป็นวันหยุด — ตื่นเพื่อ Fajr แล้วนอนต่อ</div>
         </div>
       </div>
+
+      <div class="block sleep-block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-purple">01:00</span><span
+            class="btitle">นอน
+            (ช่วงแรก)</span><span class="btag">นอน</span><i class="ti ti-chevron-down chev" aria-hidden="true"></i>
+        </div>
+        <div class="bbody">
+          <div class="item key">นอนช้าได้วันหยุด — Intellectual Flow อาจยาวขึ้นได้ถึง 23:30</div>
+          <div class="item">แต่อย่าเกิน 01:00 เพราะต้องตื่น Fajr 04:44</div>
+          <div class="item">ได้นอนช่วงแรกประมาณ 3–3.5 ชั่วโมง</div>
+        </div>
+      </div>
+
+      <div class="block prayer">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">04:44</span><span
+            class="btitle">Fajr
+            — ละหมาดซุบฮิ</span><span class="btag">ศรัทธา</span><i class="ti ti-chevron-down chev"
+            aria-hidden="true"></i>
+        </div>
+        <div class="bbody">
+          <div class="item prayer">ตื่น ทำวุฎูอ์ ละหมาดซุบฮิ</div>
+          <div class="item">อ่านอัลกุรอานสั้นๆ และอัซการยามเช้า</div>
+          <div class="item key">หลังเสร็จ — กลับไปนอนต่อได้เลย ไม่ต้องรู้สึกผิด</div>
+        </div>
+      </div>
+
+      <div class="block sleep-block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-purple">05:15–08:00</span><span
+            class="btitle">Second Sleep — REM ชดเชย</span><span class="btag">นอน</span><i
+            class="ti ti-chevron-down chev" aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item key">นี่คือหัวใจของกลยุทธ์วันหยุด — REM ช่วงเช้ามีคุณภาพสูงมาก</div>
+          <div class="item">ช่วงนี้สมองทำ Memory Consolidation และ Pattern Integration</div>
+          <div class="item">Ni ของ INFJ ทำงานใน Second Sleep ได้ดีเป็นพิเศษ</div>
+          <div class="item">ตื่นเองตามธรรมชาติ ไม่ต้องตั้งนาฬิกา</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-amber">08:00–12:00</span><span
+            class="btitle">Morning — Transition ช้าๆ</span><span class="btag">พักผ่อน</span><i
+            class="ti ti-chevron-down chev" aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item">ตื่นแบบผ่อนคลาย ไม่รีบ ไม่มีแผนเร่ง</div>
+          <div class="item">อาบน้ำช้าๆ อาหารเช้าที่มีความสุข</div>
+          <div class="item">อ่านหนังสือ / เดินออกกำลังกายข้างนอก / รับแสงแดด</div>
+          <div class="item warn">ห้ามเช็กงานจนกว่าจะพร้อมจริงๆ</div>
+        </div>
+      </div>
+
+      <div class="block prayer">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">12:16</span><span
+            class="btitle">Dhuhr
+            — และมื้อเที่ยงสบายๆ</span><span class="btag">ศรัทธา</span><i class="ti ti-chevron-down chev"
+            aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item prayer">ทำวุฎูอ์และละหมาดดุฮ์ริ</div>
+          <div class="item">มื้อเที่ยงที่มีความสุข ไม่รีบ ไม่มีกดดัน</div>
+          <div class="item">Power Nap 20–30 นาที ถ้าอยาก</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-amber">13:00–18:00</span><span
+            class="btitle">Afternoon — เติมตัวเองให้เต็ม</span><span class="btag">Recharge</span><i
+            class="ti ti-chevron-down chev" aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item key">วันนี้ไม่มี Deep Work — ร่างกายและสมองต้องการ total rest</div>
+          <div class="item">Personal Project ที่สนุก (ไม่ใช่งาน) / อ่านหนังสือ / วาดรูป</div>
+          <div class="item">ออกไปข้างนอก เดิน ตลาด ร้านกาแฟโปรด</div>
+          <div class="item">Deep Conversation กับคนที่สำคัญ — เติม Sx</div>
+        </div>
+      </div>
+
+      <div class="block prayer">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">15:43 / 18:32 / 19:44</span><span
+            class="btitle">Asr + Maghrib + Isha</span><span class="btag">ศรัทธา</span><i class="ti ti-chevron-down chev"
+            aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item prayer">ละหมาดทั้ง 3 เวลาตามปกติ</div>
+          <div class="item">หลัง Maghrib: เวลาครอบครัว / คนรัก / เพื่อนสนิท</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-purple">19:44–23:30</span><span
+            class="btitle">Intellectual Flow (ยาวขึ้น) — รางวัลวันหยุด</span><span class="btag">สร้างสรรค์</span><i
+            class="ti ti-chevron-down chev" aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item key">วันหยุดขยายได้ถึง 3–4 ชั่วโมง — นี่คือรางวัลของ 5w4</div>
+          <div class="item">ดิ่งลึกหัวข้อที่ Obsess โดยไม่มีกดดันเรื่องเวลาตื่นเช้า</div>
+          <div class="item">เขียน / ค้นคว้า / Personal Project ยาวๆ</div>
+          <div class="item warn">ตั้ง limit ไว้ที่ 01:00 — เพื่อให้ Fajr ยังครบ</div>
+        </div>
+      </div>
+
+      <div class="block sleep-block">
+        <div class="block-head" onclick="tog(this)"><span class="time-pill tp-purple">~01:00</span><span
+            class="btitle">นอน + รู้ว่าพรุ่งนี้กลับไปนอนต่อหลัง Fajr ได้</span><span class="btag">นอน</span><i
+            class="ti ti-chevron-down chev" aria-hidden="true"></i></div>
+        <div class="bbody">
+          <div class="item">ทำวุฎูอ์ อ่านซุนนะฮ์ก่อนนอนตามปกติ</div>
+          <div class="item key">บอกตัวเองว่า "ตี่ 4:44 ลุกละหมาด แล้วนอนต่อได้จนตื่นเอง"</div>
+          <div class="item">นอนได้สบายใจกว่า เพราะรู้ว่าจะได้ชดเชยต่อ</div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="block" onclick="toggle(this)">
-      <div class="block-header">
-        <span class="time-badge">10:00–11:00</span>
-        <span class="block-title">Deep Dive II · มุดกลับเข้าถ้ำ</span>
-        <span class="block-tag tag-work">Deep Work</span>
-        <i class="ti ti-chevron-down chevron" aria-hidden="true"></i>
-      </div>
-      <div class="block-body">
-        <div class="segment">
-          <div class="seg-time">10:00–10:10 · ดึงพลังกลับสู่ศูนย์กลาง</div>
-          <ul class="seg-items">
-            <li>ใส่หูฟัง ปิดแชตที่ไม่จำเป็น ดื่มน้ำ</li>
-            <li>หายใจลึกๆ 1–2 นาที สลัดอารมณ์ตกค้างจากการพูดคุย</li>
-            <li>ดึงจิตจาก Fe กลับเข้าสู่ Ti ภายใน</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">10:10–10:50 · งานสร้างสรรค์เชิงระบบ</div>
-          <ul class="seg-items">
-            <li>งานที่ต้องใช้ความเชี่ยวชาญเฉพาะด้านผสมความคิดสร้างสรรค์</li>
-            <li>เขียนรายงานวิเคราะห์ / ออกแบบโครงสร้างโปรเจกต์ / หา Pattern</li>
-            <li>หยิบงานที่รู้สึก "อิน" มากที่สุดขึ้นมา Sx ทำงานดีเมื่อได้โฟกัสสิ่งที่ดึงดูด</li>
-            <li class="tip">ถ้ามีคนเอางานด่วนมาแทรก: "กำลังเคลียร์พาร์ตนี้อยู่ เดี๋ยวไปหานะครับ"</li>
-            <li class="tip">ใส่หูฟังอันใหญ่ไว้ (แม้ไม่เปิดเพลง) = สัญลักษณ์สากล "อย่ากวน"</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">10:50–11:00 · บริหาร Sp</div>
-          <ul class="seg-items">
-            <li>ลุกยืน บิดขี้เกียจ เดินไปห้องน้ำ</li>
-            <li>จิบน้ำ ลักษณ์ 5 มักลืมร่างกายตัวเองเวลา Hyper-focus</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="block" onclick="toggle(this)">
-      <div class="block-header">
-        <span class="time-badge">11:00–12:00</span>
-        <span class="block-title">Wrap-Up Hour · สะสางก่อนเที่ยง</span>
-        <span class="block-tag tag-work">จัดการ</span>
-        <i class="ti ti-chevron-down chevron" aria-hidden="true"></i>
-      </div>
-      <div class="block-body">
-        <div class="segment">
-          <div class="seg-time">11:00–11:30 · เคลียร์งานค้าง</div>
-          <ul class="seg-items">
-            <li>ลดสปีดจากงานใหญ่มาสู่งาน Administrative / ตอบข้อความค้าง</li>
-            <li>จดโน้ตสั้นๆ "หลังเที่ยงต้องทำอะไรต่อ" เพื่อให้สมองยอมวางงานได้ตอนพัก</li>
-            <li>ลักษณ์ 5 เกลียดสิ่งค้างคาที่ควบคุมไม่ได้ — การสรุปช่วยให้จิตใจสงบ</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">11:30–11:45 · วางแผนมื้อเที่ยง</div>
-          <ul class="seg-items">
-            <li>ตัดสินใจเรื่องอาหารกลางวันล่วงหน้า (สั่ง / นัดแนะ / เตรียมกล่อง)</li>
-            <li>อย่าปล่อยให้ตัดสินใจตอนหิวโซ — สำหรับ Sp ความมั่นคงเรื่องอาหารสำคัญ</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">11:45–12:00 · เตรียมใจสู่พัก</div>
-          <ul class="seg-items">
-            <li>ปิดหน้าจองาน ขยับร่างกาย</li>
-            <li class="tip">ถ้าต้องไปกินกับทีม ใช้ Fe ยิ้มตามมารยาทแต่ไม่ต้องแบกอารมณ์ใคร</li>
-            <li class="tip">ถ้าเลี่ยงได้ กินคนเดียวในมุมเงียบๆ ดีกว่า</li>
-            <li class="warn">ถ้าไปชาบูเสียงดังขณะแบตหมด — ปฏิเสธได้เลย ไม่ต้องรู้สึกผิด</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="phase-label">🌿 ช่วงกลางวัน · รีชาร์จและกลับมาทำงาน</div>
-
-    <div class="block" onclick="toggle(this)">
-      <div class="block-header">
-        <span class="time-badge">12:00–13:00</span>
-        <span class="block-title">Oasis Hour · โอเอซิสกลางทะเลทราย</span>
-        <span class="block-tag tag-restore">รีชาร์จ</span>
-        <i class="ti ti-chevron-down chevron" aria-hidden="true"></i>
-      </div>
-      <div class="block-body">
-        <div class="segment">
-          <div class="seg-time">12:00–12:30 · กายภาพบำบัด</div>
-          <ul class="seg-items">
-            <li>กินอาหารกลางวันอย่างมีสติ ละเลียดรสชาติ ห่างจากหน้าจองาน</li>
-            <li>โปรตีน + ผัก + น้ำเปล่า ไม่แน่นเกินจนง่วงบ่าย</li>
-            <li>มุมเงียบ แสงสลัว หรือมีต้นไม้ถ้าเป็นไปได้ ช่วยลดความเครียดระบบประสาท</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">12:30–12:50 · มุดเข้าถ้ำส่วนตัว</div>
-          <ul class="seg-items">
-            <li>ฟังเพลงดิ่งๆ / อ่านนิยาย / ดูคลิปเรื่องที่สนใจส่วนตัว (ดาราศาสตร์ / จิตวิทยา)</li>
-            <li>20 นาทีนี้คือ "สารหล่อเลี้ยงจิตใจ" ที่ทำให้ลักษณ์ 5 รู้สึกว่าชีวิตมีความหมาย</li>
-            <li>ตอบแชตหาแฟน / เพื่อนสนิทถ้าอยากคุย (Sx เติมพลังจากการเชื่อมต่อที่มีความหมาย)</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">12:50–13:00 · Power Nap</div>
-          <ul class="seg-items">
-            <li>งีบหลับสั้นๆ 10 นาที หรือหลับตานิ่งๆ กำหนดลมหายใจ</li>
-            <li>ล้างสารความล้าในสมอง Ni-Ti ที่ทำงานหนักมาตั้งแต่เช้า</li>
-            <li class="warn">ห้ามไถโซเชียลแบบ Doomscrolling — ตื่นมาจะเพลียกว่าเดิม</li>
-            <li class="warn">ห้ามคุยเรื่องงานตอนกินข้าว — พื้นที่พักศักดิ์สิทธิ์ต้องรักษา</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="block" onclick="toggle(this)">
-      <div class="block-header">
-        <span class="time-badge">13:00–14:00</span>
-        <span class="block-title">Focused Execution · ตั้งรับช่วงบ่าย</span>
-        <span class="block-tag tag-work">โฟกัส</span>
-        <i class="ti ti-chevron-down chevron" aria-hidden="true"></i>
-      </div>
-      <div class="block-body">
-        <div class="segment">
-          <div class="seg-time">13:00–13:10 · ปลุกระบบ</div>
-          <ul class="seg-items">
-            <li>ล้างหน้า / สเปรย์น้ำเย็น / ดมเปปเปอร์มิ้นต์หรือโรสแมรี่</li>
-            <li>ดื่มน้ำแก้วใหญ่ กระตุ้น Se ให้กลับมาตื่นตัว</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">13:10–13:50 · งานที่ต้องการความถูกต้อง</div>
-          <ul class="seg-items">
-            <li>คนส่วนใหญ่ยังง่วงอยู่ — บรรยากาศรอบตัวเงียบกว่าช่วงอื่น ตักตวงให้เต็มที่</li>
-            <li>วิเคราะห์ / ตรวจสอบความถูกต้อง / เขียนสะสางชิ้นสำคัญ</li>
-            <li>Single-tasking — ล็อกสมาธิงานชิ้นเดียว อย่าเปิดแท็บทิ้งไว้เยอะ</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">13:50–14:00 · ประเมินสถานการณ์</div>
-          <ul class="seg-items">
-            <li>บันทึกความคืบหน้าสั้นๆ ยืดคอ บ่า ไหล่</li>
-            <li>ประเมินว่างานยัง "อิน" อยู่ไหม ถ้าเบื่อให้จดและเตรียมเปลี่ยนโหมด</li>
-            <li class="warn">อย่าตัดสินใจเรื่องใหญ่ในช่วงนี้ ความล้าทำให้มองข้ามรายละเอียด</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="block" onclick="toggle(this)">
-      <div class="block-header">
-        <span class="time-badge">14:00–15:00</span>
-        <span class="block-title">Pivot Hour · ผ่อนเกียร์ช่วง Slump</span>
-        <span class="block-tag tag-work">จัดการ</span>
-        <i class="ti ti-chevron-down chevron" aria-hidden="true"></i>
-      </div>
-      <div class="block-body">
-        <div class="segment">
-          <div class="seg-time">14:00–14:15 · กระตุ้นระบบประสาทกาย</div>
-          <ul class="seg-items">
-            <li>ลุกขึ้นเดิน อย่าฝืนนั่งถ้าสมองเริ่มตื้อ</li>
-            <li>ชาผลไม้ / ชามิ้นต์ / น้ำมะนาว — ไม่แนะนำกาแฟแก้วใหม่ อาจทำให้ใจสั่นช่วงเย็น</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">14:15–14:50 · งานเชิงปฏิบัติการ</div>
-          <ul class="seg-items">
-            <li>คีย์ข้อมูล / จัดระเบียบโฟลเดอร์ / เคลียร์อีเมลขยะ / เช็กตารางงาน</li>
-            <li>จัดโต๊ะทำงาน / Desk Styling — การเห็นพื้นที่กลับมาเรียบร้อยเยียวยาปีก 4</li>
-            <li>งานที่ใช้กลไกความเคยชิน ไม่ต้องเค้นสมอง</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">14:50–15:00 · เติม Sx</div>
-          <ul class="seg-items">
-            <li>เปิดเพลงแทร็กใหม่ที่ยังไม่เคยฟัง</li>
-            <li>อ่านบทความสั้นๆ เรื่องที่กำลังหลงใหลอยู่ตอนนั้น</li>
-            <li class="warn">อย่ารู้สึกผิดที่สมองล้า — มันคือกลไกตามธรรมชาติของร่างกาย</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="block" onclick="toggle(this)">
-      <div class="block-header">
-        <span class="time-badge">15:00–16:00</span>
-        <span class="block-title">Final Push · ฮึดสุดท้าย</span>
-        <span class="block-tag tag-work">Deep Work</span>
-        <i class="ti ti-chevron-down chevron" aria-hidden="true"></i>
-      </div>
-      <div class="block-body">
-        <div class="segment">
-          <div class="seg-time">15:00–15:40 · Mini Focus Session</div>
-          <ul class="seg-items">
-            <li>งาน Final Push เคลียร์ Deadline วันนี้ให้จบ</li>
-            <li>ตรวจงานชิ้นสุดท้าย / ร้อยเรียงไอเดียทั้งวัน / เขียนสรุปรายงาน</li>
-            <li>งานช่วงนี้คมมาก เพราะผ่านการตกตะกอนมาหลายชั่วโมงแล้ว</li>
-            <li>ล็อก 40 นาทีนี้ ปิดไลน์ ปิดเฟซบุ๊ก ลุยให้จบ</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">15:40–15:55 · เคลียร์พันธะสังคม</div>
-          <ul class="seg-items">
-            <li>ส่งงาน / ตอบแชต / แจ้งสถานะ เคลียร์ความคาดหวังของคนอื่นให้จบ</li>
-            <li>ทำตอนนี้เพื่อป้องกันไม่ให้มีคนทักตามงานช่วงค่ำ</li>
-            <li class="tip">ถ้ามีคนเอางานด่วนมาแทรก: "รับทราบครับ คิววันนี้เต็มแล้ว จะเป็นสิ่งแรกพรุ่งนี้เช้าเลย"</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">15:55–16:00 · เช็กเอาต์</div>
-          <ul class="seg-items">
-            <li>ลุกบิดขี้เกียจ ดื่มน้ำ</li>
-            <li>จดในสมุดว่า "วันนี้ทำอะไรเสร็จ / พรุ่งนี้เช้าต้องทำอะไรก่อน"</li>
-            <li>การเห็น To-do list ถูกขีดฆ่าทำให้ Sp รู้สึกมั่นคงและควบคุมได้</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="phase-label">🌇 ช่วงเย็น · คืนสู่ตัวเองและเตรียมนอน</div>
-
-    <div class="block" onclick="toggle(this)">
-      <div class="block-header">
-        <span class="time-badge">16:00–17:00</span>
-        <span class="block-title">Decompression · ลดแรงดันและคืนสู่เหย้า</span>
-        <span class="block-tag tag-restore">รีชาร์จ</span>
-        <i class="ti ti-chevron-down chevron" aria-hidden="true"></i>
-      </div>
-      <div class="block-body">
-        <div class="segment">
-          <div class="seg-time">16:00–16:20 · ปิดจ๊อบอย่างเป็นระบบ</div>
-          <ul class="seg-items">
-            <li>อย่าเริ่มโปรเจกต์ใหม่หรือเปิดประเด็นงานใหม่เด็ดขาด</li>
-            <li>เช็กอีเมลรอบสุดท้าย ตอบเฉพาะที่จำเป็น จัดโต๊ะ สรุป To-Do พรุ่งนี้</li>
-            <li>บอกสมองทางอ้อมว่า "หน้าที่วันนี้จบแล้ว"</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">16:20–16:50 · โดมส่วนตัว</div>
-          <ul class="seg-items">
-            <li>ถ้าเดินทางกลับ — ใส่หูฟังทันที เปิด Shoegaze / Post-rock / Ambient</li>
-            <li>ถ้าอยู่บ้าน — ลุกออกจากเก้าอี้ทำงานทันที เปลี่ยนเสื้อผ้าสบายที่สุด</li>
-            <li>ปล่อยให้ Ni ล่องลอยกับเสียงเพลง ไม่ต้องคิดอะไร</li>
-            <li class="warn">ปฏิเสธ After-work ที่ไม่ได้อยากไปได้เลย ไม่ต้องรู้สึกผิด</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">16:50–17:00 · Mental Fasting</div>
-          <ul class="seg-items">
-            <li>นั่งนิ่งๆ ในมุมโปรด 10 นาที ห้ามเปิดโทรศัพท์</li>
-            <li>มองท้องฟ้าตอนเย็น สังเกตแสงที่กำลังเปลี่ยน</li>
-            <li>อยู่กับความเงียบและธรรมชาติตรงหน้า เติม Sp ให้รู้สึกปลอดภัย</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="block" onclick="toggle(this)">
-      <div class="block-header">
-        <span class="time-badge">17:00–18:00</span>
-        <span class="block-title">Sanctuary Hour · เขตอภัยทานส่วนตัว</span>
-        <span class="block-tag tag-restore">สุนทรีย์</span>
-        <i class="ti ti-chevron-down chevron" aria-hidden="true"></i>
-      </div>
-      <div class="block-body">
-        <div class="segment">
-          <div class="seg-time">17:00–17:20 · พิธีกรรมล้างพลังงานลบ</div>
-          <ul class="seg-items">
-            <li>ถอดชุดทำงาน อาบน้ำทันทีถ้าเป็นไปได้ ใช้สบู่กลิ่นที่ชอบ</li>
-            <li>นี่ไม่ใช่แค่ความสะอาด แต่คือพิธีกรรมล้างพลังงานลบของวัน</li>
-            <li>ใส่เสื้อผ้าเนื้อนุ่ม ระบบประสาทจะรับรู้ว่า "ถึงบ้านแล้ว ปลอดภัยแล้ว"</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">17:20–17:50 · โลกภายในเบ่งบาน</div>
-          <ul class="seg-items">
-            <li>เปิดไฟโทนอุ่น จุดเทียนหรือเปิดอโรมากลิ่นที่ชอบ (แนวไม้ / ฝนตก)</li>
-            <li>ฟังอัลบั้มโปรดแบบตั้งใจฟัง ไม่เปิดคลอระหว่างทำอย่างอื่น</li>
-            <li>อ่านวรรณกรรม / วาดรูป / เขียนบันทึก / ดำดิ่งหัวข้อที่กำลังหลงใหล</li>
-            <li>ถ้ามีคนรัก — Deep Conversation ตัวต่อตัว เติม Sx ได้ดีมาก</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">17:50–18:00 · เตรียมมื้อค่ำ</div>
-          <ul class="seg-items">
-            <li>เริ่มเตรียมอาหาร จิบน้ำอุ่นผสมมะนาวเบาๆ</li>
-            <li>ช่วงนี้ไม่รีบ ไม่มีความกดดัน ทำในจังหวะของตัวเอง</li>
-            <li class="warn">ห้ามต่อความยาวเรื่องงาน ถ้าข้อความงานเด้งเข้ามา ไม่ต้องกดอ่านก็ได้</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="block" onclick="toggle(this)">
-      <div class="block-header">
-        <span class="time-badge">18:00–19:00</span>
-        <span class="block-title">Nourishment Hour · หล่อเลี้ยงกายและใจ</span>
-        <span class="block-tag tag-restore">อาหาร</span>
-        <i class="ti ti-chevron-down chevron" aria-hidden="true"></i>
-      </div>
-      <div class="block-body">
-        <div class="segment">
-          <div class="seg-time">18:00–18:30 · มื้อค่ำแห่งความสุข</div>
-          <ul class="seg-items">
-            <li>กินอาหารค่ำในบรรยากาศผ่อนคลาย เปิดไฟโทนส้ม เพลง Jazz / Lo-fi เบาๆ</li>
-            <li>อยู่คนเดียว — ดูภาพยนตร์ที่มีปรัชญา / สารคดีดาราศาสตร์ / อ่านวรรณกรรม</li>
-            <li>อยู่กับคนรัก / เพื่อนสนิท — Deep Conversation เรื่องชีวิต ความฝัน</li>
-            <li class="warn">ห้ามกินไปเช็กไลน์ไป Sp จะรู้สึกไม่มั่นคง ระบบย่อยอาหารทำงานแย่ลง</li>
-            <li class="warn">ห้ามเปิดข่าวดราม่า / การเมืองเครียดๆ — Fe ไม่ต้องทำงานอีกแล้วคืนนี้</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">18:30–18:45 · ดูแลตัวเอง</div>
-          <ul class="seg-items">
-            <li>แปรงฟัน ทำสกินแคร์รูทีนเย็น ทาครีมบำรุงกลิ่นหอมที่ชอบ</li>
-            <li>ลักษณ์ 5w4 มักขี้เกียจดูแลตัวเองเวลาจมความคิด อย่าข้ามขั้นตอนนี้</li>
-            <li>กลิ่นหอมช่วยกระตุ้นความสุนทรีย์ของปีก 4 และเพิ่ม Self-love</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">18:45–19:00 · เตรียม Flow ค่ำ</div>
-          <ul class="seg-items">
-            <li>หยิบหนังสือ / สมุดโน้ต / โปรเจกต์ที่กำลังศึกษาวางตรงหน้า</li>
-            <li>เตรียมพร้อมจิตใจสำหรับการดิ่งลึกในชั่วโมงต่อไป</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="phase-label">🌙 ช่วงค่ำ · นักวิจัยรัตติกาลและเตรียมนอน</div>
-
-    <div class="block" onclick="toggle(this)">
-      <div class="block-header">
-        <span class="time-badge">19:00–19:45</span>
-        <span class="block-title">Intellectual Flow · นักวิจัยรัตติกาล</span>
-        <span class="block-tag tag-night">แพสชัน</span>
-        <i class="ti ti-chevron-down chevron" aria-hidden="true"></i>
-      </div>
-      <div class="block-body">
-        <div class="segment">
-          <div class="seg-time">19:00–19:10 · เข้าสู่ Flow State</div>
-          <ul class="seg-items">
-            <li>ปรับห้องให้มืดสลัว เปิดเฉพาะโคมโต๊ะ</li>
-            <li>เปิดเพลงไม่มีเนื้อร้อง Dark Academia / Synthwave / เชลโลบรรเลง</li>
-            <li>การจำกัดสิ่งเร้า Se เปิดสวิตช์ Ni และ Ti ได้เต็มประสิทธิภาพ</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">19:10–19:45 · 35 นาทีทองแห่งคืน</div>
-          <ul class="seg-items">
-            <li>ศึกษาหัวข้อที่กำลัง Obsess อยู่ (จิตวิทยา / ฟิสิกส์ / ประวัติศาสตร์ / ปรัชญา)</li>
-            <li>เขียนนิยาย / กวีนิพนธ์ / บล็อก / งานสร้างสรรค์ส่วนตัว</li>
-            <li>Personal Project (ภาษาใหม่ / โค้ด / แผนธุรกิจส่วนตัว)</li>
-            <li class="warn">ระวัง Rabbit Hole — ตั้งเป้าก่อนเริ่ม "คืนนี้ทำแค่เรื่องนี้เรื่องเดียว"</li>
-            <li class="warn">อย่าใช้ช่วงนี้ไถ TikTok / คลิปสั้น — ทำลายสมาธิขั้นสูงของลักษณ์ 5</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="block" onclick="toggle(this)">
-      <div class="block-header">
-        <span class="time-badge">19:45–20:30</span>
-        <span class="block-title">Gateway to Sleep · ประตูสู่ความฝัน</span>
-        <span class="block-tag tag-night">นอนหลับ</span>
-        <i class="ti ti-chevron-down chevron" aria-hidden="true"></i>
-      </div>
-      <div class="block-body">
-        <div class="segment">
-          <div class="seg-time">19:45–20:00 · ผ่อนคันเร่ง</div>
-          <ul class="seg-items">
-            <li>ปิดหนังสือหรือพักหน้าจอ ลุกยืน ดื่มน้ำอุ่น ยืดเส้นยืดสายเบาๆ</li>
-            <li>ดึงสติกลับมาอยู่กับร่างกาย ลักษณ์ 5w4 มักหลุดออกจากร่างเวลา Hyper-focus</li>
-            <li>หรี่ไฟในห้องลงอีก ปรับหน้าจอเป็น Night Shift</li>
-            <li>จิบชาคาโมมายล์ / น้ำนมอุ่น / น้ำอุ่นผสมน้ำผึ้ง</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">20:00–20:15 · Reflection Journal</div>
-          <ul class="seg-items">
-            <li>เขียนด้วยลายมือ (เลี่ยงหน้าจอ) สั้นๆ 4 หัวข้อ</li>
-            <li>วันนี้เกิดอะไรขึ้น / รู้สึกอย่างไร / เรียนรู้อะไร / ขอบคุณอะไร</li>
-            <li>ช่วยเคลียร์ความคิดที่ยังค้างในหัว (Brain Dump) ออกก่อนนอน</li>
-            <li class="warn">หยุดอ่านข่าวอาชญากรรม / ดราม่า / สยองขวัญ — Ni จะเอาไปจินตนาการต่อจนนอนไม่หลับ</li>
-            <li class="warn">หยุดคิดเรื่องงานพรุ่งนี้ — ได้จดไว้แล้ว ปล่อยให้มันเป็นเรื่องพรุ่งนี้</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">20:15–20:25 · Yin Yoga ก่อนนอน</div>
-          <ul class="seg-items">
-            <li>ยืดกล้ามเนื้อบนเตียง เน้นคอ บ่า ไหล่ หลัง</li>
-            <li>ลักษณ์ 5w4 มีความตึงเครียดสะสมที่กล้ามเนื้อโดยไม่รู้ตัวเพราะอยู่ในหัวมาก</li>
-          </ul>
-        </div>
-        <div class="segment">
-          <div class="seg-time">20:25–20:30 · ปิดระบบ</div>
-          <ul class="seg-items">
-            <li>ปิดคอม วางมือถือไว้นอกระยะ เปิด Do Not Disturb สมบูรณ์</li>
-            <li>เช็กนาฬิกาปลุก 05:00 ให้เรียบร้อย</li>
-            <li>เปิดเสียงฝน / คลื่นทะเล / White Noise เบาๆ ถ้าชอบ</li>
-            <li>Body Scan Meditation นอนหงาย สแกนร่างกายตั้งแต่หัวจรดเท้า</li>
-            <li>ก่อนหลับ บอกตัวเอง "วันนี้เราให้ตัวเองอย่างเต็มที่แล้ว"</li>
-            <li class="warn">ถ้าเริ่มคิดวนให้ดึงสติมาที่สัมผัสหมอน ผ้าห่ม ลมหายใจ ใช้ Se ดึงสติ</li>
-          </ul>
-        </div>
-        <div class="note">นาฬิกาปลุก — ตั้ง 2 ตัว ห่างกัน 5 นาที วางไว้ไกลจากเตียงพอต้องลุกไปปิด
-          วางแก้วน้ำอุ่นข้างเตียงตั้งแต่คืนก่อนเพื่อดื่มได้ทันทีที่ตื่น</div>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="phase-label">💡 สิ่งที่เพิ่มเติมเข้ามาจากการสังเกตของผม</div>
-    <div class="observation-box">
-      <div class="observation-item">
-        <strong>เรื่องนาฬิกาปลุก:</strong> ตั้ง 2 ตัว ห่างกัน 5 นาที วางไว้ไกลจากเตียงพอให้ต้องลุกไปปิด วิธีนี้ช่วยตัด
-        Inertia (ความหนืดเฉื่อยในการลุกจากที่นอน) ตอนเช้าได้ดีมาก
-      </div>
-      <div class="observation-item">
-        <strong>เรื่องน้ำ:</strong> วางแก้วน้ำอุ่นไว้ข้างเตียงตั้งแต่คืนก่อน เพื่อให้ดื่มได้ทันทีที่ตื่น
-        โดยไม่ต้องเดินไปที่ครัวก่อน ซึ่งมักจะทำให้เจอสิ่งรบกวนระหว่างทาง
-      </div>
-      <div class="observation-item">
-        <strong>เรื่อง Obsession Rotation:</strong> ลักษณ์ 5w4 มักจะ Obsess เรื่องใดเรื่องหนึ่งเป็นวงรอบ ให้มีสมุดจด
-        "หัวข้อที่กำลังสนใจ" ไว้เปลี่ยนทุก 2–4 สัปดาห์ เพื่อไม่ให้สัญชาตญาณ Sx เบื่อ
-        และยังได้สะสมความรู้หลายด้านในระยะยาว
-      </div>
-      <div class="observation-item">
-        <strong>เรื่อง Weekly Review:</strong> วันอาทิตย์เย็น ใช้เวลา 20 นาทีรีวิวสัปดาห์ที่ผ่านมา สิ่งที่ทำได้ดี /
-        สิ่งที่พลาด / สัปดาห์หน้าจะปรับอะไร ลักษณ์ 5 จะรู้สึกมั่นคงมากขึ้นเมื่อเห็นแพทเทิร์นของชีวิตตัวเองชัดเจน
-      </div>
-      <div class="observation-item">
-        <strong>เรื่อง Energy Budget:</strong> ก่อนรับปากอะไรก็ตาม ถามตัวเองว่า "ถ้าทำสิ่งนี้แล้ว
-        เราจะเหลือพลังงานพอสำหรับสิ่งที่สำคัญกว่าไหม" สำหรับลักษณ์ 5 การรู้จัก "งบพลังงาน" ของตัวเองคือทักษะสำคัญที่สุด
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="phase-label">📌 Checklist รายวัน</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px">
-      <div
-        style="background:var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius:var(--border-radius-md);padding:.75rem 1rem">
-        <div style="font-size:12px;color:var(--color-text-tertiary);margin-bottom:6px;font-weight:600">ร่างกาย</div>
-        <div style="font-size:13px;color:var(--color-text-primary);line-height:1.8">น้ำ 6–8 แก้ว<br>อาบน้ำ 1–2
-          ครั้ง<br>กิน 3 มื้อ มีโปรตีน<br>แปรงฟัน เช้า-คืน</div>
-      </div>
-      <div
-        style="background:var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius:var(--border-radius-md);padding:.75rem 1rem">
-        <div style="font-size:12px;color:var(--color-text-tertiary);margin-bottom:6px;font-weight:600">พลังงาน</div>
-        <div style="font-size:13px;color:var(--color-text-primary);line-height:1.8">ออกกำลังกาย 20–45 นาที<br>Power Nap
-          10–20 นาที<br>สมาธิ 5–20 นาที</div>
-      </div>
-      <div
-        style="background:var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius:var(--border-radius-md);padding:.75rem 1rem">
-        <div style="font-size:12px;color:var(--color-text-tertiary);margin-bottom:6px;font-weight:600">สมอง</div>
-        <div style="font-size:13px;color:var(--color-text-primary);line-height:1.8">Deep Work
-          ช่วงเช้า<br>งานเบาช่วงบ่าย<br>ไม่เริ่มโปรเจกต์ใหม่หลัง 16:00</div>
-      </div>
-      <div
-        style="background:var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius:var(--border-radius-md);padding:.75rem 1rem">
-        <div style="font-size:12px;color:var(--color-text-tertiary);margin-bottom:6px;font-weight:600">จิตใจ</div>
-        <div style="font-size:13px;color:var(--color-text-primary);line-height:1.8">Journal เช้า + คืน<br>เวลาส่วนตัว
-          1–3 ชม.<br>Obsession Rotation ทุก 2–4 สัปดาห์</div>
-      </div>
-      <div
-        style="background:var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius:var(--border-radius-md);padding:.75rem 1rem">
-        <div style="font-size:12px;color:var(--color-text-tertiary);margin-bottom:6px;font-weight:600">ความสัมพันธ์
-        </div>
-        <div style="font-size:13px;color:var(--color-text-primary);line-height:1.8">ส่งข้อความหาคนสำคัญ<br>ตอบเพื่อนใน
-          24 ชม.<br>บอกถ้าต้องการเวลาคนเดียว</div>
-      </div>
-      <div
-        style="background:var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius:var(--border-radius-md);padding:.75rem 1rem">
-        <div style="font-size:12px;color:var(--color-text-tertiary);margin-bottom:6px;font-weight:600">Weekly Review
-        </div>
-        <div style="font-size:13px;color:var(--color-text-primary);line-height:1.8">วันอาทิตย์เย็น 20
-          นาที<br>ทำได้ดีอะไร / พลาดอะไร<br>สัปดาห์หน้าจะปรับอะไร</div>
-      </div>
-    </div>
+    <div class="note-box" id="note-weekday">ตารางนี้ให้การนอนรวม <strong>6 ชม. 50 นาที</strong> ต่อวันธรรมดา (6.5 ชม.
+      หลัก
+      + 20 นาที Power Nap) ซึ่งเป็นระดับที่ 5w4 sp/sx function ได้ดีในระยะยาว โดยยังรักษา Fajr 04:44 และ Intellectual
+      Flow
+      ที่มีคุณภาพไว้ครบ</div>
+    <div class="note-box" id="note-weekend" style="display:none">วันหยุดได้การนอนรวมประมาณ <strong>9 ชั่วโมง</strong> (3
+      ชม. + Second Sleep ~3 ชม. + อาจมี Nap อีก) Fajr ยังครบทุกวัน และ Intellectual Flow ยาวได้ถึง 3–4 ชั่วโมงซึ่งเป็น
+      "รางวัล" ที่ 5w4 รอทั้งสัปดาห์</div>
 
   </div>
-
-  <script>
-    function toggle(el) { el.classList.toggle('open') }
+  
+ <script>
+    function tog(el) {
+      const b = el.nextElementSibling;
+      const c = el.querySelector(".chev");
+      b.classList.toggle("open");
+      c.classList.toggle("open");
+    }
+    function switchTab(t) {
+      document.querySelectorAll(".tb").forEach(b => b.classList.toggle("active", b.textContent.trim() === (t === "weekday" ? "วันธรรมดา" : "วันหยุด (เสาร์-อาทิตย์)")));
+      document.getElementById("blocks-weekday").style.display = t === "weekday" ? "block" : "none";
+      document.getElementById("blocks-weekend").style.display = t === "weekend" ? "block" : "none";
+      document.getElementById("stats-weekday").style.display = t === "weekday" ? "grid" : "none";
+      document.getElementById("stats-weekend").style.display = t === "weekend" ? "grid" : "none";
+      document.getElementById("note-weekday").style.display = t === "weekday" ? "block" : "none";
+      document.getElementById("note-weekend").style.display = t === "weekend" ? "block" : "none";
+    }
   </script>
 
 </body>
