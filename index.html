@@ -1,17 +1,11 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>รูทีน 24 ชั่วโมงสำหรับ INFJ 5w4 sp/sx</title>
-
-  <!-- โหลด Font สวยๆ และ Icon CSS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
-<style>
+  <title>Document</title>
+  <style>
     * {
       box-sizing: border-box;
       margin: 0;
@@ -814,18 +808,17 @@
       }
     }
   </style>
- 
 </head>
 
 <body>
-
   <div class="wrap">
 
 
-    <div class="tab-row">
-      <button class="tb active" onclick="switchTab('weekday')">วันธรรมดา</button>
-      <button class="tb" onclick="switchTab('weekend')">วันหยุด (เสาร์-อาทิตย์)</button>
-    </div>
+<div class="tab-row">
+  <button class="tb active" onclick="switchTab('weekday')">วันธรรมดา</button>
+  <button class="tb" onclick="switchTab('weekend')">วันหยุด (เสาร์-อาทิตย์)</button>
+  <a href="checklist.html" style="text-decoration: none;"><button class="tb" style="color: #c9a84c;">📋 ไปหน้า Checklist</button></a>
+</div>
 
     <div id="stats-weekday" class="sleep-banner">
       <div class="sb warn">
@@ -1247,8 +1240,8 @@
       "รางวัล" ที่ 5w4 รอทั้งสัปดาห์</div>
 
   </div>
-  
- <script>
+
+  <script>
     function tog(el) {
       const b = el.nextElementSibling;
       const c = el.querySelector(".chev");
@@ -1265,7 +1258,6 @@
       document.getElementById("note-weekend").style.display = t === "weekend" ? "block" : "none";
     }
   </script>
-
 </body>
 
 </html>
