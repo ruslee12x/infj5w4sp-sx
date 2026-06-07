@@ -49,62 +49,124 @@
     }
 
     /* ─── NAV ─── */
-.site-nav{
-  position:sticky;top:0;z-index:200;
-  background:rgba(10,10,10,0.92);
-  backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;
-  padding:0 48px;
-  height:56px;
-}
-.nav-brand{
-  font-family:'Cinzel',serif;
-  font-size:13px;letter-spacing:3px;
-  color:var(--gold);text-decoration:none;
-  flex:1;
-}
-.nav-links{display:flex;gap:4px;}
-.nav-link{
-  display:flex;align-items:center;gap:7px;
-  padding:8px 18px;
-  font-size:12px;letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--text-muted);text-decoration:none;
-  border:1px solid transparent;
-  transition:all .2s;border-radius:2px;
-  font-weight:500;
-}
-.nav-link:hover{color:var(--text);border-color:var(--border);}
-.nav-link.active{
-  color:var(--gold);
-  border-color:rgba(201,168,76,0.3);
-  background:var(--gold-dim);
-}
-.nav-link .icon{font-size:14px;}
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: rgba(10, 10, 10, 0.92);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 48px;
+      height: 56px;
+    }
 
+    .nav-brand {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-decoration: none;
+      flex: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 18px;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: all .2s;
+      border-radius: 2px;
+      font-weight: 500;
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .nav-link.active {
+      color: var(--gold);
+      border-color: rgba(201, 168, 76, 0.3);
+      background: var(--gold-dim);
+    }
+
+    .nav-link .icon {
+      font-size: 14px;
+    }
 
     header {
-      padding: 60px 48px 40px;
-      border-bottom: 1px solid var(--border);
+      padding: 72px 48px 52px;
       position: relative;
+      overflow: hidden;
     }
 
     header::after {
       content: '';
       position: absolute;
-      bottom: -1px;
-      left: 48px;
-      width: 120px;
-      height: 2px;
-      background: var(--gold);
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold) 0%, transparent 60%);
     }
 
     .header-eyebrow {
-      font-size: 11px;
-      letter-spacing: 4px;
+      font-size: 10px;
+      letter-spacing: 5px;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+      opacity: .7;
+    }
+
+    .header-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 900;
+      line-height: 1;
+      color: var(--text);
+      letter-spacing: -1px;
+      margin-bottom: 6px;
+    }
+
+    .header-title em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .header-sub {
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 300;
+      letter-spacing: .3px;
+    }
+
+    .header-deco {
+      position: absolute;
+      right: 48px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Cinzel', serif;
+      font-size: 160px;
+      font-weight: 900;
+      color: rgba(201, 168, 76, 0.03);
+      pointer-events: none;
+      line-height: 1;
+      user-select: none;
     }
 
     h1 {
@@ -127,24 +189,42 @@
       font-weight: 300;
     }
 
-    .tabs{
-  display:flex;
-  padding:0 48px;
-  border-bottom:1px solid var(--border);
-  background:rgba(10,10,10,0.8);
-  backdrop-filter:blur(16px);
-  position:sticky;top:56px;z-index:100;
-}
-.tab{
-  padding:18px 28px;
-  font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
-  font-weight:600;color:var(--text-muted);
-  cursor:pointer;border-bottom:2px solid transparent;
-  margin-bottom:-1px;transition:all .2s;white-space:nowrap;
-  display:flex;align-items:center;gap:8px;
-}
-.tab:hover{color:var(--text);}
-.tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+    .tabs {
+      display: flex;
+      padding: 0 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 56px;
+      z-index: 100;
+    }
+
+    .tab {
+      padding: 18px 28px;
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: all .2s;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab:hover {
+      color: var(--text);
+    }
+
+    .tab.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
 
     main {
       padding: 40px 48px 80px;
@@ -317,7 +397,7 @@
     }
 
     .progress-bar {
-      height: 2px;
+      height: 1px;
       background: var(--border);
       margin: 0 48px;
     }
@@ -450,21 +530,31 @@
         <span class="icon">📋</span>
         <span>Checklist</span>
       </a>
-      <a class="nav-link" href="index.html">
+      <a class="nav-link" href="routine.html">
         <span class="icon">🔄</span>
         <span>รูทีน ไลฟสไตล์</span>
       </a>
     </div>
   </nav>
 
+  <!-- ─── HEADER ─── -->
   <header>
-    <div class="header-eyebrow">รายการเตือนความจำเรื่องที่ยังทำไม่เสร็จ</div>
-    <h1>งาน <span>&</span> ชีวิต</h1>
+    <div class="header-deco">GTD</div>
+    <div class="header-eyebrow">รายการเตือนความจำ — สิ่งที่ยังค้างอยู่</div>
+    <h1 class="header-title">งาน <em>&</em> ชีวิต</h1>
     <p class="header-sub">ทุกสิ่งที่ต้องดูแล ครบในที่เดียว</p>
   </header>
 
-  <div class="progress-bar">
-    <div class="progress-fill"></div>
+  <div class="progress-wrap">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
   </div>
 
   <nav class="tabs">
