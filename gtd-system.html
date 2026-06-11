@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GTD System — 5w4 Sanctuary</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=Sarabun:wght@300;400;600;700&family=Playfair+Display:wght@700;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="gtd-system.css">
+  <style>
+    /* Growth Tab — extra pill colors */
+    .tp-indigo {
+      background: #EEEDFE;
+      color: #3C3489;
+    }
+
+    .tp-rose {
+      background: #FFEEF1;
+      color: #9F1239;
+    }
+
+    @media(prefers-color-scheme:dark) {
+      .tp-indigo {
+        background: #26215C;
+        color: #CECBF6;
+      }
+
+      .tp-rose {
+        background: #4C0519;
+        color: #FDA4AF;
+      }
+    }
+
+    /* Growth accent blocks */
+    .block.grow-block {
+      border-left: 4px solid #F43F5E;
+    }
+
+    .block.fn-block {
+      border-left: 4px solid #6366F1;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ─── TOP NAV ─── -->
+  <nav class="site-nav">
+    <span class="nav-brand">5w4 SANCTUARY</span>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="showPage('checklist',this)">
+        <span>📋</span><span>Checklist</span>
+      </button>
+      <button class="nav-link" onclick="showPage('routine',this)">
+        <span>🔄</span><span>รูทีน</span>
+      </button>
+      <button class="nav-link" onclick="showPage('mvpday',this)">
+        <span>⚡</span><span>MVP Day</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ─── HEADER (dynamic) ─── -->
+  <header id="page-header">
+    <div class="header-deco" id="header-deco">GTD</div>
+    <div class="header-eyebrow" id="header-eyebrow">รายการเตือนความจำ — สิ่งที่ยังค้างอยู่</div>
+    <h1 class="header-title" id="header-title">งาน <em>&</em> ชีวิต</h1>
+    <p class="header-sub" id="header-sub">ทุกสิ่งที่ต้องดูแล ครบในที่เดียว</p>
+  </header>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════
+     PAGE: CHECKLIST
+════════════════════════════════════ -->
+  <div id="page-checklist" class="page-panel active">
+    <nav class="page-tabs">
+      <div class="ptab active" onclick="switchTab('work',this,'checklist')">💼 เรื่องงาน</div>
+      <div class="ptab" onclick="switchTab('personal',this,'checklist')">🏠 เรื่องส่วนตัว</div>
+      <div class="ptab" onclick="switchTab('waiting',this,'checklist')">⏳ รอคำตอบ</div>
+    </nav>
+    <main>
+
+      <!-- WORK -->
+      <div id="work" class="section-panel active work">
+        <div class="section-heading">
+          <span class="section-tag">งานทั้งหมด</span>
+          <div class="section-line"></div>
+        </div>
+        <p class="section-desc">โครงการ ภาระผูกพัน การสื่อสาร และการบริหารจัดการ</p>
+        <div class="grid">
+          <div class="cat-card">
+            <span class="cat-icon">🗂️</span>
+            <div class="cat-title">โครงการและงาน</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">โครงการที่เริ่มต้นแล้วแต่ยังไม่เสร็จ</span>
+              </li>
+              <li><span class="item-marker">—</span><span class="item-text">โครงการที่ต้องเริ่มต้น</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">โครงการที่ต้อง "พิจารณา..."</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">🤝</span>
+            <div class="cat-title">ภาระหน้าที่/คำมั่นสัญญาที่ให้ไว้กับคนอื่น</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">เจ้านาย/หุ้นส่วน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เพื่อนร่วมงาน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ลูกน้อง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">คนอื่นในองค์กร</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">บุคคล "ภายนอก"<ul class="sub-list">
+                    <li>ลูกค้า</li>
+                    <li>องค์กรอื่น</li>
+                    <li>ผู้ประกอบวิชาชีพ</li>
+                    <li>ผู้ค้า</li>
+                  </ul></span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">📬</span>
+            <div class="cat-title">การสื่อสารที่ต้องทำ</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">ภายใน/ภายนอก<ul class="sub-list">
+                    <li>ติดต่อหา/ตอบกลับ</li>
+                    <li>โทรศัพท์</li>
+                    <li>ข้อความเสียง</li>
+                    <li>อีเมล</li>
+                    <li>ข้อความ</li>
+                    <li>จดหมาย</li>
+                    <li>โพสต์บนโซเชียลมีเดีย</li>
+                  </ul></span></li>
+              <li><span class="item-marker">—</span><span class="item-text">งานเอกสารที่ต้องทำให้เสร็จ/ส่ง<ul
+                    class="sub-list">
+                    <li>รายงาน</li>
+                    <li>การประเมินผล/ตรวจสอบ</li>
+                    <li>ข้อเสนอ</li>
+                    <li>บทความ</li>
+                    <li>เอกสารการตลาด</li>
+                    <li>คู่มือ/คำแนะนำ</li>
+                    <li>สรุป</li>
+                    <li>แก้ไขและเรียบเรียง</li>
+                    <li>รายงานสถานะ</li>
+                  </ul></span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">🔍</span>
+            <div class="cat-title">การติดตาม / การตัดสินใจ</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">การติดตามการสนทนาและการสื่อสาร</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การประชุมที่ต้องจัด/ขอให้มี</span></li>
+              <li><span class="item-marker">—</span><span
+                  class="item-text">ใครจำเป็นต้องรู้เกี่ยวกับการตัดสินใจเรื่องอะไร</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เรื่องสำคัญที่ต้องอ่าน/ทบทวน</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">💰</span>
+            <div class="cat-title">การเงิน</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">เงินสด</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">งบประมาณ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การทำนาย/การคาดการณ์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">กำไร/ขาดทุน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">งบดุล</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">วงเงิน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ธนาคาร</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ลูกหนี้</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เจ้าหนี้</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เงินสดย่อย</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">นักลงทุน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การบริหารจัดการทรัพย์สิน</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">📊</span>
+            <div class="cat-title">การวางแผน/การจัดการ</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">การวางแผนอย่างเป็นทางการ
+                  (เป้าหมาย/เป้า/วัตถุประสงค์)</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">โครงการปัจจุบัน (ขั้นต่อไป)</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">แผนธุรกิจ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">แผนการตลาด</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">แผนการเงิน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">โครงการริเริ่มขององค์กร</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">งานกิจกรรมที่กำลังจะเกิดขึ้น</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การประชุม</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การนำเสนอ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การประชุมแลกเปลี่ยนความเห็น</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การกำหนดโครงสร้างองค์กร</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การเปลี่ยนแปลงในอาคารสถานที่</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การติดตั้งระบบ/อุปกรณ์ใหม่</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การเดินทาง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การพักร้อน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การเดินทางเพื่อธุรกิจ</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">🏗️</span>
+            <div class="cat-title">การพัฒนาองค์กร</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">ผังองค์กร</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การปรับโครงสร้างใหม่</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">บทบาทหน้าที่</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">คำอธิบายงาน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">อาคารสถานที่</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ระบบใหม่</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ความเป็นผู้นำ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">โครงการเปลี่ยนแปลง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การวางแผนสืบทอดตำแหน่ง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">วัฒนธรรมองค์กร</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">📣</span>
+            <div class="cat-title">การตลาด/การส่งเสริมการขาย</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">เคมเปญ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เอกสาร</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การประชาสัมพันธ์</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">👥</span>
+            <div class="cat-title">การบริหารจัดการ</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">กฎหมาย</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ประกันภัย</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">บุคลากร</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">นโยบาย/กระบวนการจ้างงาน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การฝึกอบรม</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">พนักงาน</span></li>
+              <li><span class="item-marker">—</span><span
+                  class="item-text">การว่าจ้าง/การเลิกจ้าง/การเลื่อนตำแหน่ง</span>
+              </li>
+              <li><span class="item-marker">—</span><span class="item-text">การประเมิน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การสื่อสาร</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การพัฒนาพนักงาน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การตอบแทน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ความเห็นสะท้อนกลับ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ขวัญกำลังใจ</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">🤑</span>
+            <div class="cat-title">การขาย</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">ลูกค้า</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ลูกค้าคาดหวัง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ว่าที่ลูกค้า</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">กระบวนการขาย</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การฝึกอบรม</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การสร้างความสัมพันธ์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การรายงาน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การติดตามความสัมพันธ์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การบริการลูกค้า</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">💻</span>
+            <div class="cat-title">ระบบ</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">อุปกรณ์เคลื่อนที่</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">โทรศัพท์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">คอมพิวเตอร์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ซอฟต์แวร์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ฐานข้อมูล</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การสื่อสารโทรคมนาคม</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">อินเตอร์เน็ต</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การจัดเก็บเข้าแฟ้มและข้อมูลอ้างอิง</span>
+              </li>
+              <li><span class="item-marker">—</span><span class="item-text">คลัง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ที่เก็บของ</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">🏢</span>
+            <div class="cat-title">สำนักงาน/พื้นที่ทำงาน</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">พื้นที่/การจัดวาง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เฟอร์นิเจอร์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">อุปกรณ์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เครื่องตกแต่ง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">สาธารณูปโภค</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">วัสดุอุปกรณ์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การบำรุงรักษา/การทำความสะอาด</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ความปลอดภัย</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">📅</span>
+            <div class="cat-title">การประชุม</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">ที่กำลังจะเกิดขึ้น</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">จำเป็นต้องมี/เรียกประชุม</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ความคืบหน้าที่จำเป็น</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">🎓</span>
+            <div class="cat-title">การพัฒนาทางวิชาชีพ</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">การฝึกอบรม/สัมมนา</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">สิ่งที่ต้องเรียนรู้</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">สิ่งที่ต้องค้นหา</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ทักษะที่ต้องฝึกฝน/พัฒนา</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">หนังสือที่ต้องอ่าน/ศึกษา</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">งานวิจัย</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การศึกษาในระบบ<ul class="sub-list">
+                    <li>ใบอนุญาต, วุฒิการศึกษา</li>
+                  </ul></span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การศึกษาค้นคว้าด้านอาชีพ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ประวัติโดยย่อ (เรซูเม่)</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">วัตถุประสงค์ในการทำงาน</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">👔</span>
+            <div class="cat-title">ชุดทำงาน</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">ชุดทำงาน</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- PERSONAL -->
+      <div id="personal" class="section-panel personal">
+        <div class="section-heading">
+          <span class="section-tag"
+            style="color:var(--accent-personal);background:rgba(124,74,106,.15);border-color:rgba(124,74,106,.2);">ชีวิตส่วนตัว</span>
+          <div class="section-line"></div>
+        </div>
+        <p class="section-desc">โครงการส่วนตัว ครอบครัว และภาระผูกพันในชีวิต</p>
+        <div class="grid">
+          <div class="cat-card">
+            <span class="cat-icon">🏠</span>
+            <div class="cat-title">โครงการส่วนตัว</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">โครงการที่เริ่มแล้วแต่ยังไม่เสร็จ</span>
+              </li>
+              <li><span class="item-marker">—</span><span class="item-text">โครงการที่ต้องเริ่ม</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">🌍</span>
+            <div class="cat-title">โครงการขององค์กรอื่น</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">การบริการ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ชุมชน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">อาสาสมัคร</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">องค์กรทางจิตวิญญาณ</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">💑</span>
+            <div class="cat-title">ภาระหน้าที่/คำมั่นสัญญาที่ให้ไว้กับคนอื่น</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">คู่รัก/คู่สมรส</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ลูก</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">พ่อแม่</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ครอบครัว</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เพื่อน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ผู้ประกอบวิชาชีพ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ของที่ต้องคืน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">หนี้สิน</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">📬</span>
+            <div class="cat-title">การสื่อสารที่ต้องทำ/ได้รับ</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">โทรศัพท์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">อีเมล</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การ์ดและจดหมาย</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">คำขอบคุณ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ข้อความ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">โพสต์ทางโซเชียลมีเดีย</span></li>
+            </ul>
+          </div>
+          <div class="cat-card" style="animation-delay: 0.16s;">
+            <span class="cat-icon">🎉</span>
+            <div class="cat-title">วันสำคัญที่กำลังจะมาถึง</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">วันเกิด</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">วันครบรอบ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">วันแต่งงาน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">วันจบการศึกษา</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">งานเลี้ยงรับรอง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">กิจกรรมนอกสถานที่</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">วันหยุดเทศกาล</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">วันหยุดพักร้อน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การเดินทาง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">มื้อค่ำ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">งานเลี้ยงสังสรรค์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">วันสำคัญทางวัฒนธรรม</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">วันแข่งกีฬา</span></li>
+            </ul>
+          </div>
+          <div class="cat-card" style="animation-delay: 0.2s;">
+            <span class="cat-icon">🖥️</span>
+            <div class="cat-title">การบริหารจัดการ</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">วัสดุอุปกรณ์สำหรับการทำงานที่บ้าน</span>
+              </li>
+              <li><span class="item-marker">—</span><span class="item-text">อุปกรณ์เครื่องใช้</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">โทรศัพท์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">อุปกรณ์เคลื่อนที่</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เสียง/วิดีโอ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ข้อความเสียง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">คอมพิวเตอร์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ซอฟต์แวร์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">อินเทอร์เน็ต</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การจัดเก็บเข้าแฟ้มและบันทึก</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การจัดเก็บ/สำรองข้อมูล</span></li>
+            </ul>
+          </div>
+          <div class="cat-card" style="animation-delay: 0.24s;">
+            <span class="cat-icon">🎯</span>
+            <div class="cat-title">กิจกรรมยามว่าง</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">หนังสือ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เพลง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">วิดีโอ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การเดินทาง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ที่ที่อยากไป</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">คนที่อยากไปเยี่ยม</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การเข้าเว็บ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การถ่ายภาพ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">อุปกรณ์กีฬา</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">งานอดิเรก</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ทำอาหาร</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">กิจกรรมนันทนาการ</span></li>
+            </ul>
+          </div>
+          <div class="cat-card" style="animation-delay: 0.28s;">
+            <span class="cat-icon">💳</span>
+            <div class="cat-title">การเงิน</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">บิล</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ธนาคาร</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การลงทุน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เงินกู้</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ภาษี</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">งบประมาณ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ประกันภัย</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การจำนอง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การทำบัญชี</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">นักบัญชี</span></li>
+            </ul>
+          </div>
+          <div class="cat-card" style="animation-delay: 0.32s;">
+            <span class="cat-icon">🐾</span>
+            <div class="cat-title">สัตว์เลี้ยง</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">สุขภาพ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การฝึกฝน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ข้าวของเครื่องใช้</span></li>
+            </ul>
+          </div>
+          <div class="cat-card" style="animation-delay: 0.36s;">
+            <span class="cat-icon">⚖️</span>
+            <div class="cat-title">กฎหมาย</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">พินัยกรรม</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">กองทุน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">หลักทรัพย์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">กฎหมาย</span></li>
+            </ul>
+          </div>
+          <div class="cat-card" style="animation-delay: 0.4s;">
+            <span class="cat-icon">👨‍👩‍👧‍👦</span>
+            <div class="cat-title">โครงการ/กิจกรรมของครอบครัว</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">คู่รัก/คู่สมรส</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ลูก</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">พ่อแม่</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ญาติ</span></li>
+            </ul>
+          </div>
+          <div class="cat-card" style="animation-delay: 0.44s;">
+            <span class="cat-icon">🏡</span>
+            <div class="cat-title">บ้าน/ครัวเรือน</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">อสังหาริมทรัพย์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การซ่อมแซม</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การก่อสร้าง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การปรับปรุงใหม่</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เจ้าของบ้าน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เครื่องทำความร้อนและเครื่องปรับอากาศ</span>
+              </li>
+              <li><span class="item-marker">—</span><span class="item-text">ระบบประปา</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">สาธารณูปโภค</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">หลังคา</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การจัดวางภูมิทัศน์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ทางเข้าบ้าน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">โรงรถ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">กำแพง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เพดาน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การตกแต่ง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เฟอร์นิเจอร์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เครื่องใช้ไฟฟ้า</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">แสงสว่างและสายไฟ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เครื่องใช้/อุปกรณ์ครัว</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ห้องซักล้าง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เก็บกวาด จัดหมวดหมู่ ทำความสะอาด</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ห้องเก็บของ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ผู้ให้บริการ</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">❤️</span>
+            <div class="cat-title">สุขภาพ</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">แพทย์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ทันตแพทย์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">จักษุแพทย์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ผู้เชี่ยวชาญการดูแลสุขภาพ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การตรวจสุขภาพ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การควบคุมอาหาร</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">อาหาร</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การออกกำลังกาย</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">🌱</span>
+            <div class="cat-title">การพัฒนาตัวเอง</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">หลักสูตร</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">สัมมนา</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การศึกษา</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">โค้ช/ที่ปรึกษา</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">อาชีพ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การแสดงออกอย่างสร้างสรรค์</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">🚗</span>
+            <div class="cat-title">การขนส่งเดินทาง</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">รถยนต์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">จักรยาน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การบำรุงรักษา</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การซ่อมแซม</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การเดินทาง</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">👗</span>
+            <div class="cat-title">เสื้อผ้า</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">ใส่ทำงาน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ไปรเวท</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ทางการ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">กีฬา</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เครื่องประดับ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">กระเป๋าเดินทาง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การซ่อมแซม</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การตัด</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">🛍️</span>
+            <div class="cat-title">ธุระ</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">ซื้อของ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ห้างสรรพสินค้า</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ร้านขายอุปกรณ์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ร้านขายของชำ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ของขวัญ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ร้านขายยา</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ธนาคาร</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ร้านซักรีด</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การซ่อมแซม</span></li>
+            </ul>
+          </div>
+          <div class="cat-card">
+            <span class="cat-icon">🏘️</span>
+            <div class="cat-title">ชุมชน</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">ละแวกบ้าน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">เพื่อนบ้าน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การบริการ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">โรงเรียน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การมีจิตสาธารณะ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การออกเสียงเลือกตั้ง</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- WAITING -->
+      <div id="waiting" class="section-panel">
+        <div class="section-heading">
+          <span class="section-tag"
+            style="color:#7a8fa0;background:rgba(122,143,160,.1);border-color:rgba(122,143,160,.2);">รอดำเนินการ</span>
+          <div class="section-line"></div>
+        </div>
+        <p class="section-desc">สิ่งที่รอจากคนอื่น หรือรอการตัดสินใจ</p>
+        <div class="grid" style="margin-top:24px;">
+          <div class="cat-card" style="--card-accent:#7a8fa0;">
+            <span class="cat-icon">📥</span>
+            <div class="cat-title">เรื่องที่คอยอยู่... (งาน)</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">ข้อมูล</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">งาน/โครงการที่มอบหมาย</span></li>
+              <li><span class="item-marker">—</span><span
+                  class="item-text">สิ่งที่ต้องทำให้เสร็จซึ่งสำคัญกับโครงการ</span></li>
+            </ul>
+          </div>
+          <div class="cat-card" style="--card-accent:#7a8fa0;">
+            <span class="cat-icon">↩️</span>
+            <div class="cat-title">คำตอบ / ตอบกลับ (งาน)</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">อีเมล</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">จดหมาย</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ข้อเสนอ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">โทรศัพท์</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">คำเชิญ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">คำขอ</span></li>
+            </ul>
+          </div>
+          <div class="cat-card" style="--card-accent:#7a8fa0;">
+            <span class="cat-icon">📦</span>
+            <div class="cat-title">รอรับ / ดำเนินการ (งาน)</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">การชำระเงินคืน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การเรียกเอาประกัน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ของที่สั่งไป</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ของซ่อมแซม</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ตั๋ว</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การตัดสินใจของคนอื่น</span></li>
+            </ul>
+          </div>
+          <div class="cat-card" style="--card-accent:#7a8fa0;">
+            <span class="cat-icon">🏠</span>
+            <div class="cat-title">เรื่องที่คอยอยู่ (ส่วนตัว)</div>
+            <ul class="cat-items">
+              <li><span class="item-marker">—</span><span class="item-text">สินค้าที่สั่ง</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การซ่อมแซม</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การชำระเงินคืน</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ของที่ยืม</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">ข้อมูล</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">การตอบกลับ</span></li>
+              <li><span class="item-marker">—</span><span class="item-text">โครงการ/งานที่ครอบครัว/เพื่อนเป็นคนทำ</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ════════════════════════════════════
+     PAGE: ROUTINE
+════════════════════════════════════ -->
+  <div id="page-routine" class="page-panel">
+    <main>
+      <div class="routine-wrap">
+        <div class="tab-row">
+          <button class="tb active" onclick="rSwitchTab('weekday')">วันธรรมดา</button>
+          <button class="tb" onclick="rSwitchTab('weekend')">วันหยุด (เสาร์-อาทิตย์)</button>
+          <button class="tb" onclick="rSwitchTab('growth')">🌱 พัฒนาตัวเอง</button>
+        </div>
+
+        <div id="stats-weekday" class="sleep-banner">
+          <div class="sb warn">
+            <div class="sb-label">นอนหลัก</div>
+            <div class="sb-val">6.5 ชม.</div>
+            <div class="sb-sub">21:30 → 04:00</div>
+          </div>
+          <div class="sb good">
+            <div class="sb-label">Power Nap</div>
+            <div class="sb-val">20 นาที</div>
+            <div class="sb-sub">หลัง Dhuhr</div>
+          </div>
+          <div class="sb good">
+            <div class="sb-label">รวมทั้งวัน</div>
+            <div class="sb-val">6 ชม. 50 นาที</div>
+            <div class="sb-sub">เพียงพอสำหรับ 5w4</div>
+          </div>
+          <div class="sb good">
+            <div class="sb-label">Intellectual Flow</div>
+            <div class="sb-val">1 ชม. 15 นาที</div>
+            <div class="sb-sub">คุณภาพสูง ไม่ยาวเกิน</div>
+          </div>
+        </div>
+        <div id="stats-weekend" class="sleep-banner" style="display:none">
+          <div class="sb good">
+            <div class="sb-label">นอนช่วงแรก</div>
+            <div class="sb-val">~3 ชม.</div>
+            <div class="sb-sub">01:00 → 04:44 Fajr</div>
+          </div>
+          <div class="sb good">
+            <div class="sb-label">นอนต่อหลัง Fajr</div>
+            <div class="sb-val">~3 ชม.</div>
+            <div class="sb-sub">05:15 → 08:00</div>
+          </div>
+          <div class="sb good">
+            <div class="sb-label">รวมทั้งวัน</div>
+            <div class="sb-val">~9 ชม.</div>
+            <div class="sb-sub">ชดเชยสัปดาห์</div>
+          </div>
+          <div class="sb good">
+            <div class="sb-label">Fajr ยังอยู่</div>
+            <div class="sb-val">ครบ</div>
+            <div class="sb-sub">ไม่พลาดแม้แต่วัน</div>
+          </div>
+        </div>
+
+        <div class="sleep-bar-wrap">
+          <div class="sb-title">เปรียบเทียบชั่วโมงนอนรวม</div>
+          <div class="bar-row"><span class="bar-label">เดิม (วันธรรมดา)</span>
+            <div class="bar-outer">
+              <div class="bar-fill" style="width:61%;background:#E24B4A"></div>
+            </div><span class="bar-num">5.5 ชม.</span>
+          </div>
+          <div class="bar-row"><span class="bar-label">ใหม่ (วันธรรมดา)</span>
+            <div class="bar-outer">
+              <div class="bar-fill" style="width:76%;background:#1D9E75"></div>
+            </div><span class="bar-num">6.8 ชม.</span>
+          </div>
+          <div class="bar-row"><span class="bar-label">วันหยุด (ใหม่)</span>
+            <div class="bar-outer">
+              <div class="bar-fill" style="width:100%;background:#534AB7"></div>
+            </div><span class="bar-num">~9 ชม.</span>
+          </div>
+          <div class="bar-row"><span class="bar-label">Ideal สำหรับ 5w4</span>
+            <div class="bar-outer">
+              <div class="bar-fill" style="width:83%;background:rgba(201,168,76,.6)"></div>
+            </div><span class="bar-num">7.5 ชม.</span>
+          </div>
+        </div>
+
+        <div id="blocks-weekday">
+          <div class="block prayer">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">04:00</span><span
+                class="btitle">ตื่น + Golden Hour</span><span class="btag">จิตใจ</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item prayer">ดื่มน้ำอุ่น — วางไว้ข้างเตียงตั้งแต่คืนก่อน</div>
+              <div class="item">เขียนระบาย 1 หน้า แบบไหลอิสระ</div>
+              <div class="item">ทำวุฎูอ์ — น้ำเย็นดึงสติลงสู่ร่างกาย</div>
+              <div class="item warn">ห้ามเปิดโทรศัพท์เด็ดขาด</div>
+            </div>
+          </div>
+          <div class="block prayer">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">04:44</span><span
+                class="btitle">Fajr + อัลกุรอาน + อัซการ</span><span class="btag">ศรัทธา</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item prayer">ละหมาดซุบฮิ — คุชัวะอ์ขั้นสูง ความเงียบแท้</div>
+              <div class="item">อ่านอัลกุรอาน 15–20 นาที พร้อมตาดับบุร</div>
+              <div class="item">อัซการยามเช้า — สร้างเกราะคุ้มครองจิตใจ</div>
+              <div class="item">นั่งสมาธิ ปล่อย Ni ทำงานอิสระ</div>
+            </div>
+          </div>
+          <div class="block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-blue">05:00–06:00</span><span
+                class="btitle">Transition Hour — ปลุกกาย</span><span class="btag">ร่างกาย</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item">ออกกำลังกายเบาๆ — โยคะ / บอดี้เวท / คาร์ดิโอ</div>
+              <div class="item">รับแสงแดดอ่อน 5–10 นาที</div>
+              <div class="item">เปิดแพลนเนอร์ จัดลำดับ 3 อย่างหลักของวัน</div>
+              <div class="item">อาบน้ำ สกินแคร์ พรมน้ำหอมฮาลาล (Oud/Amber)</div>
+              <div class="item">อาหารเช้า: อินทผลัม 3–7 เม็ด + โปรตีน/ไขมันดี</div>
+              <div class="item warn">ห้ามข้ามมื้อเช้าแม้จะโฟกัส — 5w4 เผาพลังสมองสูงมาก</div>
+            </div>
+          </div>
+          <div class="block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-blue">06:00–09:00</span><span
+                class="btitle">Deep Dive I — นาทีทองของสมอง</span><span class="btag">Deep Work</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item key">งานยากที่สุดของวัน — สมองคมที่สุดในช่วงนี้</div>
+              <div class="item">วิจัย / วิเคราะห์ / เขียน / วางคอนเซปต์ (Ni)</div>
+              <div class="item">เช็กอีเมลแชตเฉพาะด่วน ไม่เกิน 10 นาที แล้วปิด</div>
+              <div class="item warn">ห้ามนัดประชุมช่วงนี้ — Fe สูบพลังก่อน Deep Work</div>
+              <div class="item warn">กับดัก 5w4: over-analyze — ทำให้เสร็จดีกว่ารอสมบูรณ์แบบ</div>
+            </div>
+          </div>
+          <div class="block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-blue">09:00–09:20</span><span
+                class="btitle">Social Hour — เปิด Fe</span><span class="btag">สังคม</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item">ตอบข้อความ ประสานงาน แจ้งความคืบหน้า</div>
+              <div class="item">ช่วงเหมาะที่สุดสำหรับประชุม ถ้าจำเป็นต้องมี</div>
+              <div class="item warn">Small Talk อย่าเกิน 15 นาที — Sp จะรู้สึกถูกคุกคาม</div>
+            </div>
+          </div>
+          <div class="block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-blue">09:20–11:30</span><span
+                class="btitle">Deep Dive II — มุดกลับเข้าถ้ำ</span><span class="btag">Deep Work</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item">หายใจลึก 1–2 นาที สลัด Fe กลับสู่ Ti</div>
+              <div class="item">งานสร้างสรรค์เชิงระบบ — ออกแบบ / รายงาน / Pattern</div>
+              <div class="item prayer">ดุฮา 2 ร็อกอัต ช่วง 10:00–11:00 (ถ้าสะดวก)</div>
+              <div class="item">ใส่หูฟังใหญ่ไว้ = สัญญาณ "อย่ากวน"</div>
+            </div>
+          </div>
+          <div class="block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-blue">11:30–12:00</span><span
+                class="btitle">Wrap-Up — สะสางก่อนเที่ยง</span><span class="btag">จัดการ</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item">ลดสปีดมาสู่งาน Administrative / ตอบข้อความ</div>
+              <div class="item">จด "หลังเที่ยงต้องทำอะไร" เพื่อให้สมองยอมวาง</div>
+              <div class="item">ตัดสินใจเรื่องมื้อเที่ยงล่วงหน้า อย่าปล่อยให้ตัดสินใจตอนหิว</div>
+            </div>
+          </div>
+          <div class="block prayer">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">12:16</span><span
+                class="btitle">Dhuhr + มื้อเที่ยง + Power Nap</span><span class="btag">รีชาร์จ</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item prayer">ทำวุฎูอ์และละหมาดดุฮ์ริ</div>
+              <div class="item prayer">ดุอาอ์หลังละหมาด 5 นาที</div>
+              <div class="item">ทานอาหารในมุมเงียบ ห่างจากหน้าจอ</div>
+              <div class="item warn">ห้ามคุยเรื่องงานตอนกิน — Sp ต้องการพื้นที่ปลอดภัย</div>
+              <div class="item key">Power Nap 20 นาที เต็มที่ — นี่คือ +20 นาทีที่ทำให้รวมได้ 6.8 ชม.</div>
+              <div class="item warn">ห้ามไถโซเชียล — ตื่นมาจะเพลียกว่าเดิม</div>
+            </div>
+          </div>
+          <div class="block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-amber">13:00–15:43</span><span
+                class="btitle">Focused Execution — ตั้งรับช่วงบ่าย</span><span class="btag">โฟกัส</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item">13:00: ล้างหน้า น้ำเย็น ดมเปปเปอร์มิ้นต์ กระตุ้น Se</div>
+              <div class="item">13:10–14:30: งานที่ต้องความถูกต้อง Single-tasking</div>
+              <div class="item">14:30–15:43: Pivot — คีย์ข้อมูล จัดโฟลเดอร์ เคลียร์อีเมล</div>
+              <div class="item warn">อย่าตัดสินใจเรื่องใหญ่ช่วงนี้ — ความล้าทำให้มองข้ามรายละเอียด</div>
+            </div>
+          </div>
+          <div class="block prayer">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">15:43</span><span
+                class="btitle">Asr + Final Push</span><span class="btag">ศรัทธา</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item prayer">ทำวุฎูอ์และละหมาดอัศริ</div>
+              <div class="item key">Mini Focus — เคลียร์ Deadline วันนี้ให้จบ</div>
+              <div class="item">ส่งงาน แจ้งสถานะ เคลียร์ความคาดหวังคนอื่นให้จบ</div>
+              <div class="item">จดในสมุด: วันนี้ทำอะไรเสร็จ / พรุ่งนี้ต้องทำอะไรก่อน</div>
+            </div>
+          </div>
+          <div class="block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-amber">16:00–18:00</span><span
+                class="btitle">Decompression — ลดแรงดัน</span><span class="btag">รีชาร์จ</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item warn">ห้ามเริ่มโปรเจกต์ใหม่เด็ดขาด</div>
+              <div class="item">ใส่หูฟัง เปิดเสียงธรรมชาติ / White Noise</div>
+              <div class="item">อัซการยามเย็น — นั่งในมุมโปรด ห้ามเปิดโทรศัพท์</div>
+              <div class="item">มองท้องฟ้า ปล่อย Ni ล่องลอย ไม่ต้องคิดอะไร</div>
+            </div>
+          </div>
+          <div class="block prayer">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">18:32</span><span
+                class="btitle">Maghrib + Sanctuary Hour</span><span class="btag">ศรัทธา</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item prayer">ทำวุฎูอ์และละหมาดมัฆริบ</div>
+              <div class="item">ถอดชุดทำงาน อาบน้ำ พรมน้ำหอมฮาลาล</div>
+              <div class="item">เปิดไฟโทนอุ่น อโรมา — อ่าน วาด เขียนบันทึก</div>
+              <div class="item warn">ข้อความงานเด้งเข้า — ไม่ต้องกดอ่านก็ได้</div>
+            </div>
+          </div>
+          <div class="block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-amber">18:32–19:44</span><span
+                class="btitle">Nourishment — มื้อค่ำ + ดูแลตัวเอง</span><span class="btag">อาหาร</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item">มื้อค่ำในบรรยากาศผ่อนคลาย เปิดไฟโทนส้ม</div>
+              <div class="item">ถ้าอยู่คนเดียว: สารคดีดาราศาสตร์ / ปรัชญา</div>
+              <div class="item">ถ้าอยู่กับแฟน: ใช้เวลาคุณภาพร่วมกัน</div>
+              <div class="item">แปรงฟัน สกินแคร์ ทาครีมบำรุง — ห้ามข้ามขั้นตอนนี้</div>
+            </div>
+          </div>
+          <div class="block prayer">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">19:44</span><span
+                class="btitle">Isha — ปิดท้ายพันธะฟัรดูประจำวัน</span><span class="btag">ศรัทธา</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item prayer">ทำวุฎูอ์และละหมาดอีชาอ์</div>
+              <div class="item prayer">ดุอาอ์ขอปล่อยวางจากโลกดุนยาในคืนนี้</div>
+            </div>
+          </div>
+          <div class="block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-purple">19:44–21:00</span><span
+                class="btitle">Intellectual Flow — นักวิจัยรัตติกาล</span><span class="btag">สร้างสรรค์</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item key">1 ชม. 15 นาที — คุณภาพสูง สมองหลัง Isha ยังคม</div>
+              <div class="item">ปรับห้องมืดสลัว เปิดโคมโต๊ะ — เปิด Ni + Ti เต็มประสิทธิภาพ</div>
+              <div class="item">ศึกษาหัวข้อ Obsess / เขียนงานสร้างสรรค์ / Personal Project</div>
+              <div class="item warn">ตั้งเป้าก่อนเริ่ม "คืนนี้ทำแค่เรื่องนี้" — ระวัง Rabbit Hole</div>
+              <div class="item warn">ห้ามไถ TikTok / คลิปสั้น — ทำลายสมาธิขั้นสูงของ 5w4</div>
+            </div>
+          </div>
+          <div class="block sleep-block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-purple">21:00–21:30</span><span
+                class="btitle">Gateway to Sleep — ประตูสู่ฝัน</span><span class="btag">นอน</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item">ปิดหนังสือ หรี่ไฟ ยืดเส้น Yin Yoga — คอ บ่า ไหล่ หลัง</div>
+              <div class="item">จิบชาคาโมมายล์ / น้ำอุ่นผสมน้ำผึ้ง</div>
+              <div class="item">Reflection Journal ลายมือ 4 หัวข้อ: เกิดอะไร / รู้สึกอย่างไร / เรียนรู้อะไร / ขอบคุณอะไร
+              </div>
+              <div class="item prayer">ทำวุฎูอ์ก่อนนอน อ่านอัล-มุลก์ อายะฮ์กุรซีย์ 3 กุล</div>
+              <div class="item warn">ห้ามอ่านข่าวดราม่า / อาชญากรรม — Ni จะจินตนาการต่อจนนอนไม่หลับ</div>
+            </div>
+          </div>
+          <div class="block sleep-block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-purple">21:30</span><span
+                class="btitle">นอน — เป้าหมาย 6.5 ชม.</span><span class="btag">นอน</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item key">วางมือถือนอกระยะ เปิด Do Not Disturb เช็กนาฬิกาปลุก 04:00</div>
+              <div class="item">เปิดเสียงฝน / White Noise เบาๆ</div>
+              <div class="item">Body Scan Meditation นอนหงายสแกนร่างกายตั้งแต่หัวจรดเท้า</div>
+              <div class="item prayer">รำลึกถึงอัลลอฮ์จนกระทั่งหลับไปอย่างสงบ</div>
+              <div class="item warn">ถ้าคิดวน: ดึงสติมาที่หมอน ผ้าห่ม ลมหายใจ — ใช้ Se ดึงสติ</div>
+            </div>
+          </div>
+          <div class="note-box" id="note-weekday">ตารางนี้ให้การนอนรวม <strong>6 ชม. 50 นาที</strong> ต่อวันธรรมดา (6.5
+            ชม. หลัก + 20 นาที Power Nap) ซึ่งเป็นระดับที่ 5w4 sp/sx function ได้ดีในระยะยาว โดยยังรักษา Fajr 04:44 และ
+            Intellectual Flow ที่มีคุณภาพไว้ครบ</div>
+
+          <div class="divider"></div>
+          <div class="phase-label">💡 สิ่งที่เพิ่มเติมเข้ามาจากการสังเกตของผม</div>
+          <div class="observation-box">
+            <div class="observation-item">
+              <strong>เรื่องนาฬิกาปลุก:</strong> ตั้ง 2 ตัว ห่างกัน 5 นาที วางไว้ไกลจากเตียงพอให้ต้องลุกไปปิด
+              วิธีนี้ช่วยตัด
+              Inertia (ความหนืดเฉื่อยในการลุกจากที่นอน) ตอนเช้าได้ดีมาก
+            </div>
+            <div class="observation-item">
+              <strong>เรื่องน้ำ:</strong> วางแก้วน้ำอุ่นไว้ข้างเตียงตั้งแต่คืนก่อน เพื่อให้ดื่มได้ทันทีที่ตื่น
+              โดยไม่ต้องเดินไปที่ครัวก่อน ซึ่งมักจะทำให้เจอสิ่งรบกวนระหว่างทาง
+            </div>
+            <div class="observation-item">
+              <strong>เรื่อง Obsession Rotation:</strong> ลักษณ์ 5w4 มักจะ Obsess เรื่องใดเรื่องหนึ่งเป็นวงรอบ
+              ให้มีสมุดจด
+              "หัวข้อที่กำลังสนใจ" ไว้เปลี่ยนทุก 2–4 สัปดาห์ เพื่อไม่ให้สัญชาตญาณ Sx เบื่อ
+              และยังได้สะสมความรู้หลายด้านในระยะยาว
+            </div>
+            <div class="observation-item">
+              <strong>เรื่อง Weekly Review:</strong> วันอาทิตย์เย็น ใช้เวลา 20 นาทีรีวิวสัปดาห์ที่ผ่านมา สิ่งที่ทำได้ดี
+              /
+              สิ่งที่พลาด / สัปดาห์หน้าจะปรับอะไร ลักษณ์ 5 จะรู้สึกมั่นคงมากขึ้นเมื่อเห็นแพทเทิร์นของชีวิตตัวเองชัดเจน
+            </div>
+            <div class="observation-item">
+              <strong>เรื่อง Energy Budget:</strong> ก่อนรับปากอะไรก็ตาม ถามตัวเองว่า "ถ้าทำสิ่งนี้แล้ว
+              เราจะเหลือพลังงานพอสำหรับสิ่งที่สำคัญกว่าไหม" สำหรับลักษณ์ 5 การรู้จัก "งบพลังงาน"
+              ของตัวเองคือทักษะสำคัญที่สุด
+            </div>
+          </div>
+
+        </div>
+
+        <div id="blocks-weekend" style="display:none">
+          <div class="block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-gray">ทั้งวัน</span><span
+                class="btitle">โครงสร้างวันหยุด — ชดเชยการนอน</span><span class="btag">กลยุทธ์</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item key">หลัก: Fajr ยังครบ แต่กลับไปนอนต่อได้ทันทีหลังละหมาด</div>
+              <div class="item">วิธีนี้ได้ Second Sleep ที่มี REM สูง ชดเชยสัปดาห์ได้จริง</div>
+              <div class="item">ไม่ต้องตื่น 04:00 เพราะเป็นวันหยุด — ตื่นเพื่อ Fajr แล้วนอนต่อ</div>
+            </div>
+          </div>
+          <div class="block sleep-block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-purple">01:00</span><span
+                class="btitle">นอน (ช่วงแรก)</span><span class="btag">นอน</span><i class="ti ti-chevron-down chev"></i>
+            </div>
+            <div class="bbody">
+              <div class="item key">นอนช้าได้วันหยุด — Intellectual Flow อาจยาวขึ้นได้ถึง 23:30</div>
+              <div class="item">แต่อย่าเกิน 01:00 เพราะต้องตื่น Fajr 04:44</div>
+              <div class="item">ได้นอนช่วงแรกประมาณ 3–3.5 ชั่วโมง</div>
+            </div>
+          </div>
+          <div class="block prayer">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">04:44</span><span
+                class="btitle">Fajr — ละหมาดซุบฮิ</span><span class="btag">ศรัทธา</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item prayer">ตื่น ทำวุฎูอ์ ละหมาดซุบฮิ</div>
+              <div class="item">อ่านอัลกุรอานสั้นๆ และอัซการยามเช้า</div>
+              <div class="item key">หลังเสร็จ — กลับไปนอนต่อได้เลย ไม่ต้องรู้สึกผิด</div>
+            </div>
+          </div>
+          <div class="block sleep-block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-purple">05:15–08:00</span><span
+                class="btitle">Second Sleep — REM ชดเชย</span><span class="btag">นอน</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item key">นี่คือหัวใจของกลยุทธ์วันหยุด — REM ช่วงเช้ามีคุณภาพสูงมาก</div>
+              <div class="item">ช่วงนี้สมองทำ Memory Consolidation และ Pattern Integration</div>
+              <div class="item">Ni ของ INFJ ทำงานใน Second Sleep ได้ดีเป็นพิเศษ</div>
+              <div class="item">ตื่นเองตามธรรมชาติ ไม่ต้องตั้งนาฬิกา</div>
+            </div>
+          </div>
+          <div class="block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-amber">08:00–12:00</span><span
+                class="btitle">Morning — Transition ช้าๆ</span><span class="btag">พักผ่อน</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item">ตื่นแบบผ่อนคลาย ไม่รีบ ไม่มีแผนเร่ง</div>
+              <div class="item">อาบน้ำช้าๆ อาหารเช้าที่มีความสุข</div>
+              <div class="item">อ่านหนังสือ / เดินออกกำลังกายข้างนอก / รับแสงแดด</div>
+              <div class="item warn">ห้ามเช็กงานจนกว่าจะพร้อมจริงๆ</div>
+            </div>
+          </div>
+          <div class="block prayer">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">12:16</span><span
+                class="btitle">Dhuhr — และมื้อเที่ยงสบายๆ</span><span class="btag">ศรัทธา</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item prayer">ทำวุฎูอ์และละหมาดดุฮ์ริ</div>
+              <div class="item">มื้อเที่ยงที่มีความสุข ไม่รีบ ไม่มีกดดัน</div>
+              <div class="item">Power Nap 20–30 นาที ถ้าอยาก</div>
+            </div>
+          </div>
+          <div class="block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-amber">13:00–18:00</span><span
+                class="btitle">Afternoon — เติมตัวเองให้เต็ม</span><span class="btag">Recharge</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item key">วันนี้ไม่มี Deep Work — ร่างกายและสมองต้องการ total rest</div>
+              <div class="item">Personal Project ที่สนุก (ไม่ใช่งาน) / อ่านหนังสือ / วาดรูป</div>
+              <div class="item">ออกไปข้างนอก เดิน ตลาด ร้านกาแฟโปรด</div>
+              <div class="item">Deep Conversation กับคนที่สำคัญ — เติม Sx</div>
+            </div>
+          </div>
+          <div class="block prayer">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">15:43 / 18:32 /
+                19:44</span><span class="btitle">Asr + Maghrib + Isha</span><span class="btag">ศรัทธา</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item prayer">ละหมาดทั้ง 3 เวลาตามปกติ</div>
+              <div class="item">หลัง Maghrib: เวลาครอบครัว / คนรัก / เพื่อนสนิท</div>
+            </div>
+          </div>
+          <div class="block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-purple">19:44–23:30</span><span
+                class="btitle">Intellectual Flow (ยาวขึ้น) — รางวัลวันหยุด</span><span class="btag">สร้างสรรค์</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item key">วันหยุดขยายได้ถึง 3–4 ชั่วโมง — นี่คือรางวัลของ 5w4</div>
+              <div class="item">ดิ่งลึกหัวข้อที่ Obsess โดยไม่มีกดดันเรื่องเวลาตื่นเช้า</div>
+              <div class="item">เขียน / ค้นคว้า / Personal Project ยาวๆ</div>
+              <div class="item warn">ตั้ง limit ไว้ที่ 01:00 — เพื่อให้ Fajr ยังครบ</div>
+            </div>
+          </div>
+          <div class="block sleep-block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-purple">~01:00</span><span
+                class="btitle">นอน + รู้ว่าพรุ่งนี้กลับไปนอนต่อหลัง Fajr ได้</span><span class="btag">นอน</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item">ทำวุฎูอ์ อ่านซุนนะฮ์ก่อนนอนตามปกติ</div>
+              <div class="item key">บอกตัวเองว่า "ตี่ 4:44 ลุกละหมาด แล้วนอนต่อได้จนตื่นเอง"</div>
+              <div class="item">นอนได้สบายใจกว่า เพราะรู้ว่าจะได้ชดเชยต่อ</div>
+            </div>
+          </div>
+          <div class="note-box" id="note-weekend">วันหยุดได้การนอนรวมประมาณ <strong>9 ชั่วโมง</strong> (3 ชม. + Second
+            Sleep ~3 ชม. + อาจมี Nap อีก) Fajr ยังครบทุกวัน และ Intellectual Flow ยาวได้ถึง 3–4 ชั่วโมงซึ่งเป็น "รางวัล"
+            ที่ 5w4 รอทั้งสัปดาห์</div>
+        </div>
+
+        <!-- ── GROWTH TAB ── -->
+        <div class="note-box" id="note-growth" style="display:none">แผนนี้ฝึก <strong>Inferior → Tertiary
+            Functions</strong> อย่างเป็นระบบ และบูรณาการพลัง <strong>8 นำ → 1 ตรวจ</strong> เข้ากับธรรมชาติ INFJ 5w4 —
+          ไม่ใช่เปลี่ยนตัวเอง แต่คือขยายขอบเขตของตัวเอง</div>
+
+        <div id="blocks-growth" style="display:none">
+
+          <div class="block fn-block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-indigo">ภาพรวม</span><span
+                class="btitle">แผนฝึก Cognitive Functions — ทิศทางการเติบโต</span><span class="btag">กลยุทธ์</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item key">เป้าหมาย: ฝึก Inferior (Se) และ Shadow (Te) ให้แข็งแกร่ง โดยไม่ทิ้ง Ni+Fe</div>
+              <div class="item">ลำดับฝึก: Se → Te → Fe → Si → Ne (จากอ่อนแอสู่แข็งแกร่ง)</div>
+              <div class="item">Se (Inferior) = จุดอ่อนที่ใหญ่ที่สุด แต่ถ้าฝึกได้ = พลังที่สุดของ INFJ ผู้เติบโต</div>
+              <div class="item">Te = Shadow Function — ฝึกลงมือ ตัดสินใจ วัดผล แทนที่จะแค่คิดใน Ni</div>
+              <div class="item warn">อย่าพยายามกดข้ามข้อ Ni+Fe — มันคือแกนหลักของคุณ ฝึกเพิ่ม อย่าแทนที่</div>
+            </div>
+          </div>
+
+          <div class="block grow-block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-rose">Se — อินฟีเรียร์</span><span
+                class="btitle">Se Training — จับปัจจุบันด้วยร่างกาย</span><span class="btag">ลงมือ</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item key">ทำไม Se ถึงสำคัญ: INFJ ติดอยู่ใน Ni (อนาคต) — Se ดึงกลับมาปัจจุบัน ลดวิตก</div>
+              <div class="item">🏃 ออกกำลังกายที่ต้องใช้ร่างกายจริงๆ: วิ่ง ว่ายน้ำ ชกมวย ปีนหน้าผา</div>
+              <div class="item">🍽 กินอาหารอย่างตั้งใจ — รับรสชาติ กลิ่น เนื้อสัมผัส โดยไม่เล่นมือถือ</div>
+              <div class="item">🌿 เดินธรรมชาติ 20 นาที — สังเกตสิ่งที่เห็น ได้ยิน สัมผัสได้ตอนนี้</div>
+              <div class="item">🎨 งานมือ: วาดรูป ปั้น ทำอาหาร เล่นดนตรี — สิ่งที่มือต้องทำจริง</div>
+              <div class="item">🚿 Cold Exposure: อาบน้ำเย็น 30 วินาทีสุดท้าย — ดึง Se ฉับพลัน</div>
+              <div class="item warn">สัญญาณ Se Grip: กินจุบจิบ ซื้อของโดยไม่คิด สะสมไม่หยุด — ออกกำลังกายแทน</div>
+            </div>
+          </div>
+
+          <div class="block fn-block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-indigo">Te — Shadow</span><span
+                class="btitle">Te Training — ลงมือ ตัดสินใจ วัดผล</span><span class="btag">ระบบ</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item key">ทำไม Te ถึงสำคัญ: Ni คิดวิสัยทัศน์ได้ดี แต่ Te คือที่ทำให้วิสัยทัศน์เกิดจริง</div>
+              <div class="item">📋 ทุกโปรเจกต์ต้องมี: Goal → Metrics → Deadline — เขียนออกมา ไม่ใช่แค่คิด</div>
+              <div class="item">⏱ Time-box งาน: กำหนดเวลาก่อนเริ่ม "ทำ 45 นาที แล้วหยุด" — ฝึก Te Boundary</div>
+              <div class="item">✅ Done List ตอนเย็น: จดสิ่งที่ทำเสร็จ ไม่ใช่แค่ที่ยังค้างอยู่</div>
+              <div class="item">🗣 ฝึกพูดในที่ประชุม: ออกความเห็นสั้น ตรงประเด็น แม้ยังไม่มั่นใจ 100%</div>
+              <div class="item">📊 วัดผลตัวเองรายสัปดาห์: ทำอะไรได้จริง? อะไรติดขัด? — ข้อมูล ไม่ใช่ความรู้สึก</div>
+              <div class="item warn">5w4 ชอบคิดวนใน Ni — Te บอกว่า "เริ่มทำก่อน แล้วค่อยปรับ" ไม่ใช่รอสมบูรณ์</div>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-teal">Fe — Auxiliary</span><span
+                class="btitle">Fe Training — เชื่อมต่อโดยไม่สูญเสียตัวเอง</span><span class="btag">สัมพันธ์</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item key">Fe ของ INFJ แข็งแกร่งอยู่แล้ว แต่ 5w4 มักกั้นมันด้วยการถอยตัว</div>
+              <div class="item">🤝 ฝึก Micro-connection: ทักทายจริงจัง มองตา ถามสั้นๆ ที่หมายความจริง</div>
+              <div class="item">💬 แสดง Fe โดยไม่รอให้อารมณ์พร้อม: "ฉันเป็นห่วงนายนะ" — พูดออกมาเลย</div>
+              <div class="item">🛡 ฝึก Fe Boundary: ช่วยคนจากพลัง ไม่ใช่จากความกลัวถูกปฏิเสธ</div>
+              <div class="item">👥 Sx instinct: นัดเจอคนที่สำคัญ 1-on-1 เดือนละ 2 ครั้ง — ลึก ไม่ใช่กว้าง</div>
+              <div class="item warn">5w4 ระวัง: อย่าใช้ Ni แทน Fe — "ฉันรู้ว่าเขารู้สึกอะไร" ≠ "ฉันถามเขา"</div>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-amber">Si — Tertiary</span><span
+                class="btitle">Si Training — ระบบ นิสัย ความสม่ำเสมอ</span><span class="btag">วินัย</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item key">Si = หน่วยความจำกระบวนการ — สร้าง routine ให้ INFJ ไม่ต้อง burn energy กับสิ่งซ้ำๆ
+              </div>
+              <div class="item">📅 Habit Stack: ผูกนิสัยใหม่กับนิสัยเดิม "หลังอาบน้ำ → อ่าน 10 หน้า"</div>
+              <div class="item">📁 System ไม่ใช่ Willpower: ตั้งค่า default สภาพแวดล้อม ลดการตัดสินใจปลีกย่อย</div>
+              <div class="item">📝 Weekly Review ทุกวันอาทิตย์: ทบทวนสัปดาห์ที่ผ่านมา วางแผนสัปดาห์ใหม่</div>
+              <div class="item">🔄 ติดตาม Habit 3 อย่าง: ออกกำลังกาย / อ่าน / เขียน — สม่ำเสมอเหนือ intense</div>
+              <div class="item warn">5w4 ชอบ "ทำพรวดเดียว" — Si บอกว่า "ทำน้อยทุกวัน" ดีกว่า "ทำมากแล้วหายไป"</div>
+            </div>
+          </div>
+
+          <div class="block fn-block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-blue">Ne — Opposing</span><span
+                class="btitle">Ne Training — เปิดมุมมองใหม่ อย่า lock ใน Ni เดิม</span><span
+                class="btag">ความคิด</span><i class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item key">Ne = Opposing Role ของ INFJ — ไม่ใช่ศัตรู แต่คือ "นักวิจารณ์" ที่ช่วยทดสอบ Ni</div>
+              <div class="item">🎲 Brainstorm โดยเจตนา: ตั้งคำถาม "ถ้าฉันคิดผิดทั้งหมด ความจริงคืออะไร?"</div>
+              <div class="item">📚 อ่านมุมมองที่ขัดแย้งกับความเชื่อของตัวเอง — อย่าอ่านแค่ที่ Ni confirm</div>
+              <div class="item">🗺 ลอง Random Experience บ้าง: ร้านอาหารใหม่ เส้นทางใหม่ หนังสือ genre ใหม่</div>
+              <div class="item">💡 Devil's Advocate: โต้แย้ง Vision ตัวเองก่อนตัดสินใจใหญ่</div>
+              <div class="item warn">Ni ชอบ "รู้แล้ว" — Ne เตือนว่า "อาจจะมีมุมที่ยังไม่เห็น" — ใช้ Ne ตรวจสอบ Ni</div>
+            </div>
+          </div>
+
+          <div class="block grow-block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-rose">8 นำ → 1 ตรวจ</span><span
+                class="btitle">Enneagram 8→1 — ลำดับที่ถูกต้อง</span><span class="btag">บูรณาการ</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item key">หลักการ: 8 นำก่อน → 1 ตรวจทีหลัง — ห้ามสลับ มิฉะนั้น 1 จะฆ่า momentum ของ 8</div>
+              <div class="item warn">INFJ 5w4 มักทำกลับกัน: ใช้ 1 ก่อน (วิเคราะห์ หาความถูกต้อง) จนไม่เคยถึงจุดที่ใช้ 8
+                เลย</div>
+              <div class="item key">— ช่วง ลงมือ (ใช้ 8) —</div>
+              <div class="item">💥 เริ่มทำเลยแม้ยังไม่แน่ใจ 100% — กล้าตัดสินใจด้วยข้อมูล 70%</div>
+              <div class="item">🗣 เมื่อรู้ว่าถูก — พูดออกมาทันที อย่ารอ อย่าขออนุญาต อย่า over-explain</div>
+              <div class="item">🔥 ปฏิเสธ ขัดแย้ง ยืนหยัด — ทำก่อน คิดทีหลัง ไม่ใช่คิดแล้วก็ไม่ทำ</div>
+              <div class="item">🏃 take up space: นั่งเต็มที่ พูดให้ได้ยิน เดินเข้าห้องแบบรู้ว่าตัวเองมีพื้นที่</div>
+              <div class="item key">— ช่วง ทบทวน (ใช้ 1) —</div>
+              <div class="item">🧭 Reflection Journal ก่อนนอน: "วันนี้ที่ทำ — สอดคล้องกับค่านิยมไหม?"</div>
+              <div class="item">⚖ ถ้าทำผิดพลาด — รับผิดชอบ ปรับ แล้วไปต่อ ไม่ใช่ลงโทษตัวเองวนซ้ำ</div>
+              <div class="item">📐 1 ตรวจทิศทาง ไม่ใช่ตรวจทุกก้าว — weekly review ไม่ใช่ทุก micro-decision</div>
+              <div class="item warn">ระวัง 8 ติดลบ: ถ้ารู้สึกว่าต้องควบคุมทุกอย่าง / ทำให้คนกลัว = 1 ยังไม่ได้ตรวจ</div>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-indigo">รายวัน</span><span
+                class="btitle">เอา Cognitive Growth เข้าตาราง — ทำได้เลยวันนี้</span><span class="btag">ปฏิบัติ</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item key">ไม่ต้องเพิ่มเวลา — แทรกเข้าไปในช่วงที่มีอยู่แล้ว</div>
+              <div class="item">🌅 04:00 Morning Block → Se: ออกรับแสงข้างนอก 5 นาทีก่อนนั่งทำงาน</div>
+              <div class="item">💼 Deep Work Block → Te: ตั้ง Goal + Metric ก่อนเริ่ม บันทึก Output หลังจบ</div>
+              <div class="item">🧘 Power Nap หลัง Dhuhr → Si: ทบทวนงานเช้า 2 นาทีก่อน Nap</div>
+              <div class="item">🌙 Intellectual Flow → Ne: 1 วัน/สัปดาห์ อ่านหัวข้อที่ขัดกับความเชื่อตัวเอง</div>
+              <div class="item">📓 Reflection Journal ก่อนนอน → ถามด้วย 1: "วันนี้ที่ทำ — สอดคล้องกับค่านิยมไหม?"
+                (ไม่ใช่ถามก่อนทำ)</div>
+              <div class="item warn">ฝึกทีละ Function — เลือก 1 function ฝึก 30 วัน แล้วค่อยเพิ่ม
+                ไม่ใช่เปลี่ยนทุกอย่างพร้อมกัน</div>
+            </div>
+          </div>
+
+          <div class="block fn-block">
+            <div class="block-head" onclick="tog(this)"><span class="time-pill tp-indigo">วัดผล</span><span
+                class="btitle">สัญญาณว่าคุณกำลังเติบโตจริงๆ</span><span class="btag">ประเมิน</span><i
+                class="ti ti-chevron-down chev"></i></div>
+            <div class="bbody">
+              <div class="item key">Se เติบโต: วิตกน้อยลง อยู่กับปัจจุบันได้ ไม่ถูก Grip ง่าย</div>
+              <div class="item key">Te เติบโต: Project ที่คิดไว้ถูก execute จริง ไม่ใช่แค่ plan</div>
+              <div class="item key">8→1 บูรณาการ: ลงมือได้ก่อน (8) แล้วทบทวนทีหลัง (1) — ไม่ใช่วิเคราะห์จนไม่ลงมือ</div>
+              <div class="item">Ni ยังแข็งแกร่ง แต่ "เชื่อมพื้นโลก" ได้มากขึ้น — vision มี execution</div>
+              <div class="item">Fe ใช้จากพลัง ไม่ใช่จากความกลัว — ช่วยคนเพราะอยากช่วย ไม่ใช่ต้องช่วย</div>
+              <div class="item warn">ถ้าเหนื่อยมากผิดปกติ = อาจ Force function ที่ยังไม่พร้อม — ลดความเข้มข้น
+                ไม่ใช่เลิกฝึก</div>
+            </div>
+          </div>
+
+        </div>
+        <!-- END GROWTH TAB -->
+
+      </div>
+    </main>
+  </div>
+
+
+  <!-- ════════════════════════════════════
+     PAGE: MVP DAY
+════════════════════════════════════ -->
+  <div id="page-mvpday" class="page-panel">
+    <main class="mvp-main">
+      <div class="mvp-wrap">
+
+        <!-- Task input -->
+        <div class="mvp-task-card">
+          <div class="mvp-task-top">
+            <label class="mvp-task-label" for="task-input">⚡ งานสำคัญวันนี้ — แค่ 1 อย่าง</label>
+            <button class="mvp-reset" onclick="resetDay()">↺ รีเซ็ต</button>
+          </div>
+          <input class="mvp-task-input" id="task-input" type="text" placeholder="วันนี้ทำแค่นี้ให้เสร็จ..."
+            maxlength="80" oninput="saveTask()">
+        </div>
+
+        <!-- Progress + Stats -->
+        <div class="mvp-progress-card">
+          <div class="mvp-stats-row">
+            <div class="mvp-stat">
+              <div class="mvp-stat-v" id="s-done">0</div>
+              <div class="mvp-stat-l">เสร็จแล้ว</div>
+            </div>
+            <div class="mvp-stat-divider"></div>
+            <div class="mvp-stat">
+              <div class="mvp-stat-v" id="s-total">0</div>
+              <div class="mvp-stat-l">ทั้งหมด</div>
+            </div>
+            <div class="mvp-stat-divider"></div>
+            <div class="mvp-stat">
+              <div class="mvp-stat-v mvp-stat-pct" id="s-pct">0%</div>
+              <div class="mvp-stat-l">คืบหน้า</div>
+            </div>
+          </div>
+          <div class="mvp-prog-wrap">
+            <div class="mvp-prog">
+              <div class="mvp-prog-fill" id="prog-fill" style="width:0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mode selector -->
+        <div class="mvp-mode-group">
+          <button class="mvp-mbt active" id="mb-all" onclick="setMode('all')">
+            <span class="mvp-mbt-icon">📋</span><span class="mvp-mbt-txt">ทุกอย่าง</span>
+          </button>
+          <button class="mvp-mbt" id="mb-core" onclick="setMode('core')">
+            <span class="mvp-mbt-icon">🎯</span><span class="mvp-mbt-txt">Core เท่านั้น</span>
+          </button>
+          <button class="mvp-mbt" id="mb-crash" onclick="setMode('crash')">
+            <span class="mvp-mbt-icon">🔥</span><span class="mvp-mbt-txt">Crash Mode</span>
+          </button>
+        </div>
+
+        <!-- Crash banner -->
+        <div id="survival-wrap" style="display:none">
+          <div class="mvp-crash-banner">
+            <div class="mvp-crash-icon">🔥</div>
+            <div>
+              <div class="mvp-crash-title">Crash Mode — วันนี้พังก็โอเค</div>
+              <div class="mvp-crash-sub">ทำแค่รายการนี้แล้วนับว่าวันนี้ผ่าน — ที่เหลือทั้งหมดเป็น bonus</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Checklist blocks -->
+        <div id="blocks-wrap"></div>
+
+        <!-- Streak card (moved to bottom) -->
+        <div class="mvp-streak-card">
+          <div class="mvp-streak-header">
+            <div class="mvp-streak-left">
+              <span class="mvp-streak-flame">🔥</span>
+              <div>
+                <div class="mvp-streak-num-row">
+                  <span class="mvp-streak-num" id="streak-num">0</span>
+                  <span class="mvp-streak-unit">วัน</span>
+                </div>
+                <div class="mvp-streak-sub" id="streak-sub">เริ่มวันนี้เลย</div>
+              </div>
+            </div>
+            <button class="mvp-core-btn" id="core-done-btn" onclick="markCoreToday()">Core ครบวันนี้</button>
+          </div>
+          <div class="mvp-streak-meta" id="streak-meta"></div>
+          <div class="mvp-streak-dots" id="streak-dots"></div>
+          <div class="mvp-streak-legend">
+            <span class="mvp-legend-item"><span class="mvp-legend-dot mvp-dot-done"></span>ครบ</span>
+            <span class="mvp-legend-item"><span class="mvp-legend-dot mvp-dot-miss"></span>พลาด</span>
+            <span class="mvp-legend-item"><span class="mvp-legend-dot mvp-dot-today"></span>วันนี้</span>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const headers = {
+      checklist: { deco: 'GTD', eyebrow: 'รายการเตือนความจำ — สิ่งที่ยังค้างอยู่', title: 'งาน <em>&</em> ชีวิต', sub: 'ทุกสิ่งที่ต้องดูแล ครบในที่เดียว' },
+      routine: { deco: 'ROUTINE', eyebrow: 'ตารางเวลา — 5w4 Lifestyle', title: 'รูทีน <em>&</em> การนอน', sub: 'ออกแบบมาสำหรับ INFJ 5w4 sp/sx' },
+      mvpday: { deco: 'MVP', eyebrow: 'วันที่พังได้ แต่ยังไม่พังชีวิต', title: 'MVP <em>Day</em>', sub: 'ทำให้เสร็จแค่สิ่งที่สำคัญ — ส่วนที่เหลือเป็น bonus' },
+    };
+
+    function showPage(id, el) {
+      document.querySelectorAll('.page-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+      document.getElementById('page-' + id).classList.add('active');
+      el.classList.add('active');
+      const h = headers[id];
+      document.getElementById('header-deco').textContent = h.deco;
+      document.getElementById('header-eyebrow').textContent = h.eyebrow;
+      document.getElementById('header-title').innerHTML = h.title;
+      document.getElementById('header-sub').textContent = h.sub;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function switchTab(id, el, page) {
+      const parent = document.getElementById('page-' + page);
+      parent.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+      parent.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      const panel = document.getElementById(id);
+      panel.classList.add('active');
+      panel.querySelectorAll('.cat-card').forEach((c, i) => {
+        c.style.animation = 'none'; c.offsetHeight;
+        c.style.animation = '';
+        c.style.animationDelay = (i * 0.04) + 's';
+      });
+    }
+
+    function rSwitchTab(t) {
+      document.querySelectorAll('.tb').forEach(b => {
+        b.classList.toggle('active', (t === 'weekday' && b.textContent.trim() === 'วันธรรมดา') || (t === 'weekend' && b.textContent.includes('วันหยุด')) || (t === 'growth' && b.textContent.includes('พัฒนาตัวเอง')));
+      });
+      document.getElementById('blocks-weekday').style.display = t === 'weekday' ? 'block' : 'none';
+      document.getElementById('blocks-weekend').style.display = t === 'weekend' ? 'block' : 'none';
+      document.getElementById('blocks-growth').style.display = t === 'growth' ? 'block' : 'none';
+      document.getElementById('stats-weekday').style.display = t === 'weekday' ? 'grid' : 'none';
+      document.getElementById('stats-weekend').style.display = t === 'weekend' ? 'grid' : 'none';
+      document.getElementById('note-weekday').style.display = t === 'weekday' ? 'block' : 'none';
+      document.getElementById('note-weekend').style.display = t === 'weekend' ? 'block' : 'none';
+      document.getElementById('note-growth').style.display = t === 'growth' ? 'block' : 'none';
+    }
+
+    function tog(el) {
+      const b = el.nextElementSibling;
+      const c = el.querySelector('.chev');
+      b.classList.toggle('open');
+      c.classList.toggle('open');
+    }
+
+    /* ── MVP DAY LOGIC ── */
+    const BLOCKS = [
+      {
+        id: 'wake', time: '04:00', title: 'ตื่น + Ground', items: [
+          { id: 'w1', core: true, crash: true, faith: false, txt: 'ดื่มน้ำ (วางไว้คืนก่อน)' },
+          { id: 'w2', core: true, crash: false, faith: false, txt: 'เขียนระบาย 3–5 ประโยค' },
+          { id: 'w3', core: false, crash: false, faith: false, txt: 'ทำวุฎูอ์ด้วยน้ำเย็น' },
+          { id: 'w4', core: true, crash: true, faith: false, txt: 'ห้ามเปิดโทรศัพท์จนเสร็จ Fajr' },
+        ]
+      },
+      {
+        id: 'fajr', time: '04:44', title: 'Fajr — 1 โครงศาสนา', items: [
+          { id: 'f1', core: true, crash: true, faith: true, txt: 'ละหมาดซุบฮิ' },
+          { id: 'f2', core: true, crash: false, faith: true, txt: 'อัซการยามเช้า' },
+          { id: 'f3', core: false, crash: false, faith: true, txt: 'อ่านอัลกุรอาน 10 นาที' },
+          { id: 'f4', core: false, crash: false, faith: false, txt: 'นั่งนิ่ง ปล่อย Ni 5 นาที' },
+        ]
+      },
+      {
+        id: 'body', time: '05:00', title: 'ปลุกกาย', items: [
+          { id: 'b1', core: true, crash: false, faith: false, txt: 'ขยับร่างกาย 10 นาที' },
+          { id: 'b2', core: true, crash: true, faith: false, txt: 'อาหารเช้า (ไม่ข้าม)' },
+          { id: 'b3', core: false, crash: false, faith: false, txt: 'รับแสงเช้า อาบน้ำ สกินแคร์' },
+        ]
+      },
+      {
+        id: 'work', time: '06:00', title: 'งานสำคัญ 1 อย่าง — แค่นั้น', items: [
+          { id: 'k1', core: true, crash: true, faith: false, txt: 'ทำงานที่เขียนไว้ด้านบน 60–90 นาที' },
+          { id: 'k2', core: false, crash: false, faith: false, txt: 'เช็กอีเมล/แชตหลังจบ ไม่เกิน 10 นาที' },
+        ]
+      },
+      {
+        id: 'dhuhr', time: '12:16', title: 'Dhuhr + รีชาร์จ', items: [
+          { id: 'd1', core: true, crash: true, faith: true, txt: 'ละหมาดดุฮ์ริ' },
+          { id: 'd2', core: true, crash: true, faith: false, txt: 'กินข้าวห่างจากหน้าจอ' },
+          { id: 'd3', core: true, crash: false, faith: false, txt: 'นอน 20 นาที' },
+        ]
+      },
+      {
+        id: 'aft', time: '13:00', title: 'บ่าย — single task', items: [
+          { id: 'a1', core: true, crash: false, faith: false, txt: 'งานที่ต้องความแม่นยำ ทีละอย่าง' },
+          { id: 'a2', core: false, crash: false, faith: false, txt: 'เคลียร์อีเมล จัดโฟลเดอร์' },
+        ]
+      },
+      {
+        id: 'asr', time: '15:43', title: 'Asr + ปิดงาน', items: [
+          { id: 'sr1', core: true, crash: true, faith: true, txt: 'ละหมาดอัศริ' },
+          { id: 'sr2', core: true, crash: true, faith: false, txt: 'จด 1 ประโยค: วันนี้ทำ ___ เสร็จแล้ว' },
+          { id: 'sr3', core: false, crash: false, faith: false, txt: 'ส่งงาน แจ้งสถานะ' },
+        ]
+      },
+      {
+        id: 'down', time: '16:00', title: 'ลดแรงดัน', items: [
+          { id: 'dn1', core: true, crash: true, faith: false, txt: 'ห้ามเริ่มงานใหม่' },
+          { id: 'dn2', core: false, crash: false, faith: false, txt: 'อัซการยามเย็น' },
+          { id: 'dn3', core: false, crash: false, faith: false, txt: 'เดินเล่น เสียงธรรมชาติ ปล่อย Ni' },
+        ]
+      },
+      {
+        id: 'magh', time: '18:32', title: 'Maghrib', items: [
+          { id: 'mg1', core: true, crash: true, faith: true, txt: 'ละหมาดมัฆริบ' },
+          { id: 'mg2', core: false, crash: false, faith: false, txt: 'ถอดชุดทำงาน อาบน้ำ พรมน้ำหอม' },
+        ]
+      },
+      {
+        id: 'eve', time: '19:00', title: 'มื้อค่ำ + ดูแลตัวเอง', items: [
+          { id: 'ev1', core: true, crash: true, faith: false, txt: 'กินข้าวผ่อนคลาย ไม่คุยเรื่องงาน' },
+          { id: 'ev2', core: false, crash: false, faith: false, txt: 'สกินแคร์เต็มรูปแบบ' },
+        ]
+      },
+      {
+        id: 'isha', time: '19:44', title: 'Isha', items: [
+          { id: 'is1', core: true, crash: true, faith: true, txt: 'ละหมาดอีชาอ์' },
+          { id: 'is2', core: false, crash: false, faith: true, txt: 'ดุอาอ์ปล่อยวาง' },
+        ]
+      },
+      {
+        id: 'flow', time: '19:45', title: 'Intellectual Flow (optional วันพัง)', items: [
+          { id: 'fl1', core: false, crash: false, faith: false, txt: 'Personal Project 30–60 นาที' },
+          { id: 'fl2', core: false, crash: false, faith: false, txt: 'ตั้งเป้าก่อน: "คืนนี้ทำแค่___"' },
+        ]
+      },
+      {
+        id: 'sleep', time: '21:00', title: 'Gateway to Sleep', items: [
+          { id: 'sl1', core: true, crash: true, faith: false, txt: 'Reflection 1 ประโยค: วันนี้ขอบคุณ___' },
+          { id: 'sl2', core: true, crash: false, faith: true, txt: 'ทำวุฎูอ์ + อ่านอายะฮ์กุรซีย์' },
+          { id: 'sl3', core: false, crash: false, faith: false, txt: 'Yin Yoga + ชาคาโมมายล์' },
+        ]
+      },
+      {
+        id: 'bed', time: '21:30', title: 'นอน', items: [
+          { id: 'bd1', core: true, crash: true, faith: false, txt: 'วางโทรศัพท์ไกล เปิด DND ตั้งปลุก 04:00' },
+          { id: 'bd2', core: false, crash: false, faith: false, txt: 'White Noise + Body Scan' },
+        ]
+      },
+    ];
+
+    const mvpState = {};
+    let mvpMode = 'all';
+    let mvpStreakData = [];
+    let mvpTodayTask = '';
+
+    function todayKey() {
+      const d = new Date();
+      return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    }
+
+    async function loadStorage() {
+      try { const r = await window.storage.get('mvp_streak'); if (r) mvpStreakData = JSON.parse(r.value); } catch (e) { mvpStreakData = []; }
+      try { const r = await window.storage.get('mvp_task'); if (r) { mvpTodayTask = r.value; const el = document.getElementById('task-input'); if (el) el.value = mvpTodayTask; } } catch (e) { }
+      try { const r = await window.storage.get('mvp_checks'); if (r) { const s = JSON.parse(r.value); Object.assign(mvpState, s); } } catch (e) { }
+      renderStreak();
+      render();
+    }
+
+    async function saveTask() {
+      mvpTodayTask = document.getElementById('task-input').value;
+      try { await window.storage.set('mvp_task', mvpTodayTask); } catch (e) { }
+    }
+
+    async function saveChecks() {
+      try { await window.storage.set('mvp_checks', JSON.stringify(mvpState)); } catch (e) { }
+    }
+
+    async function markCoreToday() {
+      const key = todayKey();
+      if (!mvpStreakData.find(d => d.date === key)) {
+        mvpStreakData.push({ date: key, done: true });
+        if (mvpStreakData.length > 28) mvpStreakData = mvpStreakData.slice(-28);
+        try { await window.storage.set('mvp_streak', JSON.stringify(mvpStreakData)); } catch (e) { }
+      }
+      renderStreak();
+    }
+
+    function calcStreak() {
+      if (!mvpStreakData.length) return 0;
+      const sorted = [...mvpStreakData].sort((a, b) => b.date.localeCompare(a.date));
+      let count = 0, prev = null;
+      for (const d of sorted) {
+        if (!prev) { prev = d.date; count = 1; continue; }
+        const diff = (new Date(prev) - new Date(d.date)) / (1000 * 60 * 60 * 24);
+        if (diff <= 2) { count++; prev = d.date; } else break;
+      }
+      return count;
+    }
+
+    function renderStreak() {
+      const streak = calcStreak();
+      const sn = document.getElementById('streak-num'); if (sn) sn.textContent = streak;
+      const key = todayKey();
+      const doneToday = !!mvpStreakData.find(d => d.date === key);
+      const ss = document.getElementById('streak-sub'); if (ss) ss.textContent = streak === 0 ? 'เริ่มวันนี้เลย' : streak === 1 ? 'วัน — เริ่มต้นแล้ว' : 'วัน — ยังไม่พัง';
+      const sm = document.getElementById('streak-meta'); if (sm) sm.textContent = doneToday ? 'Core ครบวันนี้แล้ว' : 'กดเมื่อ Core ครบวันนี้';
+      const cb = document.getElementById('core-done-btn'); if (cb) { cb.textContent = doneToday ? 'ครบแล้ว' : 'Core ครบวันนี้'; cb.disabled = doneToday; }
+      const dotsEl = document.getElementById('streak-dots'); if (!dotsEl) return;
+      dotsEl.innerHTML = '';
+      const last14 = [];
+      for (let i = 13; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); last14.push(d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate()); }
+      last14.forEach(dk => {
+        const done = !!mvpStreakData.find(s => s.date === dk);
+        const isToday = dk === key;
+        const dot = document.createElement('div');
+        dot.className = 'mvp-dot ' + (done ? 'mvp-dot-done' : 'mvp-dot-miss') + (isToday ? ' mvp-dot-today' : '');
+        dot.textContent = new Date(dk).getDate(); dot.title = dk;
+        dotsEl.appendChild(dot);
+      });
+    }
+
+    function setMode(m) {
+      mvpMode = m;
+      ['all', 'core', 'crash'].forEach(x => document.getElementById('mb-' + x).classList.toggle('active', x === m));
+      document.getElementById('survival-wrap').style.display = m === 'crash' ? 'block' : 'none';
+      render();
+    }
+
+    function visibleItems() {
+      return BLOCKS.flatMap(b => b.items.filter(it => {
+        if (mvpMode === 'core') return it.core;
+        if (mvpMode === 'crash') return it.crash;
+        return true;
+      }));
+    }
+
+    function updateStats() {
+      const vis = visibleItems();
+      const done = vis.filter(it => mvpState[it.id]).length;
+      const sd = document.getElementById('s-done'); if (sd) sd.textContent = done;
+      const st = document.getElementById('s-total'); if (st) st.textContent = vis.length;
+      const p = vis.length ? Math.round(done / vis.length * 100) : 0;
+      const sp = document.getElementById('s-pct'); if (sp) sp.textContent = p + '%';
+      const pf = document.getElementById('prog-fill'); if (pf) pf.style.width = p + '%';
+    }
+
+    function toggle(id) {
+      mvpState[id] = !mvpState[id];
+      const chk = document.getElementById('chk-' + id);
+      const txt = document.getElementById('txt-' + id);
+      if (chk) { chk.classList.toggle('mvp-done', !!mvpState[id]); chk.textContent = mvpState[id] ? '✓' : ''; }
+      if (txt) { txt.classList.toggle('mvp-done', !!mvpState[id]); }
+      updateStats(); saveChecks();
+    }
+
+    function togBody(id) {
+      const body = document.getElementById('body-' + id);
+      const chev = document.getElementById('chev-' + id);
+      if (!body || !chev) return;
+      const open = body.classList.contains('mvp-open');
+      body.classList.toggle('mvp-open', !open);
+      chev.classList.toggle('mvp-open', !open);
+    }
+
+    function render() {
+      const wrap = document.getElementById('blocks-wrap'); if (!wrap) return;
+      wrap.innerHTML = '';
+      BLOCKS.forEach(blk => {
+        const vis = blk.items.filter(it => {
+          if (mvpMode === 'core') return it.core;
+          if (mvpMode === 'crash') return it.crash;
+          return true;
+        });
+        if (!vis.length) return;
+        const sec = document.createElement('div'); sec.className = 'mvp-section';
+        const head = document.createElement('div'); head.className = 'mvp-shead'; head.onclick = () => togBody(blk.id);
+        const hasCore = vis.some(i => i.core);
+        const hasFaith = vis.some(i => i.faith);
+        const pills = mvpMode === 'all' ? (hasCore ? '<span class="mvp-pill mvp-p-core" style="margin-right:4px">core</span>' : '') + (hasFaith ? '<span class="mvp-pill mvp-p-faith">ศาสนา</span>' : '') : '';
+        head.innerHTML = `<span class="mvp-stime">${blk.time}</span><span class="mvp-stitle">${blk.title}</span>${pills}<i class="ti ti-chevron-down mvp-schev" id="chev-${blk.id}"></i>`;
+        const body = document.createElement('div'); body.className = 'mvp-sbody'; body.id = 'body-' + blk.id;
+        vis.forEach(it => {
+          const row = document.createElement('div'); row.className = 'mvp-row'; row.onclick = () => toggle(it.id);
+          const isCore = it.core && mvpMode === 'all';
+          row.innerHTML = `<div class="mvp-row-check${mvpState[it.id] ? ' mvp-done' : ''}" id="chk-${it.id}">${mvpState[it.id] ? '✓' : ''}</div>${isCore ? '<div class="mvp-core-bar"></div>' : ''}<span class="mvp-row-txt${it.core ? ' mvp-core-txt' : ''}${mvpState[it.id] ? ' mvp-done' : ''}" id="txt-${it.id}">${it.txt}</span>`;
+          body.appendChild(row);
+        });
+        sec.appendChild(head); sec.appendChild(body); wrap.appendChild(sec);
+      });
+      updateStats();
+    }
+
+    async function resetDay() {
+      Object.keys(mvpState).forEach(k => { mvpState[k] = false; });
+      const ti = document.getElementById('task-input'); if (ti) ti.value = '';
+      mvpTodayTask = '';
+      try { await window.storage.set('mvp_task', ''); } catch (e) { }
+      try { await window.storage.set('mvp_checks', JSON.stringify({})); } catch (e) { }
+      render();
+    }
+
+    // Init MVP when page switches to it — patch showPage after declaration
+    const _origShowPage2 = showPage;
+    showPage = function (id, el) {
+      _origShowPage2(id, el);
+      if (id === 'mvpday') { loadStorage(); }
+    };
+  </script>
+</body>
+
+</html>
