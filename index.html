@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>space ของอาดื้อ 🧸✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -12,30 +12,32 @@
             --envelope-inside: #fcd5ce;
             --letter-color: #fffbfa;
             --text-color: #5c4d4d;
+            --primary-pink: #ff6b81;
+            --success-green: #2ecc71;
         }
 
-        /* ล็อกไม่ให้หน้าจอขยับเบี้ยวซ้ายขวาบนมือถือ */
         html, body {
             width: 100%;
             max-width: 100%;
             overflow-x: hidden;
-        }
-
-        body {
             margin: 0;
             padding: 0;
             background-color: var(--bg-color);
             font-family: 'Mali', cursive;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow-y: auto;
-            position: relative;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* --- เอฟเฟกต์หัวใจฟุ้งในพื้นหลัง --- */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 95px; /* เว้นระยะด้านล่างไม่ให้บังเมนู */
+            box-sizing: border-box;
+        }
+
+        /* --- พื้นหลังหัวใจฟุ้ง --- */
         .hearts-bg {
             position: absolute;
             width: 100%;
@@ -44,12 +46,12 @@
             top: 0;
             left: 0;
             z-index: 0;
+            pointer-events: none;
         }
 
         .heart-particle {
             position: absolute;
             display: block;
-            list-style: none;
             background-color: rgba(255, 182, 193, 0.4);
             animation: floatUp 15s linear infinite;
             bottom: -150px;
@@ -61,14 +63,37 @@
             100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
         }
 
-        /* --- โครงสร้างซองจดหมาย --- */
+        /* --- ระบบสลับหน้าจอ (Tab Pages) --- */
+        .page {
+            display: none; 
+            width: 100%;
+            max-width: 450px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            padding: 20px;
+            box-sizing: border-box;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .page.active {
+            display: flex; 
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ================= PAGE 1: LETTER ================= */
         .container {
             position: relative;
             cursor: pointer;
-            z-index: 1;
             width: 300px;
             height: 200px;
-            margin-top: 80px; 
+            margin-top: 100px; 
+            transition: margin-top 0.5s ease;
         }
 
         .envelope-wrapper {
@@ -81,12 +106,10 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.08);
         }
 
-        /* ฝาบนของซอง */
         .envelope-wrapper::before {
             content: "";
             position: absolute;
-            top: 0;
-            z-index: 3;
+            top: 0; z-index: 3;
             border-top: 100px solid var(--envelope-color);
             border-left: 150px solid transparent;
             border-right: 150px solid transparent;
@@ -94,13 +117,10 @@
             transition: transform 0.4s ease-in-out 0.2s;
         }
 
-        /* ฝาล่างและขอบข้างของซอง */
         .envelope-wrapper::after {
             content: "";
-            position: absolute;
-            z-index: 2;
-            width: 0;
-            height: 0;
+            position: absolute; z-index: 2;
+            width: 0; height: 0;
             border-top: 100px solid transparent;
             border-left: 150px solid var(--envelope-inside);
             border-right: 150px solid var(--envelope-inside);
@@ -109,37 +129,28 @@
             border-bottom-right-radius: 10px;
         }
 
-        /* สติกเกอร์หัวใจตรงกลาง */
         .heart-seal {
             position: absolute;
-            top: 80px;
-            left: 130px;
-            width: 40px;
-            height: 40px;
-            background-color: #ff6b81;
+            top: 80px; left: 130px;
+            width: 40px; height: 40px;
+            background-color: var(--primary-pink);
             z-index: 4;
             transform: rotate(-45deg);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             transition: transform 0.4s ease-in-out 0.2s, opacity 0.3s;
         }
         .heart-seal::before, .heart-seal::after {
-            content: "";
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background-color: #ff6b81;
+            content: ""; position: absolute;
+            width: 40px; height: 40px;
+            background-color: var(--primary-pink);
             border-radius: 50%;
         }
         .heart-seal::before { top: -20px; left: 0; }
         .heart-seal::after { left: 20px; top: 0; }
 
-        /* ตัวกระดาษจดหมายด้านใน */
         .letter {
             position: absolute;
-            top: 10px; 
-            left: 10px;
-            width: 280px;
-            height: 180px; 
+            top: 10px; left: 10px;
+            width: 280px; height: 180px; 
             background-color: var(--letter-color);
             z-index: 1;
             padding: 15px 10px;
@@ -151,7 +162,6 @@
             overflow-y: auto; 
         }
 
-        /* รูปโพลารอยด์หลักในจดหมาย */
         .polaroid {
             background: white;
             padding: 6px 6px 12px 6px;
@@ -161,27 +171,10 @@
             width: 110px;
             text-align: center;
         }
+        .polaroid img { width: 100%; height: 90px; object-fit: cover; }
+        .polaroid-text { font-size: 9px; color: #8e8d8a; margin-top: 3px; }
+        .letter-text { text-align: center; font-size: 13px; line-height: 1.5; margin-top: 8px; }
 
-        .polaroid img {
-            width: 100%;
-            height: 90px;
-            object-fit: cover;
-        }
-
-        .polaroid-text {
-            font-size: 9px;
-            color: #8e8d8a;
-            margin-top: 3px;
-        }
-
-        .letter-text {
-            text-align: center;
-            font-size: 13px;
-            line-height: 1.5;
-            margin-top: 8px;
-        }
-
-        /* --- 📸 ส่วนตกแต่งรูปถ่ายรอบนอก (Floating Polaroids) --- */
         .deco-photo {
             position: absolute;
             background: white;
@@ -194,157 +187,342 @@
             transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             pointer-events: none;
         }
+        .deco-photo img { width: 100%; height: 85px; object-fit: cover; }
+        .deco-text { font-size: 10px; color: var(--primary-pink); margin-top: 4px; }
 
-        .deco-photo img {
-            width: 100%;
-            height: 85px;
-            object-fit: cover;
-        }
-
-        .deco-text {
-            font-size: 10px;
-            color: #ff6b81;
-            margin-top: 4px;
-        }
-
-        /* ตำแหน่งเริ่มต้นตอนซ่อนอยู่ตรงกลาง */
         .p1 { left: 50px; top: 50px; transform: scale(0) rotate(-30deg); }
         .p2 { left: 50px; top: 50px; transform: scale(0) rotate(30deg); }
         .p3 { right: 50px; top: 50px; transform: scale(0) rotate(25deg); }
         .p4 { right: 50px; top: 50px; transform: scale(0) rotate(-25deg); }
 
-        /* ---- 🚀 สำหรับหน้าจอคอมพิวเตอร์ (กระจายออกกว้างๆ สวยงาม) ---- */
-        .container.open .p1 { opacity: 1; left: -140px; top: -60px; transform: scale(1) rotate(-12deg); }
-        .container.open .p2 { opacity: 1; left: -130px; top: 120px; transform: scale(1) rotate(8deg); }
-        .container.open .p3 { opacity: 1; right: -140px; top: -40px; transform: scale(1) rotate(15deg); }
-        .container.open .p4 { opacity: 1; right: -130px; top: 140px; transform: scale(1) rotate(-10deg); }
+        .container.open .p1 { opacity: 1; left: -140px; top: -60px; transform: scale(1) rotate(-12deg); z-index: 12; }
+        .container.open .p2 { opacity: 1; left: -130px; top: 120px; transform: scale(1) rotate(8deg); z-index: 12; }
+        .container.open .p3 { opacity: 1; right: -140px; top: -40px; transform: scale(1) rotate(15deg); z-index: 12; }
+        .container.open .p4 { opacity: 1; right: -130px; top: 140px; transform: scale(1) rotate(-10deg); z-index: 12; }
 
-        /* ดันรูปมาซ้อนทับอยู่ด้านหน้าขอบจดหมายเล็กน้อยเพื่อความเลเยอร์สไตล์สมุดภาพ */
-        .container.open .deco-photo {
-            z-index: 12;
-        }
+        .container.open .envelope-wrapper::before { transform: rotateX(180deg); z-index: 0; }
+        .container.open .heart-seal { transform: rotate(-45deg) scale(0); opacity: 0; }
+        .container.open .letter { transform: translateY(-140px); height: 320px; z-index: 10; }
 
-        /* ---- 📱 ⚡ โค้ดแก้ไขด่วนสำหรับหน้าจอมือถือ (Responsive Fix) ⚡ ---- */
-        @media (max-width: 600px) {
-            .container {
-                margin-top: 170px; /* เพิ่มพื้นที่ด้านบนเพื่อให้รูปด้านบนไม่หลุดขอบจอ */
-                margin-bottom: 30px;
-            }
+        .hint { text-align: center; color: #a89f91; font-size: 14px; margin-top: 45px; animation: bounce 1s infinite alternate; }
 
-            /* ย่อขนาดโพลารอยด์รอบนอกให้เล็กลงพอดีกับความกว้างของจอมือถือ */
-            .deco-photo {
-                width: 82px;
-                padding: 4px 4px 10px 4px;
-            }
-            .deco-photo img {
-                height: 68px;
-            }
-
-            /* เปลี่ยนตำแหน่งให้มาเกาะมุมซ้าย-ขวา ของจดหมายและซองพอดี ไม่ล้นออกนอกจอ */
-            .container.open .p1 { opacity: 1; left: -20px; top: -150px; transform: scale(1) rotate(-10deg); } /* บนซ้าย */
-            .container.open .p2 { opacity: 1; left: -15px; top: 140px; transform: scale(1) rotate(6deg); }   /* ล่างซ้าย */
-            .container.open .p3 { opacity: 1; right: -20px; top: -135px; transform: scale(1) rotate(12deg); } /* บนขวา */
-            .container.open .p4 { opacity: 1; right: -15px; top: 155px; transform: scale(1) rotate(-8deg); }  /* ล่างขวา */
-            
-            .hint {
-                margin-top: 55px; /* เว้นระยะคำใบ้ด้านล่างให้สวยงาม */
-            }
-        }
-
-        .hint {
+        /* ================= PAGE 2: COUNTER ================= */
+        .counter-card {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             text-align: center;
-            color: #a89f91;
+            width: 100%;
+            color: var(--text-color);
+            margin-top: 30px;
+        }
+        .counter-title { font-size: 15px; margin: 0 0 10px 0; color: #a89f91; }
+        .big-heart { font-size: 45px; color: var(--primary-pink); animation: pulse 1.2s infinite; margin: 10px 0; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.12); } 100% { transform: scale(1); } }
+        .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 20px; }
+        .timer-box { background: #fff0ed; padding: 10px 3px; border-radius: 12px; border: 1px dashed var(--envelope-color); }
+        .timer-num { font-size: 19px; font-weight: bold; color: var(--primary-pink); }
+        .timer-label { font-size: 11px; color: #a89f91; margin-top: 2px; }
+
+        /* ================= 🎮 PAGE 3: MINI QUIZ ================= */
+        .quiz-card {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            width: 100%;
+            color: var(--text-color);
+            margin-top: 30px;
+        }
+        .quiz-box { display: none; }
+        .quiz-box.active { display: block; }
+        
+        .quiz-progress { font-size: 12px; color: #a89f91; margin-bottom: 5px; }
+        .quiz-question { font-size: 16px; font-weight: bold; margin-bottom: 20px; color: var(--text-color); }
+        
+        .btn-option {
+            display: block;
+            width: 100%;
+            background: #fffbfa;
+            border: 2px solid #fbc4ab;
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            font-family: 'Mali', cursive;
             font-size: 14px;
-            margin-top: 45px;
-            z-index: 5;
-            animation: bounce 1s infinite alternate;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+        .btn-option:active { transform: scale(0.98); }
+        
+        /* หน้าจอผลลัพธ์เกม */
+        .quiz-result {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+        .reward-badge {
+            background: #fff0ed;
+            border: 2px dashed var(--primary-pink);
+            padding: 15px;
+            border-radius: 15px;
+            margin: 15px 0;
+            font-size: 15px;
+            color: var(--primary-pink);
+            font-weight: bold;
         }
 
-        @keyframes bounce {
-            to { transform: translateY(-5px); }
+        /* ================= 📱 RESPONSIVE FOR MOBILE (ปรับปรุงใหม่ทั้งหมด) 📱 ================= */
+        @media (max-width: 600px) {
+            .page { padding: 15px; }
+            #page-letter { padding-top: 10px; }
+            
+            /* ดันซองลงมานิดนึงตอนจดหมายปิด เพื่อไม่ให้รูปภาพดันทะลุขอบจอด้านบนตอนเปิด */
+            .container { margin-top: 150px; }
+            .container.open { margin-top: 170px; }
+            
+            /* ลดขนาดรูปกระจายข้างเพื่อให้พอดีกับจอมือถือขนาดเล็ก */
+            .deco-photo { width: 75px; padding: 4px 4px 10px 4px; }
+            .deco-photo img { height: 65px; }
+            .deco-text { font-size: 8px; }
+            
+            /* ปรับตำแหน่งกระจายรูปแบบ Responsive ไม่ให้เบียดหรือตกขอบจอ */
+            .container.open .p1 { left: -45px; top: -140px; transform: scale(1) rotate(-10deg); }
+            .container.open .p2 { left: -40px; top: 150px; transform: scale(1) rotate(6deg); }
+            .container.open .p3 { right: -45px; top: -130px; transform: scale(1) rotate(12deg); }
+            .container.open .p4 { right: -40px; top: 165px; transform: scale(1) rotate(-8deg); }
+            
+            .hint { margin-top: 65px; font-size: 13px; padding: 0 10px; }
+            
+            /* ปรับขนาดกล่องจับเวลาในมือถือ */
+            .timer-box { padding: 8px 2px; }
+            .timer-num { font-size: 17px; }
+            .timer-label { font-size: 10px; }
+            
+            /* ปรับขนาดปุ่มเกมในมือถือ */
+            .btn-option { padding: 10px 12px; font-size: 13px; }
+            .quiz-question { font-size: 15px; }
         }
 
-        /* แอนิเมชันเปิดซองจดหมาย */
-        .container.open .envelope-wrapper::before {
-            transform: rotateX(180deg);
-            z-index: 0;
+        /* ================= 🧭 BOTTOM NAVIGATION BAR 🧭 ================= */
+        .nav-bar {
+            position: fixed;
+            bottom: 0; left: 0;
+            width: 100%; height: 75px;
+            background: white;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.04);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
         }
-
-        .container.open .heart-seal {
-            transform: rotate(-45deg) scale(0);
-            opacity: 0;
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: #c2b7a6; cursor: pointer; transition: all 0.3s ease; flex: 1; height: 100%;
         }
-
-        .container.open .letter {
-            transform: translateY(-140px);
-            height: 320px;
-            z-index: 10; 
-        }
+        .nav-item i { font-size: 20px; font-style: normal; }
+        .nav-item span { font-size: 11px; margin-top: 4px; font-weight: bold; }
+        .nav-item.active { color: var(--primary-pink); transform: translateY(-3px); }
     </style>
 </head>
 <body>
 
+    <!-- พื้นหลังหัวใจฟุ้ง -->
     <div class="hearts-bg">
         <div class="heart-particle" style="left: 10%; width: 20px; height: 20px; animation-delay: 0s;"></div>
-        <div class="heart-particle" style="left: 25%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 12s;"></div>
-        <div class="heart-particle" style="left: 45%; width: 25px; height: 25px; animation-delay: 4s;"></div>
-        <div class="heart-particle" style="left: 65%; width: 18px; height: 18px; animation-delay: 1s; animation-duration: 10s;"></div>
-        <div class="heart-particle" style="left: 80%; width: 22px; height: 22px; animation-delay: 6s;"></div>
+        <div class="heart-particle" style="left: 30%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 12s;"></div>
+        <div class="heart-particle" style="left: 50%; width: 22px; height: 22px; animation-delay: 4s;"></div>
+        <div class="heart-particle" style="left: 70%; width: 18px; height: 18px; animation-delay: 1s; animation-duration: 10s;"></div>
+        <div class="heart-particle" style="left: 85%; width: 20px; height: 20px; animation-delay: 6s;"></div>
     </div>
 
-    <div class="container" onclick="toggleLetter()">
-        
-        <div class="deco-photo p1">
-            <img src="photo1.jpg" alt="รูปคู่อาดื้อ1">
-            <div class="deco-text">with you ♡</div>
-        </div>
-        <div class="deco-photo p2">
-            <img src="photo2.jpg" alt="รูปคู่อาดื้อ2">
-            <div class="deco-text">Smile ✨</div>
-        </div>
-        <div class="deco-photo p3">
-            <img src="photo3.jpg" alt="รูปคู่อาดื้อ3">
-            <div class="deco-text">My love 🧸</div>
-        </div>
-        <div class="deco-photo p4">
-            <img src="photo4.jpg" alt="รูปคู่อาดื้อ4">
-            <div class="deco-text">Happy time 💕</div>
-        </div>
+    <!-- PAGE 1: LETTER -->
+    <div id="page-letter" class="page active">
+        <div class="container" onclick="toggleLetter()">
+            <div class="deco-photo p1"><img src="photo1.jpg" alt="รูปคู่อาดื้อ1"><div class="deco-text">with you ♡</div></div>
+            <div class="deco-photo p2"><img src="photo2.jpg" alt="รูปคู่อาดื้อ2"><div class="deco-text">Smile ✨</div></div>
+            <div class="deco-photo p3"><img src="photo3.jpg" alt="รูปคู่อาดื้อ3"><div class="deco-text">My love 🧸</div></div>
+            <div class="deco-photo p4"><img src="photo4.jpg" alt="รูปคู่อาดื้อ4"><div class="deco-text">Happy time 💕</div></div>
 
-        <div class="envelope-wrapper">
-            <div class="heart-seal"></div>
-            
-            <div class="letter" onclick="event.stopPropagation();">
-                <h3 style="text-align: center; color: #ff6b81; margin: 0; font-size: 15px;">ถึง... อาดื้อ (ATeekah) ของเค้า 🎨</h3>
-                
-                <div class="polaroid">
-                    <img src="our-photo.jpg" alt="รูปคู่ของเรา">
-                    <div class="polaroid-text">Our Safe Zone ♡</div>
-                </div>
-
-                <div class="letter-text">
-                    <p style="margin: 4px 0;">แอบทำจดหมายลับฉบับนี้ขึ้นมาเพื่อเซอร์ไพรส์เธอเลยนะ!</p>
-                    <p style="margin: 4px 0;">ขอบคุณที่เป็นพื้นที่สบายใจ เป็นความสดใส และคอยอยู่ข้างๆ กันเสมอ ถึงจะดื้อไปหน่อยแต่ก็รักที่สุดในโลกเลยนะค้าบ 🥰</p>
-                    <p style="font-size: 18px; margin: 4px 0;">🧸🌷✨</p>
+            <div class="envelope-wrapper">
+                <div class="heart-seal"></div>
+                <div class="letter" onclick="event.stopPropagation();">
+                    <h3 style="text-align: center; color: var(--primary-pink); margin: 0; font-size: 15px;">ถึง... อาดื้อ (ATeekah) ของเค้า 🎨</h3>
+                    <div class="polaroid">
+                        <img src="our-photo.jpg" alt="รูปคู่ของเรา">
+                        <div class="polaroid-text">Our Safe Zone ♡</div>
+                    </div>
+                    <div class="letter-text">
+                        <p style="margin: 4px 0;">แอบทำจดหมายลับฉบับนี้ขึ้นมาเพื่อเซอร์ไพรส์เธอเลยนะ!</p>
+                        <p style="margin: 4px 0;">ขอบคุณที่เป็นพื้นที่สบายใจ เป็นความสดใส และคอยอยู่ข้างๆ กันเสมอ ถึงจะดื้อไปหน่อยแต่ก็รักที่สุดในโลกเลยนะค้าบ 🥰</p>
+                        <p style="font-size: 18px; margin: 4px 0;">🧸🌷✨</p>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="hint" id="hint-text" onclick="toggleLetter()">💌 มีจดหมายส่งถึง "อาดื้อ" (คลิกเปิดดูสิ)</div>
     </div>
 
-    <div class="hint" id="hint-text" onclick="toggleLetter()">💌 มีจดหมายส่งถึง "อาดื้อ" (คลิกเปิดดูสิ)</div>
+    <!-- PAGE 2: COUNTER -->
+    <div id="page-counter" class="page">
+        <div class="counter-card">
+            <div class="counter-title">เรารักกันมาตั้งแต่วันที่ 14 ก.ค. 2568</div>
+            <div class="big-heart">💖</div>
+            <div style="font-size: 15px; font-weight: bold;">เรารักกันและจับมือกันมาแล้ว</div>
+            
+            <div class="timer-grid">
+                <div class="timer-box"><div class="timer-num" id="days">0</div><div class="timer-label">วัน</div></div>
+                <div class="timer-box"><div class="timer-num" id="hours">0</div><div class="timer-label">ชั่วโมง</div></div>
+                <div class="timer-box"><div class="timer-num" id="minutes">0</div><div class="timer-label">นาที</div></div>
+                <div class="timer-box"><div class="timer-num" id="seconds">0</div><div class="timer-label">วินาที</div></div>
+            </div>
+            <p style="font-size: 13px; margin-top: 20px; color: #a89f91;">ขอบคุณที่อยู่สร้างรอยยิ้มให้กันในทุกๆ วันนะค้าบ 🧸</p>
+        </div>
+    </div>
+
+    <!-- PAGE 3: MINI QUIZ -->
+    <div id="page-quiz" class="page">
+        <div class="quiz-card" id="quiz-main-box">
+            
+            <div class="quiz-box q-step active" id="q1">
+                <div class="quiz-progress">คำถามข้อที่ 1 / 3</div>
+                <div class="quiz-question">เค้าชอบบ่นอาดื้อเรื่องอะไรบ่อยที่สุด? 🧸</div>
+                <button class="btn-option" onclick="nextQuestion(1, 'ชอบดื้อไม่หยุดไงเล่า!! 😜')">A. แอบดื้อเงียบๆ ไม่ยอมฟัง</button>
+                <button class="btn-option" onclick="nextQuestion(1, 'กินน้อยจนตัวเล็กหมดแล้วนะ! 🥣')">B. กินข้าวน้อย/กินไม่ตรงเวลา</button>
+                <button class="btn-option" onclick="nextQuestion(1, 'นอนดึกเป็นหมีแพนด้าแล้ว! 🌙')">C. แอบนอนดึกตาแข็ง</button>
+            </div>
+
+            <div class="quiz-box q-step" id="q2">
+                <div class="quiz-progress">คำถามข้อที่ 2 / 3</div>
+                <div class="quiz-question">วันครบรอบตกลงเป็นแฟนของเรา คือวันที่เท่าไหร่? 📅</div>
+                <button class="btn-option" onclick="checkAnswer(2, false)">A. 14 กุมภาพันธ์ (วันวาเลนไทน์)</button>
+                <button class="btn-option" onclick="checkAnswer(2, true)">B. 14 กรกฎาคม (วันคลั่งรักของเรา)</button>
+                <button class="btn-option" onclick="checkAnswer(2, false)">C. 25 ธันวาคม (วันคริสต์มาส)</button>
+            </div>
+
+            <div class="quiz-box q-step" id="q3">
+                <div class="quiz-progress">คำถามข้อที่ 3 / 3</div>
+                <div class="quiz-question">ระดับความรักที่เค้ามีให้อาดื้อ มีมากแค่ไหน? 🚀</div>
+                <button class="btn-option" onclick="endQuiz('100% ก็น้อยไป รักเพิ่มขึ้นทุกวันเลย! 🥰')">A. 100% เต็มปรี่</button>
+                <button class="btn-option" onclick="endQuiz('3,000% แบบไอรอนแมนเลยปะล่าา นึกว่าดื้อน้อยลงซะอีก 💖')">B. 3,000% ไอเลิฟยูทรีเทาซันด์</button>
+                <button class="btn-option" onclick="endQuiz('ถูกต้องที่สุด! รักทะลุอวกาศไปเล้ยยย! 🌌🛸')">C. รักมากกกทะลุจักรวาลทางช้างเผือก</button>
+            </div>
+
+        </div>
+
+        <div class="quiz-card quiz-result" id="quiz-result-box">
+            <h2 style="color: var(--success-green); margin: 0 0 10px 0;">🎉 ยินดีด้วยค้าบ!</h2>
+            <p style="font-size: 14px; margin: 0;" id="dynamic-comment"></p>
+            <p style="font-size: 15px; font-weight: bold; margin-top: 10px;">อาดื้อตอบคำถามผ่านฉลุย! มอบรางวัลให้คนเก่ง:</p>
+            
+            <div class="reward-badge">
+                🎟️ คูปองตามใจแฟน 1 ใบ <br>
+                <span style="font-size: 11px; font-weight: normal; color: #7f8c8d;">(ใช้สั่งให้เค้าทำรอตามใจได้ 1 อย่าง ห้ามปฏิเสธ!)</span>
+            </div>
+            
+            <button class="btn-option" style="background: #fff0ed; border-color: var(--primary-pink); color: var(--primary-pink); font-weight: bold;" onclick="restartQuiz()">🔄 เล่นเกมอีกรอบ</button>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION BAR (ปรับเหลือ 3 เมนูหลังจากเอาเพลงออก) -->
+    <div class="nav-bar">
+        <div class="nav-item active" onclick="switchPage('letter', this)">
+            <i>💌</i><span>จดหมาย</span>
+        </div>
+        <div class="nav-item" onclick="switchPage('counter', this)">
+            <i>⏳</i><span>นับวันรัก</span>
+        </div>
+        <div class="nav-item" onclick="switchPage('quiz', this)">
+            <i>🎮</i><span>เกมทายใจ</span>
+        </div>
+    </div>
 
     <script>
+        // ฟังก์ชันเปิด-ปิดซองจดหมาย
         function toggleLetter() {
             const container = document.querySelector('.container');
             const hint = document.getElementById('hint-text');
-            
             container.classList.toggle('open');
-            
             if(container.classList.contains('open')) {
                 hint.innerHTML = "เปิดอ่านแล้วนะคนเก่ง 🤍 (คลิกอีกครั้งเพื่อปิด)";
             } else {
                 hint.innerHTML = "💌 มีจดหมายส่งถึง \"อาดื้อ\" (คลิกเปิดดูสิ)";
             }
+        }
+
+        // ฟังก์ชันสลับหน้าจอ (Tab Changer)
+        function switchPage(pageId, element) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            
+            document.getElementById('page-' + pageId).classList.add('active');
+            element.classList.add('active');
+        }
+
+        // ฟังก์ชันคำนวณวันครบรอบรักกัน (14 กรกฎาคม 2025)
+        const startDate = new Date('2025-07-14T00:00:00+07:00'); 
+
+        function updateTimer() {
+            const now = new Date();
+            const difference = now - startDate;
+
+            if (difference < 0) {
+                document.getElementById('days').innerText = 0;
+                document.getElementById('hours').innerText = 0;
+                document.getElementById('minutes').innerText = 0;
+                document.getElementById('seconds').innerText = 0;
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // --- 🎮 ระบบ Logic เกมทายใจ ---
+        let currentComment = "";
+
+        function nextQuestion(currentStep, commentText) {
+            currentComment = commentText;
+            document.getElementById('q' + currentStep).classList.remove('active');
+            document.getElementById('q' + (currentStep + 1)).classList.add('active');
+        }
+
+        function checkAnswer(currentStep, isCorrect) {
+            if(isCorrect) {
+                alert("ถูกต้องเป๊ะ! เก่งมากกก จำแม่นสุดๆ ค้าบ 📅💖");
+                document.getElementById('q' + currentStep).classList.remove('active');
+                document.getElementById('q' + (currentStep + 1)).classList.add('active');
+            } else {
+                alert("ง่าาา ตอบผิดนะคุณดื้อ! ลองเลือกใหม่อีกทีสิ แอบนอยด์นะเนี่ย 🥺");
+            }
+        }
+
+        function endQuiz(finalComment) {
+            document.getElementById('quiz-main-box').style.display = 'none';
+            document.getElementById('quiz-result-box').style.display = 'block';
+            document.getElementById('dynamic-comment').innerHTML = `บ่นเรื่อง: "${currentComment}" <br> แถมระดับความรักคือ: "${finalComment}"`;
+        }
+
+        function restartQuiz() {
+            document.getElementById('quiz-result-box').style.display = 'none';
+            document.getElementById('quiz-main-box').style.display = 'block';
+            document.querySelectorAll('.q-step').forEach(step => step.classList.remove('active'));
+            document.getElementById('q1').classList.add('active');
         }
     </script>
 
