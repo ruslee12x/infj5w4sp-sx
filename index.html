@@ -206,26 +206,7 @@
 
         .hint { text-align: center; color: #a89f91; font-size: 14px; margin-top: 45px; animation: bounce 1s infinite alternate; }
 
-        /* ================= PAGE 2: COUNTER ================= */
-        .counter-card {
-            background: white;
-            padding: 25px 20px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            text-align: center;
-            width: 100%;
-            color: var(--text-color);
-            margin-top: 30px;
-        }
-        .counter-title { font-size: 15px; margin: 0 0 10px 0; color: #a89f91; }
-        .big-heart { font-size: 45px; color: var(--primary-pink); animation: pulse 1.2s infinite; margin: 10px 0; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.12); } 100% { transform: scale(1); } }
-        .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 20px; }
-        .timer-box { background: #fff0ed; padding: 10px 3px; border-radius: 12px; border: 1px dashed var(--envelope-color); }
-        .timer-num { font-size: 19px; font-weight: bold; color: var(--primary-pink); }
-        .timer-label { font-size: 11px; color: #a89f91; margin-top: 2px; }
-
-        /* ================= PAGE 3: MUSIC ================= */
+        /* ================= PAGE 2: MUSIC ================= */
         .music-card {
             background: white;
             padding: 30px 25px;
@@ -293,6 +274,64 @@
             width: 100%;
             outline: none;
         }
+
+        /* ================= PAGE 3: COUNTER ================= */
+        .gift-lock-box {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            width: 100%;
+            color: var(--text-color);
+            margin-top: 30px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .gift-icon {
+            font-size: 65px;
+            cursor: pointer;
+            animation: shakeGift 0.6s infinite alternate;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        @keyframes shakeGift {
+            0% { transform: rotate(-8deg) scale(1); }
+            100% { transform: rotate(8deg) scale(1.05); }
+        }
+        .gift-text {
+            font-size: 14px;
+            color: #a89f91;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .counter-card {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            width: 100%;
+            color: var(--text-color);
+            margin-top: 30px;
+            display: none; 
+            animation: popOpen 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popOpen {
+            0% { transform: scale(0.6); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .counter-title { font-size: 15px; margin: 0 0 10px 0; color: #a89f91; }
+        .big-heart { font-size: 45px; color: var(--primary-pink); animation: pulse 1.2s infinite; margin: 10px 0; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.12); } 100% { transform: scale(1); } }
+        .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 20px; }
+        .timer-box { background: #fff0ed; padding: 10px 3px; border-radius: 12px; border: 1px dashed var(--envelope-color); }
+        .timer-num { font-size: 19px; font-weight: bold; color: var(--primary-pink); }
+        .timer-label { font-size: 11px; color: #a89f91; margin-top: 2px; }
 
         /* ================= PAGE 4: MINI QUIZ ================= */
         .quiz-card {
@@ -390,13 +429,13 @@
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 55px; height: 55px;
+            width: 48px; height: 48px; /* แก้ไข: ลดขนาดปุ่มลงเล็กน้อยเพื่อไม่ให้บังตัวอักษร */
             background: white;
             border: 3px solid var(--primary-pink);
             border-radius: 50%;
             color: var(--primary-pink);
             font-family: 'Mali', cursive;
-            font-weight: bold; font-size: 13px;
+            font-weight: bold; font-size: 11px;
             cursor: pointer; z-index: 10;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             display: flex; align-items: center; justify-content: center;
@@ -427,7 +466,7 @@
             .hint { margin-top: 55px; }
 
             .wheel-container { width: 220px; height: 220px; }
-            .btn-wheel-spin { width: 50px; height: 50px; font-size: 12px; }
+            .btn-wheel-spin { width: 44px; height: 44px; font-size: 10px; }
         }
 
         /* ================= BOTTOM NAVIGATION BAR ================= */
@@ -491,24 +530,7 @@
         <div class="hint" id="hint-text" onclick="toggleLetter()">💌 มีจดหมายส่งถึง "อาดื้อ" (คลิกเปิดดูสิ)</div>
     </div>
 
-    <!-- หน้า 2: ตัวนับวันเวลา -->
-    <div id="page-counter" class="page">
-        <div class="counter-card">
-            <div class="counter-title">เรารักกันมาตั้งแต่วันที่ 14 ก.ค. 2568</div>
-            <div class="big-heart">💖</div>
-            <div style="font-size: 15px; font-weight: bold;">เรารักกันและจับมือกันมาแล้ว</div>
-            
-            <div class="timer-grid">
-                <div class="timer-box"><div class="timer-num" id="days">0</div><div class="timer-label">วัน</div></div>
-                <div class="timer-box"><div class="timer-num" id="hours">0</div><div class="timer-label">ชั่วโมง</div></div>
-                <div class="timer-box"><div class="timer-num" id="minutes">0</div><div class="timer-label">นาที</div></div>
-                <div class="timer-box"><div class="timer-num" id="seconds">0</div><div class="timer-label">วินาที</div></div>
-            </div>
-            <p style="font-size: 13px; margin-top: 20px; color: #a89f91;">ขอบคุณที่อยู่สร้างรอยยิ้มให้กันในทุกๆ วันนะค้าบ 🧸</p>
-        </div>
-    </div>
-
-    <!-- หน้า 3: หน้าฟังเพลง -->
+    <!-- หน้า 2: หน้าฟังเพลง -->
     <div id="page-music" class="page">
         <div class="music-card">
             <h3 style="margin: 0 0 5px 0; color: var(--primary-pink);">เพลงนี้อยากให้เธอฟังตอนอ่านนะ 🎧</h3>
@@ -526,6 +548,28 @@
                 </audio>
             </div>
             <p style="font-size: 11px; color: #b5ac9e; margin-top: 12px;">💡 กดปุ่ม Play บนแถบควบคุม หัวใจและแผ่นเสียงจะหมุนติ้วๆ ทันทีจ้า!</p>
+        </div>
+    </div>
+
+    <!-- หน้า 3: ตัวนับวันเวลา -->
+    <div id="page-counter" class="page">
+        <div class="gift-lock-box" id="gift-lock" onclick="unlockCounter()">
+            <div class="gift-icon">🎁</div>
+            <div class="gift-text">มีของขวัญชิ้นสำคัญส่งถึงคุณดื้อ กดเปิดสิ! ✨</div>
+        </div>
+
+        <div class="counter-card" id="actual-counter">
+            <div class="counter-title">เรารักกันมาตั้งแต่วันที่ 14 ก.ค. 2568</div>
+            <div class="big-heart">💖</div>
+            <div style="font-size: 15px; font-weight: bold;">เรารักกันและจับมือกันมาแล้ว</div>
+            
+            <div class="timer-grid">
+                <div class="timer-box"><div class="timer-num" id="days">0</div><div class="timer-label">วัน</div></div>
+                <div class="timer-box"><div class="timer-num" id="hours">0</div><div class="timer-label">ชั่วโมง</div></div>
+                <div class="timer-box"><div class="timer-num" id="minutes">0</div><div class="timer-label">นาที</div></div>
+                <div class="timer-box"><div class="timer-num" id="seconds">0</div><div class="timer-label">วินาที</div></div>
+            </div>
+            <p style="font-size: 13px; margin-top: 20px; color: #a89f91;">ขอบคุณที่อยู่สร้างรอยยิ้มให้กันในทุกๆ วันนะค้าบ 🧸</p>
         </div>
     </div>
 
@@ -559,17 +603,16 @@
 
         </div>
 
+        <!-- หน้าสรุปผลลัพธ์ -->
         <div class="quiz-card quiz-result" id="quiz-result-box">
             <h2 style="color: var(--success-green); margin: 0 0 10px 0;">🎉 ยินดีด้วยค้าบ!</h2>
             <p style="font-size: 14px; margin: 0;" id="dynamic-comment"></p>
             <p style="font-size: 15px; font-weight: bold; margin-top: 10px;">อาดื้อตอบคำถามผ่านฉลุย! มอบรางวัลให้คนเก่ง:</p>
             
-            <div class="reward-badge">
+            <div class="reward-badge" style="margin-bottom: 0;">
                 🎟️ คูปองตามใจแฟน 1 ใบ <br>
                 <span style="font-size: 11px; font-weight: normal; color: #7f8c8d;">(ใช้สั่งให้เค้าทำรอตามใจได้ 1 อย่าง ห้ามปฏิเสธ!)</span>
             </div>
-            
-            <button class="btn-option" style="background: #fff0ed; border-color: var(--primary-pink); color: var(--primary-pink); font-weight: bold;" onclick="restartQuiz()">🔄 เล่นเกมอีกรอบ</button>
         </div>
     </div>
 
@@ -597,11 +640,11 @@
         <div class="nav-item active" onclick="switchPage('letter', this)">
             <i>💌</i><span>จดหมาย</span>
         </div>
-        <div class="nav-item" onclick="switchPage('counter', this)">
-            <i>⏳</i><span>นับวันรัก</span>
-        </div>
         <div class="nav-item" onclick="switchPage('music', this)">
             <i>🎵</i><span>เพลงของเรา</span>
+        </div>
+        <div class="nav-item" onclick="switchPage('counter', this)">
+            <i>⏳</i><span>นับวันรัก</span>
         </div>
         <div class="nav-item" onclick="switchPage('quiz', this)">
             <i>🎮</i><span>เกมทายใจ</span>
@@ -635,6 +678,36 @@
             if(pageId === 'wheel') {
                 setTimeout(drawWheel, 50);
             }
+        }
+
+        // --- 🎁 ระบบปลดล็อกหน้านับวันรัก ---
+        function unlockCounter() {
+            for (let i = 0; i < 12; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '💖';
+                heart.style.position = 'fixed';
+                heart.style.left = '50%';
+                heart.style.top = '40%';
+                heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+                heart.style.zIndex = '99';
+                heart.style.transition = 'all 0.8s ease-out';
+                document.body.appendChild(heart);
+                
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 150 + 50;
+                const x = Math.cos(angle) * distance;
+                const y = Math.sin(angle) * distance;
+                
+                setTimeout(() => {
+                    heart.style.transform = `translate(${x}px, ${y}px)`;
+                    heart.style.opacity = '0';
+                }, 20);
+                
+                setTimeout(() => heart.remove(), 800);
+            }
+
+            document.getElementById('gift-lock').style.display = 'none';
+            document.getElementById('actual-counter').style.display = 'block';
         }
 
         // --- ⏳ ระบบนับเวลาคบกัน ---
@@ -680,7 +753,7 @@
                 document.getElementById('q' + currentStep).classList.remove('active');
                 document.getElementById('q' + (currentStep + 1)).classList.add('active');
             } else {
-                alert("ง่าาา ตอบผิดนะคุณดื้อ! ลองเลือกใหมีกทีสิ แอบนอยด์นะเนี่ย 🥺");
+                alert("ง่าาา ตอบผิดนะคุณดื้อ! ลองเลือกใหม่อีกทีสิ แอบนอยด์นะเนี่ย 🥺");
             }
         }
 
@@ -690,17 +763,13 @@
             document.getElementById('dynamic-comment').innerHTML = `บ่นเรื่อง: "${currentComment}" <br> แถมระดับความรักคือ: "${finalComment}"`;
         }
 
-        function restartQuiz() {
-            document.getElementById('quiz-result-box').style.display = 'none';
-            document.getElementById('quiz-main-box').style.display = 'block';
-            document.querySelectorAll('.q-step').forEach(step => step.classList.remove('active'));
-            document.getElementById('q1').classList.add('active');
-        }
-
-        // --- 🎡 ระบบวงล้อนำโชค (เปลี่ยนจากชาบูหมูทะเป็นเลี้ยงชาบูเฉยๆ แล้วจ้า) ---
+        // --- 🎡 ระบบวงล้อนำโชค ---
+        // แก้ไข: เปลี่ยนจาก "ตามใจ 1 วัน ✨" เป็น "ตลุยบุฟเฟต์ 🍰" แทนแล้วครับ
+       // --- 🎡 ระบบวงล้อนำโชค ---
+        // อัปเดต: ตัดคำว่า "นวดไหล่" ให้สั้นกระชับขึ้น ไม่ยาวเกินไปแล้วจ้า
         const rewards = [
-            "ตามใจ 1 วัน ✨", "เลี้ยงชาบู 🍲", "ไอติมถ้วยใหญ่ 🍦", "พาไปดูหนัง 🎬",
-            "นวดไหล่ 20 นาที 💆‍♂️", "ห้ามบ่น 1 วัน 🤫", "กอดชาร์จแบต 🧸", "งบเปย์ 500 บ. 💸"
+            "ตลุยบุฟเฟต์ 🍰", "เลี้ยงชาบู 🍲", "ไอติมถ้วยใหญ่ 🍦", "พาไปดูหนัง 🎬",
+            "นวดไหล่ 1 ชม. 💆‍♂️", "ห้ามบ่น 1 วัน 🤫", "กอดชาร์จแบต 🧸", "งบเปย์ 500 บ. 💸"
         ];
         const colors = ["#ffafcc", "#ffc2d1", "#ffe5ec", "#fb6f92", "#fbc4ab", "#ffdab9", "#e8aeb7", "#b5e2fa"];
         
@@ -733,7 +802,8 @@
                 ctx.textAlign = "right";
                 ctx.fillStyle = "#5c4d4d";
                 ctx.font = "bold 12px Mali";
-                ctx.fillText(rewards[i], radius - 15, 5);
+                // แก้ไข: ดันข้อความชิดขอบนอก (radius - 10) เพื่อไม่ให้โดนปุ่ม SPIN ทับตัวหนังสือ
+                ctx.fillText(rewards[i], radius - 10, 5); 
                 ctx.restore();
             }
         }
